@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace POCO
 {
-    class Comentario
+    public class Comentario
     {
         public int codComentario { get; set; }
 
