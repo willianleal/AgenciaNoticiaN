@@ -17,11 +17,47 @@ namespace BLL
             dao = new PessoaDAL();
         }
 
-        public List<Pessoa> Listar(int codPessoa)
+        public bool inserir(int codPessoa, string nome, string funcao, string ddd, string telefone, string email, bool ativo, DateTime dataCadastro, string senha)
         {
             try
             {
-                return dao.Listar(codPessoa);
+                return dao.inserir(codPessoa, nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool alterar(int codPessoa, string nome, string funcao, string ddd, string telefone, string email, bool ativo, DateTime dataCadastro, string senha)
+        {
+            try
+            {
+                return dao.alterar(codPessoa, nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool deletar(int codPessoa)
+        {
+            try
+            {
+                return dao.deletar(codPessoa);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public List<Pessoa> listar(int codPessoa)
+        {
+            try
+            {
+                return dao.listar(codPessoa);
             }
             catch
             {

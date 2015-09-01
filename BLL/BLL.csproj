@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="PessoaBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecaoBLL.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>

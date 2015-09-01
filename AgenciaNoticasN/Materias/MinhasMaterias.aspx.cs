@@ -19,7 +19,7 @@ namespace AgenciaNoticasN.Materias
         {
             PessoaBLL listaPessoa = new PessoaBLL();
 
-            gdvMateria.DataSource = listaPessoa.Listar(1);
+            gdvMateria.DataSource = listaPessoa.listar(1);
             gdvMateria.DataBind();
         }
     }

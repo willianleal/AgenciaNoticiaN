@@ -57,7 +57,90 @@ namespace DAL
             }            
         }
 
-        public List<Pessoa> Listar(int codPessoa)
+        public bool alterar(int codPessoa, string nome, string funcao, string ddd, string telefone, string email, bool ativo, DateTime dataCadastro, string senha)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = "UPDATE Pessoa SET nome=@nome, funcao=@funcao, ddd=@ddd, telefone=@telefone, email=@email, ativo=@ativo, dataCadastro=@dataCadastro, senha=@senha WHERE codPessoa=@codPessoa";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@nome", nome);
+            comando.Parameters.AddWithValue("@funcao", funcao);
+            comando.Parameters.AddWithValue("@ddd", ddd);
+            comando.Parameters.AddWithValue("@telefone", telefone);
+            comando.Parameters.AddWithValue("@email", email);
+            comando.Parameters.AddWithValue("@ativo", ativo);
+            comando.Parameters.AddWithValue("@dataCadastro", dataCadastro);
+            comando.Parameters.AddWithValue("@senha", senha);
+
+            foreach (SqlParameter Parameter in comando.Parameters)
+            {
+                if (Parameter.Value == null)
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+            }
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public bool deletar(int codPessoa)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = "DELETE FROM Pessoa WHERE codPessoa=@codPessoa";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@codPessoa", codPessoa);
+
+            foreach (SqlParameter Parameter in comando.Parameters)
+            {
+                if (Parameter.Value == null)
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+            }
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public List<Pessoa> listar(int codPessoa)
         {
             List<Pessoa> pessoas = new List<Pessoa>();
 
