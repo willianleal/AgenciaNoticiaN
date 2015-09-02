@@ -5,16 +5,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    
+    <link href="../css/style.css" rel="stylesheet" type="text/css" />
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    
+    <nav class="navbar navbar-blu navbar-static-top" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <img src="img/control_panel.png" alt="" class="logotipo" />                    
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+            
+    <div class="container">
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
     </div>
+
+    <div class="clearfix"></div>
+    <div class="footer">
+        <nav class="navbar navbar-blu navbar-fixed-bottom" role="navigation">
+            <div class="container">
+                <h5><small>Todos os Direitos Reservados. </small></h5>
+            </div>
+        </nav>
+    </div>
+
     </form>
 </body>
 </html>

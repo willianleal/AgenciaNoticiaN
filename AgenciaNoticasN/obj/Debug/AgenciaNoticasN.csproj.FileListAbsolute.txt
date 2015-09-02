@@ -10,3 +10,15 @@ C:\Users\William\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\bin\POCO.pdb
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\bin\DAL.pdb
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\obj\Debug\AgenciaNoticasN.dll
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\obj\Debug\AgenciaNoticasN.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\bin\AgenciaNoticasN.dll.config
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\bin\AgenciaNoticasN.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\bin\AgenciaNoticasN.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\bin\BLL.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\bin\POCO.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\bin\DAL.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\bin\BLL.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\bin\POCO.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\bin\DAL.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\obj\Debug\AgenciaNoticasN.csprojResolveAssemblyReference.cache
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\obj\Debug\AgenciaNoticasN.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\AgenciaNoticasN\obj\Debug\AgenciaNoticasN.pdb

@@ -5,3 +5,10 @@ C:\Users\William\Documents\GitHub\AgenciaNoticiaN\DAL\bin\Debug\POCO.pdb
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.dll
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\DAL\bin\Debug\DAL.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\DAL\bin\Debug\DAL.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\DAL\bin\Debug\POCO.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\DAL\bin\Debug\POCO.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.pdb

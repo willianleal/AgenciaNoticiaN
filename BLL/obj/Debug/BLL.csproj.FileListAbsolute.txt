@@ -7,3 +7,12 @@ C:\Users\William\Documents\GitHub\AgenciaNoticiaN\BLL\bin\Debug\POCO.pdb
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\BLL\obj\Debug\BLL.dll
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\BLL\obj\Debug\BLL.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\BLL\bin\Debug\BLL.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\BLL\bin\Debug\BLL.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\BLL\bin\Debug\DAL.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\BLL\bin\Debug\POCO.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\BLL\bin\Debug\DAL.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\BLL\bin\Debug\POCO.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\BLL\obj\Debug\BLL.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\BLL\obj\Debug\BLL.pdb

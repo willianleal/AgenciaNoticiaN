@@ -3,3 +3,8 @@ C:\Users\William\Documents\GitHub\AgenciaNoticiaN\POCO\bin\Debug\POCO.pdb
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\POCO\obj\Debug\POCO.csprojResolveAssemblyReference.cache
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\POCO\obj\Debug\POCO.dll
 C:\Users\William\Documents\GitHub\AgenciaNoticiaN\POCO\obj\Debug\POCO.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\POCO\bin\Debug\POCO.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\POCO\bin\Debug\POCO.pdb
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\POCO\obj\Debug\POCO.csprojResolveAssemblyReference.cache
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\POCO\obj\Debug\POCO.dll
+C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\POCO\obj\Debug\POCO.pdb
