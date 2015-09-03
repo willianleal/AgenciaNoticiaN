@@ -16,7 +16,7 @@
             <div class="col-md-4 ">
                 <div class="log">
                     <asp:Login ID="Login1" runat="server" DisplayRememberMe="False" LoginButtonText="Entrar" PasswordLabelText="Senha:" Width="85%" CssClass="form-signin"
-                        PasswordRequiredErrorMessage="Senha é requerida" TitleText="Login" UserNameLabelText="Usuário:" UserNameRequiredErrorMessage="Usuário é requerido" DestinationPageUrl="~/Materias/MinhasMaterias.aspx" FailureText="" OnAuthenticate="Login1_Authenticate">
+                        PasswordRequiredErrorMessage="Senha é requerida" TitleText="Login" UserNameLabelText="Usuário:" UserNameRequiredErrorMessage="Usuário é requerido" DestinationPageUrl="~/Materias/Materias.aspx" FailureText="" OnAuthenticate="Login1_Authenticate">
                         <LayoutTemplate>                    
                             <h3 class="titulo-login max">Login</h3>
 

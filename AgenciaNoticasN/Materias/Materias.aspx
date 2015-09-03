@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="MasterPage.master" AutoEventWireup="true" CodeBehind="MinhasMaterias.aspx.cs" Inherits="AgenciaNoticasN.Materias.MinhasMaterias" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="MasterPage.master" AutoEventWireup="true" CodeBehind="Materias.aspx.cs" Inherits="AgenciaNoticasN.Materias.MinhasMaterias" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -35,14 +35,9 @@
 
     </div>
     <div class="row">
-        <div class="col-md-10 form-group">
-            
-        </div>
-        <div class="col-md-1 form-group">
-            <asp:LinkButton ID="lkNovo" runat="server" Text="Cadastrar" CssClass="btn btn-primary pull-right"></asp:LinkButton>
-        </div>
-        <div class="col-md-1 form-group">
-            <asp:LinkButton ID="lkSair" runat="server" Text="Sair" CssClass="btn btn-success pull-right"></asp:LinkButton>
+        <div class="col-md-2 form-group pull-right">
+            <asp:LinkButton ID="lkNovo" runat="server" Text="Cadastrar" CssClass="btn btn-primary"></asp:LinkButton>
+            <asp:LinkButton ID="lkSair" runat="server" Text="Sair" CssClass="btn btn-success"></asp:LinkButton>
         </div>
     </div>
 
