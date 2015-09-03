@@ -12,3 +12,10 @@ C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\DAL\bin\Debug\POCO.pdb
 C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.dll
 C:\Users\willianleal\Documents\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.pdb
+D:\GitHub\AgenciaNoticiaN\DAL\bin\Debug\DAL.dll
+D:\GitHub\AgenciaNoticiaN\DAL\bin\Debug\DAL.pdb
+D:\GitHub\AgenciaNoticiaN\DAL\bin\Debug\POCO.dll
+D:\GitHub\AgenciaNoticiaN\DAL\bin\Debug\POCO.pdb
+D:\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.dll
+D:\GitHub\AgenciaNoticiaN\DAL\obj\Debug\DAL.pdb

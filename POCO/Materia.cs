@@ -27,5 +27,14 @@ namespace POCO
         public DateTime dataCadastro { get; set; }
 
         public DateTime dataAtualizacao { get; set; }
+
+        //Transients
+        public string Jornalista { get; set; }
+        
+        public string Revisor { get; set; }
+
+        public string Publicador { get; set; }
+
+        public string Gerente { get; set; }
     }
 }

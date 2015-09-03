@@ -218,6 +218,40 @@ namespace DAL
             {
                 conexao.Close();
             }
+        }
+
+        public int getPessoaEmail(string email)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+            string SQL = "select codPessoa from Pessoa where email=@email";
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+
+            comando.Parameters.AddWithValue("@email", email);
+
+            try
+            {
+                conexao.Open();
+                SqlDataReader resultado = comando.ExecuteReader();
+                if (resultado.Read())
+                {
+                    Pessoa p = new Pessoa();
+                    p.codPessoa = (int)resultado["codPessoa"];
+
+                    return p.codPessoa;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch
+            {
+                return -1;
+            }
+            finally
+            {
+                conexao.Close();
+            }
 
         }
 

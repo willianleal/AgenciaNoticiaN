@@ -22,12 +22,12 @@
 
                             <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Usuário:</asp:Label> 
                 
-                            <asp:TextBox ID="UserName" runat="server" class="form-control"></asp:TextBox>
+                            <asp:TextBox ID="UserName" runat="server" class="form-control" required autofocus placeholder="Email"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="Usuário é requerido" ToolTip="Usuário é requerido" ValidationGroup="Login1">*</asp:RequiredFieldValidator>   
             
                             <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Senha:</asp:Label>                    
                 
-                            <asp:TextBox ID="Password" runat="server" TextMode="Password" class="form-control"></asp:TextBox>
+                            <asp:TextBox ID="Password" runat="server" TextMode="Password" class="form-control" placeholder="Senha"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Senha é requerida" ToolTip="Senha é requerida" ValidationGroup="Login1">*</asp:RequiredFieldValidator> 
             
                             <center>

@@ -11,10 +11,10 @@ namespace DAL
         public static string StringDeConexao
         {
             //Banco web
-            //get { return @"Data Source=WILLIAM_NB\MSSQLSERVEREXP; Initial Catalog=AgenciaNoticias; User Id=AgenciaNoticias; Password=eternidade77; Integrated Security=True"; }
+            get { return @"Data Source=WILLIAM_NB\MSSQLSERVEREXP; Initial Catalog=AgenciaNoticias; User Id=AgenciaNoticias; Password=eternidade77; Integrated Security=True"; }
 
             //Banco local
-            get { return @"Data Source=WKSDES08; Initial Catalog=AgenciaNoticias; User Id=AgenciaNoticias; Password=eternidade77"; }
+            //get { return @"Data Source=WKSDES08; Initial Catalog=AgenciaNoticias; User Id=AgenciaNoticias; Password=eternidade77"; }
 
         }
     }

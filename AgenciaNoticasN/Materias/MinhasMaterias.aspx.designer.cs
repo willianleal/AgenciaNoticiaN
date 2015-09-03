@@ -22,6 +22,15 @@ namespace AgenciaNoticasN.Materias {
         protected global::System.Web.UI.WebControls.GridView gdvMateria;
         
         /// <summary>
+        /// lkNovo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lkNovo;
+        
+        /// <summary>
         /// lkSair control.
         /// </summary>
         /// <remarks>

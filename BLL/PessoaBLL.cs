@@ -64,7 +64,7 @@ namespace BLL
                 return null;
             }
         }
-        
+
         public string validarLogin(string email, string senha)
         {
             if (email.Equals("") || senha.Equals(""))
@@ -75,6 +75,18 @@ namespace BLL
             {
                 string senhaCript = Util.GetMD5Hash(senha);
                 return dao.validarAcesso(email, senhaCript);
+            }
+        }
+
+        public int getPessoaEmail(string email)
+        {
+            try
+            {
+                return dao.getPessoaEmail(email);
+            }
+            catch
+            {
+                return -1;
             }
         }
 

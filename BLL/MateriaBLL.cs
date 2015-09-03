@@ -10,11 +10,11 @@ namespace BLL
 {
     public class MateriaBLL
     {
-        private MateriaDAL dal = null;
+        private MateriaDAL dao = null;
 
         public MateriaBLL()
         {
-            dal = new MateriaDAL();
+            dao = new MateriaDAL();
         }
 
         public bool inserir(int codMateria, int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, string nome, string materiaEscrita, 
@@ -22,7 +22,7 @@ namespace BLL
         {
             try
             {
-                return dal.inserir(codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, nome, materiaEscrita, codSecao, status, dataCadastro, dataAtualizacao);
+                return dao.inserir(codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, nome, materiaEscrita, codSecao, status, dataCadastro, dataAtualizacao);
             }
             catch
             {
@@ -35,7 +35,7 @@ namespace BLL
         {
             try
             {
-                return dal.alterar(codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, nome, materiaEscrita, codSecao, status, dataCadastro, dataAtualizacao);
+                return dao.alterar(codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, nome, materiaEscrita, codSecao, status, dataCadastro, dataAtualizacao);
             }
             catch
             {
@@ -47,7 +47,7 @@ namespace BLL
         {
             try
             {
-                return dal.deletar(codMateria);
+                return dao.deletar(codMateria);
             }
             catch
             {
@@ -59,7 +59,19 @@ namespace BLL
         {
             try
             {
-                return dal.listar(codMateria);
+                return dao.listar(codMateria);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<Materia> listarMateriaPessoa(int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, int codSecao)
+        {
+            try
+            {
+                return dao.listarMateriaPessoa(codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, codSecao);
             }
             catch
             {
