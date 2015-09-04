@@ -66,3 +66,19 @@
 .text-red{color:#F00;}
 .text-green{color:#F00;}
 .text-blue{color:#337AB7;}
+
+
+/*mudanças no css bootstrap*/
+.navbar-inverse {
+    background-color: #2D4E71;
+    border-color: #080808;
+}
+
+/*.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: #7198C1;
+}*/
+
+.containerGeral {
+    margin-top: 40px !important;
+}

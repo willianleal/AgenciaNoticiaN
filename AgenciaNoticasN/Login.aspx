@@ -13,7 +13,7 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-4"></div>
-            <div class="col-md-4 ">
+            <div class="col-md-4">
                 <div class="log">
                     <asp:Login ID="Login1" runat="server" DisplayRememberMe="False" LoginButtonText="Entrar" PasswordLabelText="Senha:" Width="85%" CssClass="form-signin"
                         PasswordRequiredErrorMessage="Senha é requerida" TitleText="Login" UserNameLabelText="Usuário:" UserNameRequiredErrorMessage="Usuário é requerido" DestinationPageUrl="~/Materias/Materias.aspx" FailureText="" OnAuthenticate="Login1_Authenticate">
@@ -42,7 +42,9 @@
                     </asp:Login>
                 </div>
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+
+            </div>
         </div>
     </div>
 </asp:Content>

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BLL;
+using POCO;
 
 namespace AgenciaNoticasN.Materias
 {
@@ -11,15 +13,20 @@ namespace AgenciaNoticasN.Materias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //if (Session["nomeSession"] == null)
+            //{
+            //    Response.Redirect("~/SessionOut.aspx");
+            //}
+            //else
             if (!IsPostBack)
             {
-                //Session["codEncomenda"] = Request.QueryString["key"] == null ? null : ConsulplanUtil.decriptUrl(Request.QueryString["key"].ToString());
+                string codPessoa = Request.QueryString["key"] == null ? "0" : Util.decriptUrl(Request.QueryString["key"].ToString());
 
-                //if (Session["codEncomenda"] != null
-                //{
-                //    //carrega dados da pessoa
-                //    popularPessoa();
-                //}
+                if (!codPessoa.Equals("0"))
+                {
+                    //carrega dados da pessoa
+                    popularPessoa(int.Parse(codPessoa));
+                }
             }
         }
 
@@ -33,8 +40,10 @@ namespace AgenciaNoticasN.Materias
             ClientScript.RegisterStartupScript(typeof(string), "MessageBox", sJavaScript);
         }
 
-        protected void popularPessoa()
+        protected void popularPessoa(int codPessoa)
         {
+            List<Pessoas> pessoa = new List<Pessoas>();
+            
             //Função para carregar pessoasEncomendaQuestaoBLL listaEncomenda = new EncomendaQuestaoBLL();
 
             /*List<EncomendaQuestao> encomenda = new List<EncomendaQuestao>();
@@ -71,6 +80,30 @@ namespace AgenciaNoticasN.Materias
 
             //Armazena o codArquivo da encomenda
             Session["codArquivo"] = encomenda[0].CodArquivo.ToString();*/
+        }
+
+        protected void lkGravar_Click(object sender, EventArgs e)
+        {
+            Pessoa dados = new Pessoa();
+            PessoaBLL bll = new PessoaBLL();
+
+            dados.nome         = txtNome.ToString();
+            dados.funcao       = ddlFuncao.SelectedValue.ToString();
+            dados.ddd          = txtDdd.ToString();
+            dados.telefone     = txtTelefone.ToString();
+            dados.email        = txtEmail.ToString();
+            dados.ativo        = chkAtivo.Checked;
+            dados.dataCadastro = DateTime.Now;
+            dados.senha        = txtSenha.ToString();
+
+            if(bll.inserir(dados))
+            {
+                showMessageBox("Pessoa cadastrada com sucesso!");
+            }
+            else
+            {
+                showMessageBox("Erro ao cadastrar pessoa!");
+            }
         }
     }
 }

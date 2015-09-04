@@ -57,6 +57,52 @@ namespace DAL
             }            
         }
 
+        public bool inserir(Pessoa dados)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = "INSERT INTO Pessoa(nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha) VALUES(@nome, @funcao, @ddd, @telefone, @email, @ativo, @dataCadastro, @senha)";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            //comando.Parameters.AddWithValue("@codPessoa", codPessoa);
+            comando.Parameters.AddWithValue("@nome", dados.nome);
+            comando.Parameters.AddWithValue("@funcao", dados.funcao);
+            comando.Parameters.AddWithValue("@ddd", dados.ddd);
+            comando.Parameters.AddWithValue("@telefone", dados.telefone);
+            comando.Parameters.AddWithValue("@email", dados.email);
+            comando.Parameters.AddWithValue("@ativo", dados.ativo);
+            comando.Parameters.AddWithValue("@dataCadastro", dados.dataCadastro);
+            comando.Parameters.AddWithValue("@senha", dados.senha);
+
+            foreach (SqlParameter Parameter in comando.Parameters)
+            {
+                if (Parameter.Value == null)
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+            }
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Close();
+            }            
+        }
+
         public bool alterar(int codPessoa, string nome, string funcao, string ddd, string telefone, string email, bool ativo, DateTime dataCadastro, string senha)
         {
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
@@ -140,16 +186,17 @@ namespace DAL
             }
         }
 
-        public List<Pessoa> listar(int codPessoa)
+        public List<Pessoa> listar()
         {
             List<Pessoa> pessoas = new List<Pessoa>();
 
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string SQL = "SELECT codPessoa, nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha FROM Pessoa WHERE codPessoa=@codPessoa";
+            string SQL = "SELECT codPessoa, nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha FROM Pessoa";
+            //string SQL = "SELECT codPessoa, nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha FROM Pessoa WHERE codPessoa=@codPessoa";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
-            comando.Parameters.AddWithValue("@codPessoa", codPessoa);
+            //comando.Parameters.AddWithValue("@codPessoa", codPessoa);
 
             try
             {
@@ -178,6 +225,46 @@ namespace DAL
             {
                 conexao.Close();
             }            
+        }
+
+        public List<Pessoa> listar(int codPessoa)
+        {
+            List<Pessoa> pessoas = new List<Pessoa>();
+
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = "SELECT codPessoa, nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha FROM Pessoa WHERE codPessoa=@codPessoa";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@codPessoa", codPessoa);
+
+            try
+            {
+                conexao.Open();
+                SqlDataReader resultado = comando.ExecuteReader();
+
+                while (resultado.Read())
+                {
+                    Pessoa dadosPessoa = new Pessoa();
+
+                    dadosPessoa.codPessoa = (int)resultado["codPessoa"];
+                    dadosPessoa.nome = resultado["nome"].ToString();
+                    dadosPessoa.funcao = resultado["funcao"].ToString();
+                    dadosPessoa.email = resultado["email"].ToString();
+
+                    pessoas.Add(dadosPessoa);
+                }
+
+                return pessoas;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
 
         public string validarAcesso(string email, string senhaCript)

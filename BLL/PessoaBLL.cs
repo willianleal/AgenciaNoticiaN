@@ -29,6 +29,18 @@ namespace BLL
             }
         }
 
+        public bool inserir(Pessoa dados)
+        {
+            try
+            {
+                return dao.inserir(dados);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool alterar(int codPessoa, string nome, string funcao, string ddd, string telefone, string email, bool ativo, DateTime dataCadastro, string senha)
         {
             try
@@ -50,6 +62,18 @@ namespace BLL
             catch
             {
                 return false;
+            }
+        }
+
+        public List<Pessoa> listar()
+        {
+            try
+            {
+                return dao.listar();
+            }
+            catch
+            {
+                return null;
             }
         }
 

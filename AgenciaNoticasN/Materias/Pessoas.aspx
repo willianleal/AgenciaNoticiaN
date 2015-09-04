@@ -8,8 +8,8 @@
     <div class="row">
         
         <div class="col-md-12 form-group">
-            <h2>Minhas matérias</h2>
-            <asp:GridView ID="gdvMateria" runat="server" AutoGenerateColumns="False" CssClass="table table-hover" BorderWidth="0px" GridLines="None">
+            <h2>Pessoas cadastradas</h2>
+            <asp:GridView ID="gdvPessoa" runat="server" AutoGenerateColumns="False" CssClass="table table-hover" BorderWidth="0px" GridLines="None">
             <Columns>
                 <asp:BoundField DataField="codPessoa" HeaderText="Código" />
                 <asp:BoundField DataField="nome" HeaderText="Nome" />
