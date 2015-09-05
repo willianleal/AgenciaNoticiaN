@@ -11,6 +11,8 @@ namespace AgenciaNoticasN.Materias
 {
     public partial class CadPessoas : System.Web.UI.Page
     {
+        //string codPessoa;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //if (Session["nomeSession"] == null)
@@ -20,12 +22,12 @@ namespace AgenciaNoticasN.Materias
             //else
             if (!IsPostBack)
             {
-                string codPessoa = Request.QueryString["key"] == null ? "0" : Util.decriptUrl(Request.QueryString["key"].ToString());
+                Session["codPessoa"] = Request.QueryString["key"] == null ? null : Util.decriptUrl(Request.QueryString["key"].ToString());
 
-                if (!codPessoa.Equals("0"))
+                if (Session["codPessoa"] != null)
                 {
                     //carrega dados da pessoa
-                    popularPessoa(int.Parse(codPessoa));
+                    popularPessoa(int.Parse(Session["codPessoa"].ToString()));
                 }
             }
         }
@@ -42,44 +44,18 @@ namespace AgenciaNoticasN.Materias
 
         protected void popularPessoa(int codPessoa)
         {
-            List<Pessoas> pessoa = new List<Pessoas>();
-            
-            //Função para carregar pessoasEncomendaQuestaoBLL listaEncomenda = new EncomendaQuestaoBLL();
+            List<Pessoa> pessoa = new List<Pessoa>();
+            PessoaBLL bll = new PessoaBLL();
 
-            /*List<EncomendaQuestao> encomenda = new List<EncomendaQuestao>();
-            encomenda = listaEncomenda.getEncomendaUsuario(codEncomenda, codUsuario);
+            pessoa = bll.listar(codPessoa);
 
-            //Pega os dados da encomenda e carrega na tela
-            ddlEmpresa.SelectedValue = encomenda[0].CodEmpresa.ToString();
-            ddlProcesso.SelectedValue = encomenda[0].CodProcesso.ToString();
-            txtDescricao.Text = encomenda[0].Descricao;
-            ddlArea.SelectedValue = encomenda[0].CodArea.ToString();
-
-            if (encomenda[0].QtdRespostas.ToString().Equals("4") || encomenda[0].QtdRespostas.ToString().Equals("5"))
-            {
-                lblQtdResp.Visible = false;
-                txtQtdResp.Visible = false;
-                txtQtdResp.Text = encomenda[0].QtdRespostas.ToString();
-                ddlQtdResp.Items.FindByText(encomenda[0].QtdRespostas.ToString()).Selected = true;
-            }
-            else
-            {
-                lblQtdResp.Visible = true;
-                txtQtdResp.Visible = true;
-                txtQtdResp.Text = encomenda[0].QtdRespostas.ToString();
-                ddlQtdResp.SelectedIndex = 3;
-            }
-
-            ddlNivelEscolaridade.SelectedValue = encomenda[0].CodNivel.ToString();
-            ddlProfessor.SelectedValue = encomenda[0].CpfProfessor.ToString();
-            txtQtdQuestao.Text = encomenda[0].QtdQuestoes.ToString();
-            txtValor.Text = encomenda[0].ValorQuestao.ToString();
-            txtDataEntrega.Text = encomenda[0].DataEntrega.ToString();
-            txtObservacao.Text = encomenda[0].ObservacoesPedag;
-            txtConteudo.Text = encomenda[0].ConteudoProgramatico;
-
-            //Armazena o codArquivo da encomenda
-            Session["codArquivo"] = encomenda[0].CodArquivo.ToString();*/
+            txtNome.Text            = pessoa[0].nome;
+            ddlFuncao.SelectedValue = pessoa[0].funcao;
+            txtDdd.Text             = pessoa[0].ddd;
+            txtTelefone.Text        = pessoa[0].telefone;
+            txtEmail.Text           = pessoa[0].email;
+            chkAtivo.Checked        = pessoa[0].ativo;
+            txtSenha.Text           = pessoa[0].senha.ToString();
         }
 
         protected void lkGravar_Click(object sender, EventArgs e)
@@ -87,22 +63,29 @@ namespace AgenciaNoticasN.Materias
             Pessoa dados = new Pessoa();
             PessoaBLL bll = new PessoaBLL();
 
-            dados.nome         = txtNome.ToString();
+            dados.nome         = txtNome.Text;
             dados.funcao       = ddlFuncao.SelectedValue.ToString();
-            dados.ddd          = txtDdd.ToString();
-            dados.telefone     = txtTelefone.ToString();
-            dados.email        = txtEmail.ToString();
+            dados.ddd          = txtDdd.Text;
+            dados.telefone     = txtTelefone.Text;
+            dados.email        = txtEmail.Text;
             dados.ativo        = chkAtivo.Checked;
             dados.dataCadastro = DateTime.Now;
-            dados.senha        = txtSenha.ToString();
+            dados.senha        = txtSenha.Text;
 
-            if(bll.inserir(dados))
+            //Inserindo
+            if (Session["codPessoa"] == null)
             {
-                showMessageBox("Pessoa cadastrada com sucesso!");
+                if (bll.inserir(dados))
+                    Response.Redirect("Pessoas.aspx");
+                else
+                   showMessageBox("Erro ao cadastrar pessoa!");
             }
-            else
+            else //Alterando
             {
-                showMessageBox("Erro ao cadastrar pessoa!");
+                if (bll.alterar(dados, int.Parse(Session["codPessoa"].ToString())))
+                    Response.Redirect("Pessoas.aspx");
+                else
+                    showMessageBox("Erro ao cadastrar pessoa!");
             }
         }
     }

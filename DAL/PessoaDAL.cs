@@ -148,6 +148,52 @@ namespace DAL
             }
         }
 
+        public bool alterar(Pessoa dados, int codPessoa)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = "UPDATE Pessoa SET nome=@nome, funcao=@funcao, ddd=@ddd, telefone=@telefone, email=@email, ativo=@ativo, senha=@senha WHERE codPessoa=@codPessoa";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@codPessoa", codPessoa);
+            comando.Parameters.AddWithValue("@nome", dados.nome);
+            comando.Parameters.AddWithValue("@funcao", dados.funcao);
+            comando.Parameters.AddWithValue("@ddd", dados.ddd);
+            comando.Parameters.AddWithValue("@telefone", dados.telefone);
+            comando.Parameters.AddWithValue("@email", dados.email);
+            comando.Parameters.AddWithValue("@ativo", dados.ativo);
+            //comando.Parameters.AddWithValue("@dataCadastro", dados.dataCadastro);
+            comando.Parameters.AddWithValue("@senha", dados.senha);
+
+            foreach (SqlParameter Parameter in comando.Parameters)
+            {
+                if (Parameter.Value == null)
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+            }
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
         public bool deletar(int codPessoa)
         {
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
@@ -250,8 +296,12 @@ namespace DAL
                     dadosPessoa.codPessoa = (int)resultado["codPessoa"];
                     dadosPessoa.nome = resultado["nome"].ToString();
                     dadosPessoa.funcao = resultado["funcao"].ToString();
+                    dadosPessoa.ddd = resultado["ddd"].ToString();
+                    dadosPessoa.telefone = resultado["telefone"].ToString();
                     dadosPessoa.email = resultado["email"].ToString();
-
+                    dadosPessoa.ativo = (bool)resultado["ativo"];
+                    dadosPessoa.dataCadastro = (DateTime)resultado["dataCadastro"];
+                    dadosPessoa.senha = resultado["senha"].ToString();
                     pessoas.Add(dadosPessoa);
                 }
 

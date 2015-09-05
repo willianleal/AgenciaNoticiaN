@@ -53,6 +53,18 @@ namespace BLL
             }
         }
 
+        public bool alterar(Pessoa dados, int codPessoa)
+        {
+            try
+            {
+                return dao.alterar(dados, codPessoa);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool deletar(int codPessoa)
         {
             try

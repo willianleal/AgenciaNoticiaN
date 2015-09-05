@@ -40,7 +40,6 @@ namespace AgenciaNoticasN.Materias
             Response.Redirect("CadPessoas.aspx");
         }
 
-
         protected void lbAlterar_Click(object sender, EventArgs e)
         {
             LinkButton id = (LinkButton)sender;
@@ -53,7 +52,13 @@ namespace AgenciaNoticasN.Materias
 
         protected void lbDeletar_Click(object sender, EventArgs e)
         {
+            LinkButton id = (LinkButton)sender;
+            string[] commandArgs = id.CommandArgument.ToString().Split(new char[] { ',' });//0=codPessoa
 
+            int codPessoa = int.Parse(commandArgs[0]);
+
+            pessoaBll.deletar(codPessoa);
+            gdvPessoa.DataBind();
         }
     }
 }
