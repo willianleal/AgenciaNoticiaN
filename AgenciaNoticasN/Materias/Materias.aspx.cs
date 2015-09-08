@@ -30,17 +30,27 @@ namespace AgenciaNoticasN.Materias
         protected void lbDeletar_Click(object sender, EventArgs e)
         {
             LinkButton id = (LinkButton)sender;
-            int codMateria = int.Parse(id.CommandArgument.ToString());
+            string[] commandArgs = id.CommandArgument.ToString().Split(new char[] { ',' });//0=codMateria
+
+            int codMateria = int.Parse(commandArgs[0]);
 
             materiaBll.deletar(codMateria);
+            gdvMateria.DataBind();
         }
 
         protected void lbAlterar_Click(object sender, EventArgs e)
         {
             LinkButton id = (LinkButton)sender;
-            int codMateria = int.Parse(id.CommandArgument.ToString());
+            string[] commandArgs = id.CommandArgument.ToString().Split(new char[] { ',' });//0=codMateria
 
-            //materiaBll.alterar(codMateria);
+            int codMateria = int.Parse(commandArgs[0]);
+
+            Response.Redirect("CadMateria.aspx?key=" + Util.criptUrl(codMateria.ToString()));
+        }
+
+        protected void lkNovo_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CadMaterias.aspx");
         }
     }
 }

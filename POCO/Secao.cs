@@ -16,6 +16,7 @@ namespace POCO
 
         public DateTime dataCadastro { get; set; }
 
-        public virtual Pessoa Pessoa { get; set; }
+        //Transients
+        public string Gerente { get; set; }
     }
 }

@@ -51,6 +51,9 @@
             <label class="control-label">Ativo:</label>
 
             <asp:CheckBox CssClass="checkbox checkbox-inline" ID="chkAtivo" AutoPostBack="true" runat="server" />
+
+<%--            <p><label class="control-label"> </label> <asp:Label ID="lbInicioVisualizarLocal" runat="server" CssClass="control-label" ></asp:Label> </p>
+            <asp:CheckBox CssClass="checkbox checkbox-inline pull-left margR_20" ID="chkDataAlterar" AutoPostBack="true" OnCheckedChanged="chkDataAlterar_Check" runat="server" Text="Alterar/Inserir Data de Inicio" />--%>
         </div>
 
         <div class="col-md-12 form-group">

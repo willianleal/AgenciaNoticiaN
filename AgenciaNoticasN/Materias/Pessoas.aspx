@@ -27,6 +27,9 @@
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
+                <EmptyDataTemplate>
+                    Nenhuma pessoa cadastrada.
+                </EmptyDataTemplate>
             </asp:GridView>
         </div>
 

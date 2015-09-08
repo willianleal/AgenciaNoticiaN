@@ -82,3 +82,8 @@
 .containerGeral {
     margin-top: 40px !important;
 }
+
+.containerClass .ajax__html_editor_extender_container
+        {
+            width: 100% !important;/*important is really important at here*/
+        }

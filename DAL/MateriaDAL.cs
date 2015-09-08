@@ -17,7 +17,7 @@ namespace DAL
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
             string SQL = @"INSERT INTO Materia(codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, nome, materiaEscrita, codSecao, status, dataCadastro, dataAtualizacao) 
-                            VALUES(@codMateria, @codPessoa_Jornalista, @codPessoa_Revisor, @codPessoa_Publicador, @nome, @materiaEscrita, @codSecao, @status, @dataCadastro, @dataAtualizacao)";
+                            VALUES(@codPessoa_Jornalista, @codPessoa_Revisor, @codPessoa_Publicador, @nome, @materiaEscrita, @codSecao, @status, @dataCadastro, @dataAtualizacao)";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Jornalista", codPessoa_Jornalista);
@@ -29,6 +29,53 @@ namespace DAL
             comando.Parameters.AddWithValue("@status", status);
             comando.Parameters.AddWithValue("@dataCadastro", dataCadastro);
             comando.Parameters.AddWithValue("@dataAtualizacao", dataAtualizacao);
+
+            foreach (SqlParameter Parameter in comando.Parameters)
+            {
+                if (Parameter.Value == null)
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+            }
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public bool inserir(Materia dados)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = @"INSERT INTO Materia(codPessoa_Jornalista, nome, materiaEscrita, codSecao, status, dataCadastro) 
+                            VALUES(@codPessoa_Jornalista, @nome, @materiaEscrita, @codSecao, @status, @dataCadastro)";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@codPessoa_Jornalista", dados.codPessoa_Jornalista);
+            comando.Parameters.AddWithValue("@codPessoa_Revisor", dados.codPessoa_Revisor);
+            comando.Parameters.AddWithValue("@codPessoa_Publicador", dados.codPessoa_Publicador);
+            comando.Parameters.AddWithValue("@nome", dados.nome);
+            comando.Parameters.AddWithValue("@materiaEscrita", dados.materiaEscrita);
+            comando.Parameters.AddWithValue("@codSecao", dados.codSecao);
+            comando.Parameters.AddWithValue("@status", dados.status);
+            comando.Parameters.AddWithValue("@dataCadastro", dados.dataCadastro);
+            //comando.Parameters.AddWithValue("@dataAtualizacao", dados.dataAtualizacao);
 
             foreach (SqlParameter Parameter in comando.Parameters)
             {
@@ -77,6 +124,54 @@ namespace DAL
             comando.Parameters.AddWithValue("@status", status);
             comando.Parameters.AddWithValue("@dataCadastro", dataCadastro);
             comando.Parameters.AddWithValue("@dataAtualizacao", dataAtualizacao);
+
+            foreach (SqlParameter Parameter in comando.Parameters)
+            {
+                if (Parameter.Value == null)
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+            }
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public bool alterar(Materia dados, int codMateria)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = @"UPDATE Materia SET codPessoa_Jornalista=@codPessoa_Jornalista, codPessoa_Revisor=@codPessoa_Revisor, codPessoa_Publicador=@codPessoa_Publicador, 
+                            nome=@nome, materiaEscrita=@materiaEscrita, codSecao=@codSecao, status=@status, dataCadastro=@dataCadastro, dataAtualizacao=@dataAtualizacao WHERE codMateria=@codMateria";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@codMateria", dados.codMateria);
+            comando.Parameters.AddWithValue("@codPessoa_Jornalista", dados.codPessoa_Jornalista);
+            comando.Parameters.AddWithValue("@codPessoa_Revisor", dados.codPessoa_Revisor);
+            comando.Parameters.AddWithValue("@codPessoa_Publicador", dados.codPessoa_Publicador);
+            comando.Parameters.AddWithValue("@nome", dados.nome);
+            comando.Parameters.AddWithValue("@materiaEscrita", dados.materiaEscrita);
+            comando.Parameters.AddWithValue("@codSecao", dados.codSecao);
+            comando.Parameters.AddWithValue("@status", dados.status);
+            comando.Parameters.AddWithValue("@dataCadastro", dados.dataCadastro);
+            comando.Parameters.AddWithValue("@dataAtualizacao", dados.dataAtualizacao);
 
             foreach (SqlParameter Parameter in comando.Parameters)
             {
@@ -202,8 +297,8 @@ namespace DAL
                             pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente 
                            FROM Materia m
                            INNER JOIN Pessoa pj ON pj.codPessoa=m.codPessoa_Jornalista
-                           INNER JOIN Pessoa pr ON pr.codPessoa=m.codPessoa_Revisor
-                           INNER JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
+                           LEFT JOIN Pessoa pr ON pr.codPessoa=m.codPessoa_Revisor
+                           LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
                            WHERE codPessoa_Jornalista = @codPessoa_Jornalista OR codPessoa_Revisor = @codPessoa_Revisor OR codPessoa_Publicador = @codPessoa_Publicador OR m.codSecao = @codSecao";
@@ -225,14 +320,14 @@ namespace DAL
 
                     dadosMateria.codMateria = (int)resultado["codMateria"];
                     dadosMateria.codPessoa_Jornalista = (int)resultado["codPessoa_Jornalista"];
-                    dadosMateria.codPessoa_Revisor = (int)resultado["codPessoa_Revisor"];
-                    dadosMateria.codPessoa_Publicador = (int)resultado["codPessoa_Publicador"];
+                    dadosMateria.codPessoa_Revisor = resultado["codPessoa_Revisor"] is DBNull ? 0 : (int)resultado["codPessoa_Revisor"];
+                    dadosMateria.codPessoa_Publicador = resultado["codPessoa_Publicador"] is DBNull ? 0 : (int)resultado["codPessoa_Publicador"];
                     dadosMateria.nome = resultado["nome"].ToString();
                     dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
                     dadosMateria.codSecao = (int)resultado["codSecao"];
                     dadosMateria.status = resultado["status"].ToString();
                     dadosMateria.dataCadastro = (DateTime)resultado["dataCadastro"];
-                    dadosMateria.dataAtualizacao = (DateTime)resultado["dataAtualizacao"];
+                    dadosMateria.dataAtualizacao = resultado["dataAtualizacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataAtualizacao"];
                     dadosMateria.Jornalista = resultado["Jornalista"].ToString();
                     dadosMateria.Revisor = resultado["Revisor"].ToString();
                     dadosMateria.Publicador = resultado["Publicador"].ToString();

@@ -29,11 +29,35 @@ namespace BLL
             }
         }
 
+        public bool inserir(Secao dados)
+        {
+            try
+            {
+                return dao.inserir(dados);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool alterar(int codSecao, string nome, int codPessoa_Gerente, DateTime dataCadastro)
         {
             try
             {
                 return dao.alterar(codSecao, nome, codPessoa_Gerente, dataCadastro);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool alterar(Secao dados, int codSecao)
+        {
+            try
+            {
+                return dao.alterar(dados, codSecao);
             }
             catch
             {
@@ -58,6 +82,18 @@ namespace BLL
             try
             {
                 return dao.listar(codSecao);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<Secao> listar()
+        {
+            try
+            {
+                return dao.listar();
             }
             catch
             {

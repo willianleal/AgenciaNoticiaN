@@ -11,8 +11,6 @@ namespace AgenciaNoticasN.Materias
 {
     public partial class CadPessoas : System.Web.UI.Page
     {
-        //string codPessoa;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             //if (Session["nomeSession"] == null)
@@ -85,7 +83,7 @@ namespace AgenciaNoticasN.Materias
                 if (bll.alterar(dados, int.Parse(Session["codPessoa"].ToString())))
                     Response.Redirect("Pessoas.aspx");
                 else
-                    showMessageBox("Erro ao cadastrar pessoa!");
+                    showMessageBox("Erro ao alterar pessoa!");
             }
         }
     }

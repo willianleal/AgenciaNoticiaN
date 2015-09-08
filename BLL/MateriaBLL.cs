@@ -30,12 +30,36 @@ namespace BLL
             }
         }
 
+        public bool inserir(Materia dados)
+        {
+            try
+            {
+                return dao.inserir(dados);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool alterar(int codMateria, int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, string nome, string materiaEscrita, 
             int codSecao, string status, DateTime dataCadastro, DateTime dataAtualizacao)
         {
             try
             {
                 return dao.alterar(codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, nome, materiaEscrita, codSecao, status, dataCadastro, dataAtualizacao);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool alterar(Materia dados, int codMateria)
+        {
+            try
+            {
+                return dao.alterar(dados, codMateria);
             }
             catch
             {

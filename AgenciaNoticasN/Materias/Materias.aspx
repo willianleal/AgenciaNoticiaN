@@ -30,14 +30,16 @@
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
+                <EmptyDataTemplate>
+                    Nenhuma matéria cadastrada.
+                </EmptyDataTemplate>
             </asp:GridView>
         </div>
 
     </div>
     <div class="row">
-        <div class="col-md-2 form-group pull-right">
-            <asp:LinkButton ID="lkNovo" runat="server" Text="Cadastrar" CssClass="btn btn-primary"></asp:LinkButton>
-            <asp:LinkButton ID="lkSair" runat="server" Text="Sair" CssClass="btn btn-success"></asp:LinkButton>
+        <div class="col-md-12 form-group">
+            <asp:LinkButton ID="lkNovo" runat="server" Text="Cadastrar" CssClass="btn btn-primary pull-right" OnClick="lkNovo_Click"></asp:LinkButton>
         </div>
     </div>
 
