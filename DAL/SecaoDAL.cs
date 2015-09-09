@@ -11,46 +11,6 @@ namespace DAL
 {
     public class SecaoDAL
     {
-        public bool inserir(int codSecao, string nome, int codPessoa_Gerente, DateTime dataCadastro)
-        {
-            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
-
-            string SQL = "INSERT INTO Secao(nome, codPessoa_Gerente, dataCadastro) VALUES(@nome, @codPessoa_Gerente, @dataCadastro)";
-
-            SqlCommand comando = new SqlCommand(SQL, conexao);
-            comando.Parameters.AddWithValue("@nome", nome);
-            comando.Parameters.AddWithValue("@codPessoa_Gerente", codPessoa_Gerente);
-            comando.Parameters.AddWithValue("@dataCadastro", dataCadastro);
-
-            foreach (SqlParameter Parameter in comando.Parameters)
-            {
-                if (Parameter.Value == null)
-                {
-                    Parameter.Value = DBNull.Value;
-                }
-                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
-                {
-                    Parameter.Value = DBNull.Value;
-                }
-            }
-
-            try
-            {
-                conexao.Open();
-                comando.ExecuteNonQuery();
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
         public bool inserir(Secao dados)
         {
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
@@ -91,46 +51,6 @@ namespace DAL
             }
         }
 
-        public bool alterar(int codSecao, string nome, int codPessoa_Gerente, DateTime dataCadastro)
-        {
-            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
-
-            string SQL = "UPDATE Secao SET nome=@nome, codPessoa_Gerente=@codPessoa_Gerente WHERE codSecao=@codSecao";
-
-            SqlCommand comando = new SqlCommand(SQL, conexao);
-            comando.Parameters.AddWithValue("@nome", nome);
-            comando.Parameters.AddWithValue("@codPessoa_Gerente", codPessoa_Gerente);
-            comando.Parameters.AddWithValue("@dataCadastro", dataCadastro);
-
-            foreach (SqlParameter Parameter in comando.Parameters)
-            {
-                if (Parameter.Value == null)
-                {
-                    Parameter.Value = DBNull.Value;
-                }
-                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
-                {
-                    Parameter.Value = DBNull.Value;
-                }
-            }
-
-            try
-            {
-                conexao.Open();
-                comando.ExecuteNonQuery();
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
         public bool alterar(Secao dados, int codSecao)
         {
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
@@ -138,10 +58,10 @@ namespace DAL
             string SQL = "UPDATE Secao SET nome=@nome, codPessoa_Gerente=@codPessoa_Gerente WHERE codSecao=@codSecao";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
-            comando.Parameters.AddWithValue("@codSecao", dados.codSecao);
+            comando.Parameters.AddWithValue("@codSecao", codSecao);
             comando.Parameters.AddWithValue("@nome", dados.nome);
             comando.Parameters.AddWithValue("@codPessoa_Gerente", dados.codPessoa_Gerente);
-            comando.Parameters.AddWithValue("@dataCadastro", dados.dataCadastro);
+            //comando.Parameters.AddWithValue("@dataCadastro", dados.dataCadastro);
 
             foreach (SqlParameter Parameter in comando.Parameters)
             {

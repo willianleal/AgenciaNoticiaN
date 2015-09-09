@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Materias/MasterPage.master" AutoEventWireup="true" CodeBehind="CadSecoes.aspx.cs" Inherits="AgenciaNoticasN.Materias.CadSecoes" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterPage.master" AutoEventWireup="True" CodeBehind="CadSecoes.aspx.cs" Inherits="AgenciaNoticasN.Admin.CadSecoes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -27,7 +27,7 @@
     </div>
     <div class="row">
         <div class="col-md-2 form-group pull-right">
-            <asp:LinkButton ID="lkGravar" runat="server" Text="Gravar" CssClass="btn btn-primary" OnClick="lkGravar_Click"></asp:LinkButton>
+            <asp:LinkButton ID="lkGravar" runat="server" Text="Gravar" CssClass="btn btn-primary pull-right" OnClick="lkGravar_Click"></asp:LinkButton>
         </div>
     </div>
 </asp:Content>

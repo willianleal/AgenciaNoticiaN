@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BLL;
 
-namespace AgenciaNoticasN.Materias
+namespace AgenciaNoticasN.Admin
 {
     public partial class Secoes : System.Web.UI.Page
     {
@@ -14,13 +14,19 @@ namespace AgenciaNoticasN.Materias
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            popularSecao();
+            if (Session["email"] == null)
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+            else
+            if (!IsPostBack)
+            {
+                popularSecao();
+            }
         }
 
         protected void popularSecao()
         {
-            //int codSecao = int.Parse(Session["CodSecao"].ToString());
-
             gdvSecoes.DataSource = secaoBll.listar();
             gdvSecoes.DataBind();
         }
@@ -47,7 +53,7 @@ namespace AgenciaNoticasN.Materias
 
             int codSecao = int.Parse(commandArgs[0]);
 
-            Response.Redirect("CadSecao.aspx?key=" + Util.criptUrl(codSecao.ToString()));
+            Response.Redirect("CadSecoes.aspx?key=" + Util.criptUrl(codSecao.ToString()));
         }
 
         protected void lbDeletar_Click(object sender, EventArgs e)
@@ -58,7 +64,8 @@ namespace AgenciaNoticasN.Materias
             int codSecao = int.Parse(commandArgs[0]);
 
             secaoBll.deletar(codSecao);
-            gdvSecoes.DataBind();
+
+            popularSecao();
         }
     }
 }

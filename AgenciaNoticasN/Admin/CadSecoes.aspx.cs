@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using BLL;
 using POCO;
 
-namespace AgenciaNoticasN.Materias
+namespace AgenciaNoticasN.Admin
 {
     public partial class CadSecoes : System.Web.UI.Page
     {

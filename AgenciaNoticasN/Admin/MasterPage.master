@@ -31,9 +31,11 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="Home.aspx">Home</a></li>
-            <li><a href="Materias.aspx">Matérias</a></li>
-            <%--<li><a href="#sobre">Sobre</a></li>
+            <li><a href="HomeAdmin.aspx">Home</a></li>
+            <li><a href="Secoes.aspx">Seções</a></li>
+            <li><a href="Pessoas.aspx">Pessoas</a></li>
+            <%--<li><a href="Materias.aspx">Matérias</a></li>
+            <li><a href="#sobre">Sobre</a></li>
             <li><a href="#contato">Contato</a></li>--%>
           </ul>
         </div><!--/.nav-collapse -->
@@ -71,3 +73,4 @@
     </form>
 </body>
 </html>
+

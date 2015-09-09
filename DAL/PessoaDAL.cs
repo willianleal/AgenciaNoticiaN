@@ -11,57 +11,11 @@ namespace DAL
 {
     public class PessoaDAL
     {
-        public bool inserir(int codPessoa, string nome, string funcao, string ddd, string telefone, string email, bool ativo, DateTime dataCadastro, string senha)
-        {
-            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
-
-            string SQL = "INSERT INTO Pessoa(nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha) VALUES(@nome, @funcao, @ddd, @telefone, @email, @ativo, @dataCadastro, @senha)";
-            
-            SqlCommand comando = new SqlCommand(SQL, conexao);
-            //comando.Parameters.AddWithValue("@codPessoa", codPessoa);
-            comando.Parameters.AddWithValue("@nome", nome);
-            comando.Parameters.AddWithValue("@funcao", funcao);
-            comando.Parameters.AddWithValue("@ddd", ddd);
-            comando.Parameters.AddWithValue("@telefone", telefone);
-            comando.Parameters.AddWithValue("@email", email);
-            comando.Parameters.AddWithValue("@ativo", ativo);
-            comando.Parameters.AddWithValue("@dataCadastro", dataCadastro);
-            comando.Parameters.AddWithValue("@senha", senha);
-
-            foreach (SqlParameter Parameter in comando.Parameters)
-            {
-                if (Parameter.Value == null)
-                {
-                    Parameter.Value = DBNull.Value;
-                }
-                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
-                {
-                    Parameter.Value = DBNull.Value;
-                }
-            }
-
-            try
-            {
-                conexao.Open();
-                comando.ExecuteNonQuery();
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                conexao.Close();
-            }            
-        }
-
         public bool inserir(Pessoa dados)
         {
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string SQL = "INSERT INTO Pessoa(nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha) VALUES(@nome, @funcao, @ddd, @telefone, @email, @ativo, @dataCadastro, @senha)";
+            string SQL = "INSERT INTO Pessoa(nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha, administrador) VALUES(@nome, @funcao, @ddd, @telefone, @email, @ativo, @dataCadastro, @senha, @administrador)";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             //comando.Parameters.AddWithValue("@codPessoa", codPessoa);
@@ -73,6 +27,7 @@ namespace DAL
             comando.Parameters.AddWithValue("@ativo", dados.ativo);
             comando.Parameters.AddWithValue("@dataCadastro", dados.dataCadastro);
             comando.Parameters.AddWithValue("@senha", dados.senha);
+            comando.Parameters.AddWithValue("@administrador", dados.administrador);
 
             foreach (SqlParameter Parameter in comando.Parameters)
             {
@@ -101,51 +56,6 @@ namespace DAL
             {
                 conexao.Close();
             }            
-        }
-
-        public bool alterar(int codPessoa, string nome, string funcao, string ddd, string telefone, string email, bool ativo, DateTime dataCadastro, string senha)
-        {
-            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
-
-            string SQL = "UPDATE Pessoa SET nome=@nome, funcao=@funcao, ddd=@ddd, telefone=@telefone, email=@email, ativo=@ativo, dataCadastro=@dataCadastro, senha=@senha WHERE codPessoa=@codPessoa";
-
-            SqlCommand comando = new SqlCommand(SQL, conexao);
-            comando.Parameters.AddWithValue("@nome", nome);
-            comando.Parameters.AddWithValue("@funcao", funcao);
-            comando.Parameters.AddWithValue("@ddd", ddd);
-            comando.Parameters.AddWithValue("@telefone", telefone);
-            comando.Parameters.AddWithValue("@email", email);
-            comando.Parameters.AddWithValue("@ativo", ativo);
-            comando.Parameters.AddWithValue("@dataCadastro", dataCadastro);
-            comando.Parameters.AddWithValue("@senha", senha);
-
-            foreach (SqlParameter Parameter in comando.Parameters)
-            {
-                if (Parameter.Value == null)
-                {
-                    Parameter.Value = DBNull.Value;
-                }
-                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
-                {
-                    Parameter.Value = DBNull.Value;
-                }
-            }
-
-            try
-            {
-                conexao.Open();
-                comando.ExecuteNonQuery();
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                conexao.Close();
-            }
         }
 
         public bool alterar(Pessoa dados, int codPessoa)
@@ -257,6 +167,7 @@ namespace DAL
                     dadosPessoa.nome = resultado["nome"].ToString();
                     dadosPessoa.funcao = resultado["funcao"].ToString();
                     dadosPessoa.email = resultado["email"].ToString();
+                    dadosPessoa.dataCadastro = (DateTime)resultado["dataCadastro"];
 
                     pessoas.Add(dadosPessoa);   
                 }
@@ -317,14 +228,21 @@ namespace DAL
             }
         }
 
-        public string validarAcesso(string email, string senhaCript)
+        public string validarAcesso(string email, string senhaCript, bool admin)
         {
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
-            string SQL = "select email, senha from Pessoa where email=@email";
+
+            string SQL = "";
+            
+            if (admin)
+                SQL = "select email, senha from Pessoa where email=@email and administrador=1";
+            else
+                SQL = "select email, senha from Pessoa where email=@email";
+
             SqlCommand comando = new SqlCommand(SQL, conexao);
             
             comando.Parameters.AddWithValue("@email", email);
-
+            
             try
             {
                 conexao.Open();

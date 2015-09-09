@@ -12,8 +12,8 @@
     
     <link href="css/style.css" rel="stylesheet" type="text/css" />
 
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+    <%--<asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder>--%>
 
 </head>
     
@@ -23,7 +23,7 @@
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <img src="img/control_panel.png" alt="" class="logotipo" />                    
+                    <%--<img src="img/control_panel.png" alt="" class="logotipo" />--%>                    
                 </div>
             </div><!-- /.container-fluid -->
         </nav>  

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="MasterPage.master" AutoEventWireup="true" CodeBehind="Materias.aspx.cs" Inherits="AgenciaNoticasN.Materias.MinhasMaterias" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="MasterPage.master" AutoEventWireup="true" CodeBehind="Materias.aspx.cs" Inherits="AgenciaNoticasN.Admin.MinhasMaterias" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -9,7 +9,7 @@
         
         <div class="col-md-12 form-group">
             <h2>Matérias cadastradas</h2>
-            <asp:GridView ID="gdvMateria" runat="server" AutoGenerateColumns="False" CssClass="table table-hover" BorderWidth="0px" GridLines="None">
+            <asp:GridView ID="gdvMateria" runat="server" AutoGenerateColumns="False" CssClass="table table-hover" BorderWidth="0px" GridLines="None" AllowPaging="True" EmptyDataText="Nenhuma matéria cadastrada." PageSize="7">
             <Columns>
                 <asp:BoundField DataField="codMateria" HeaderText="Código" />
                 <asp:BoundField DataField="nome" HeaderText="Nome" />
@@ -30,9 +30,9 @@
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
-                <EmptyDataTemplate>
+                <%--<EmptyDataTemplate>
                     Nenhuma matéria cadastrada.
-                </EmptyDataTemplate>
+                </EmptyDataTemplate>--%>
             </asp:GridView>
         </div>
 

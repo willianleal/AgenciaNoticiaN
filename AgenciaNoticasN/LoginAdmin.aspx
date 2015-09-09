@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="True" CodeBehind="Login.aspx.cs" Inherits="AgenciaNoticasN.Login" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="True" CodeBehind="LoginAdmin.aspx.cs" Inherits="AgenciaNoticasN.LoginAdmin" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         function openModal() {
@@ -10,14 +10,13 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <div class="log">
                     <asp:Login ID="Login1" runat="server" FailureText="Usuário e/ou Senha incorreto" Width="85%"
-                        CssClass="form-signin" DisplayRememberMe="False" OnAuthenticate="Login1_Authenticate" DestinationPageUrl="~/Materias/Home.aspx">
+                        CssClass="form-signin" DisplayRememberMe="False" OnAuthenticate="Login1_Authenticate" DestinationPageUrl="~/Admin/HomeAdmin.aspx">
                         <%--LoginButtonText="Entrar" PasswordLabelText="Senha:" PasswordRequiredErrorMessage="Senha é requerida" TitleText="Login" 
                         UserNameLabelText="Usuário:" UserNameRequiredErrorMessage="Usuário é requerido">--%>
                          

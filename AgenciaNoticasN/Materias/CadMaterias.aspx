@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Materias/MasterPage.master" AutoEventWireup="true" CodeBehind="CadMaterias.aspx.cs" Inherits="AgenciaNoticasN.Materias.CadMaterias" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Materias/MasterPage.master" AutoEventWireup="true" CodeBehind="CadMaterias.aspx.cs" Inherits="AgenciaNoticasN.Admin.CadMaterias" %>
 
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 
@@ -15,6 +15,18 @@
         <div class="col-md-12 form-group">
             <h2>Cadastro de matérias</h2> 
         </div>
+
+        <asp:Panel ID="pnDados" runat="server"  Visible="false">
+            <div class="col-md-12 form-group">
+                <label class="control-label">Status:</label>
+                <asp:Label ID="lblStatus" runat="server" Text="lblStatus" CssClass="control-label"></asp:Label>  
+            </div>
+
+            <div class="col-md-12 form-group">
+                <label class="control-label">Jornalista:</label>
+                <asp:Label ID="lblJornalista" runat="server" Text="lblJornalista" CssClass="control-label"></asp:Label>  
+            </div>
+        </asp:Panel>
 
         <div class="col-md-12 form-group">
             <label class="control-label">Seção:</label>    
@@ -39,11 +51,10 @@
             </ajaxToolkit:HtmlEditorExtender>
         </div>
           
-
     </div>
     <div class="row">
         <div class="col-md-2 form-group pull-right">
-            <asp:LinkButton ID="lkGravar" runat="server" Text="Gravar" CssClass="btn btn-primary" OnClick="lkGravar_Click"></asp:LinkButton>
+            <asp:LinkButton ID="lkGravar" runat="server" Text="Gravar" CssClass="btn btn-primary pull-right" OnClick="lkGravar_Click"></asp:LinkButton>
         </div>
     </div>
 </asp:Content>

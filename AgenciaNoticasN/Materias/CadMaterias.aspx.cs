@@ -7,17 +7,17 @@ using System.Web.UI.WebControls;
 using BLL;
 using POCO;
 
-namespace AgenciaNoticasN.Materias
+namespace AgenciaNoticasN.Admin
 {
     public partial class CadMaterias : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["nomeSession"] == null)
-            //{
-            //    Response.Redirect("~/SessionOut.aspx");
-            //}
-            //else
+            if (Session["email"] == null)
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+            else
             if (!IsPostBack)
             {
                 popularSecoes();
@@ -28,6 +28,8 @@ namespace AgenciaNoticasN.Materias
                 {
                     //carrega dados da pessoa
                     popularMateria(int.Parse(Session["codMateria"].ToString()));
+
+                    pnDados.Visible = true;
                 }
             }
         }
@@ -62,7 +64,10 @@ namespace AgenciaNoticasN.Materias
             materia = bll.listar(codMateria);
 
             ddlSecao.SelectedValue = materia[0].codSecao.ToString();
-            txtNome.Text = materia[0].nome;
+            txtNome.Text           = materia[0].nome;
+            txtMateriaEscrita.Text = materia[0].materiaEscrita;
+            lblStatus.Text         = materia[0].status;
+            lblJornalista.Text     = materia[0].Jornalista;
         }
 
         protected void lkGravar_Click(object sender, EventArgs e)

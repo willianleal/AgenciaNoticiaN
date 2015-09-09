@@ -25,5 +25,7 @@ namespace POCO
         public DateTime dataCadastro { get; set; }
 
         public string senha { get; set; }
+
+        public bool administrador { get; set; }
     }
 }

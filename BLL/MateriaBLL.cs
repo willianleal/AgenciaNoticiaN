@@ -10,44 +10,18 @@ namespace BLL
 {
     public class MateriaBLL
     {
-        private MateriaDAL dao = null;
+        private MateriaDAL dal = null;
 
         public MateriaBLL()
         {
-            dao = new MateriaDAL();
-        }
-
-        public bool inserir(int codMateria, int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, string nome, string materiaEscrita, 
-            int codSecao, string status, DateTime dataCadastro, DateTime dataAtualizacao)
-        {
-            try
-            {
-                return dao.inserir(codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, nome, materiaEscrita, codSecao, status, dataCadastro, dataAtualizacao);
-            }
-            catch
-            {
-                return false;
-            }
+            dal = new MateriaDAL();
         }
 
         public bool inserir(Materia dados)
         {
             try
             {
-                return dao.inserir(dados);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool alterar(int codMateria, int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, string nome, string materiaEscrita, 
-            int codSecao, string status, DateTime dataCadastro, DateTime dataAtualizacao)
-        {
-            try
-            {
-                return dao.alterar(codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, nome, materiaEscrita, codSecao, status, dataCadastro, dataAtualizacao);
+                return dal.inserir(dados);
             }
             catch
             {
@@ -59,7 +33,7 @@ namespace BLL
         {
             try
             {
-                return dao.alterar(dados, codMateria);
+                return dal.alterar(dados, codMateria);
             }
             catch
             {
@@ -71,7 +45,7 @@ namespace BLL
         {
             try
             {
-                return dao.deletar(codMateria);
+                return dal.deletar(codMateria);
             }
             catch
             {
@@ -83,7 +57,7 @@ namespace BLL
         {
             try
             {
-                return dao.listar(codMateria);
+                return dal.listar(codMateria);
             }
             catch
             {
@@ -95,7 +69,7 @@ namespace BLL
         {
             try
             {
-                return dao.listarMateriaPessoa(codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, codSecao);
+                return dal.listarMateriaPessoa(codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, codSecao);
             }
             catch
             {

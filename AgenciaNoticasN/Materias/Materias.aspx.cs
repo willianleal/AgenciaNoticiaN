@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BLL;
 
-namespace AgenciaNoticasN.Materias
+namespace AgenciaNoticasN.Admin
 {
     public partial class MinhasMaterias : System.Web.UI.Page
     {
@@ -15,8 +15,16 @@ namespace AgenciaNoticasN.Materias
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["CodPessoa"] = pessoaBll.getPessoaEmail(Session["email"].ToString());
-            popularMateria();
+            if (Session["email"] == null)
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+            else
+            if (!IsPostBack)
+            {
+                Session["CodPessoa"] = pessoaBll.getPessoaEmail(Session["email"].ToString());
+                popularMateria();
+            }
         }
 
         protected void popularMateria()
@@ -35,7 +43,8 @@ namespace AgenciaNoticasN.Materias
             int codMateria = int.Parse(commandArgs[0]);
 
             materiaBll.deletar(codMateria);
-            gdvMateria.DataBind();
+            
+            popularMateria();
         }
 
         protected void lbAlterar_Click(object sender, EventArgs e)
@@ -45,7 +54,7 @@ namespace AgenciaNoticasN.Materias
 
             int codMateria = int.Parse(commandArgs[0]);
 
-            Response.Redirect("CadMateria.aspx?key=" + Util.criptUrl(codMateria.ToString()));
+            Response.Redirect("CadMaterias.aspx?key=" + Util.criptUrl(codMateria.ToString()));
         }
 
         protected void lkNovo_Click(object sender, EventArgs e)

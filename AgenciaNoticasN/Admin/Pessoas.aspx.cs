@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using BLL;
 using POCO;
 
-namespace AgenciaNoticasN.Materias
+namespace AgenciaNoticasN.Admin
 {
     public partial class Pessoas : System.Web.UI.Page
     {
@@ -15,7 +15,15 @@ namespace AgenciaNoticasN.Materias
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            popularPessoa();
+            if (Session["email"] == null)
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+            else
+            if (!IsPostBack)
+            {
+                popularPessoa();
+            } 
         }
 
         protected void showMessageBox(string message)
@@ -30,8 +38,6 @@ namespace AgenciaNoticasN.Materias
 
         protected void popularPessoa()
         {
-            int codPessoa = int.Parse(Session["CodPessoa"].ToString());
-
             gdvPessoa.DataSource = pessoaBll.listar();
             gdvPessoa.DataBind();
         }
@@ -59,7 +65,8 @@ namespace AgenciaNoticasN.Materias
             int codPessoa = int.Parse(commandArgs[0]);
 
             pessoaBll.deletar(codPessoa);
-            gdvPessoa.DataBind();
+
+            popularPessoa();
         }
     }
 }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AgenciaNoticasN.Materias {
+namespace AgenciaNoticasN.Admin {
     
     
     public partial class Secoes {

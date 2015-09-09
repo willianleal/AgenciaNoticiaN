@@ -7,27 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AgenciaNoticasN.Materias {
+namespace AgenciaNoticasN {
     
     
-    public partial class Pessoas {
+    public partial class LoginAdmin {
         
         /// <summary>
-        /// gdvPessoa control.
+        /// Login1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gdvPessoa;
-        
-        /// <summary>
-        /// lkNovo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lkNovo;
+        protected global::System.Web.UI.WebControls.Login Login1;
     }
 }

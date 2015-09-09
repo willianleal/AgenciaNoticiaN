@@ -10,42 +10,18 @@ namespace BLL
 {
     public class PessoaBLL
     {
-        private PessoaDAL dao = null;
+        private PessoaDAL dal = null;
 
         public PessoaBLL()
         {
-            dao = new PessoaDAL();
-        }
-
-        public bool inserir(int codPessoa, string nome, string funcao, string ddd, string telefone, string email, bool ativo, DateTime dataCadastro, string senha)
-        {
-            try
-            {
-                return dao.inserir(codPessoa, nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha);
-            }
-            catch
-            {
-                return false;
-            }
+            dal = new PessoaDAL();
         }
 
         public bool inserir(Pessoa dados)
         {
             try
             {
-                return dao.inserir(dados);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool alterar(int codPessoa, string nome, string funcao, string ddd, string telefone, string email, bool ativo, DateTime dataCadastro, string senha)
-        {
-            try
-            {
-                return dao.alterar(codPessoa, nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha);
+                return dal.inserir(dados);
             }
             catch
             {
@@ -57,7 +33,7 @@ namespace BLL
         {
             try
             {
-                return dao.alterar(dados, codPessoa);
+                return dal.alterar(dados, codPessoa);
             }
             catch
             {
@@ -69,7 +45,7 @@ namespace BLL
         {
             try
             {
-                return dao.deletar(codPessoa);
+                return dal.deletar(codPessoa);
             }
             catch
             {
@@ -81,7 +57,7 @@ namespace BLL
         {
             try
             {
-                return dao.listar();
+                return dal.listar();
             }
             catch
             {
@@ -93,7 +69,7 @@ namespace BLL
         {
             try
             {
-                return dao.listar(codPessoa);
+                return dal.listar(codPessoa);
             }
             catch
             {
@@ -101,7 +77,7 @@ namespace BLL
             }
         }
 
-        public string validarLogin(string email, string senha)
+        public string validarLogin(string email, string senha, bool admin)
         {
             if (email.Equals("") || senha.Equals(""))
             {
@@ -110,7 +86,7 @@ namespace BLL
             else
             {
                 string senhaCript = Util.GetMD5Hash(senha);
-                return dao.validarAcesso(email, senhaCript);
+                return dal.validarAcesso(email, senhaCript, admin);
             }
         }
 
@@ -118,7 +94,7 @@ namespace BLL
         {
             try
             {
-                return dao.getPessoaEmail(email);
+                return dal.getPessoaEmail(email);
             }
             catch
             {

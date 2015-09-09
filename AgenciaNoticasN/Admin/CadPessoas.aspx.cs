@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using BLL;
 using POCO;
 
-namespace AgenciaNoticasN.Materias
+namespace AgenciaNoticasN.Admin
 {
     public partial class CadPessoas : System.Web.UI.Page
     {
@@ -68,7 +68,8 @@ namespace AgenciaNoticasN.Materias
             dados.email        = txtEmail.Text;
             dados.ativo        = chkAtivo.Checked;
             dados.dataCadastro = DateTime.Now;
-            dados.senha        = txtSenha.Text;
+            dados.senha        = Util.GetMD5Hash(txtSenha.Text);
+            //dados.senha        = ;
 
             //Inserindo
             if (Session["codPessoa"] == null)

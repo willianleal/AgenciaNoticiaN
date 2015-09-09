@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Materias/MasterPage.master" AutoEventWireup="true" CodeBehind="CadPessoas.aspx.cs" Inherits="AgenciaNoticasN.Materias.CadPessoas" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterPage.master" AutoEventWireup="True" CodeBehind="CadPessoas.aspx.cs" Inherits="AgenciaNoticasN.Admin.CadPessoas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -50,7 +50,7 @@
             <%--<asp:CheckBox ID="chkAtivo" runat="server" Text="Ativo" CssClass="checkbox" />--%>
             <label class="control-label">Ativo:</label>
 
-            <asp:CheckBox CssClass="checkbox checkbox-inline" ID="chkAtivo" AutoPostBack="true" runat="server" />
+            <asp:CheckBox CssClass="checkbox checkbox-inline pull-left" ID="chkAtivo" AutoPostBack="true" runat="server" />
 
 <%--            <p><label class="control-label"> </label> <asp:Label ID="lbInicioVisualizarLocal" runat="server" CssClass="control-label" ></asp:Label> </p>
             <asp:CheckBox CssClass="checkbox checkbox-inline pull-left margR_20" ID="chkDataAlterar" AutoPostBack="true" OnCheckedChanged="chkDataAlterar_Check" runat="server" Text="Alterar/Inserir Data de Inicio" />--%>
@@ -65,7 +65,7 @@
     </div>
     <div class="row">
         <div class="col-md-2 form-group pull-right">
-            <asp:LinkButton ID="lkGravar" runat="server" Text="Gravar" CssClass="btn btn-primary" OnClick="lkGravar_Click"></asp:LinkButton>
+            <asp:LinkButton ID="lkGravar" runat="server" Text="Gravar" CssClass="btn btn-primary pull-right" OnClick="lkGravar_Click"></asp:LinkButton>
         </div>
     </div>
 </asp:Content>

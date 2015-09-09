@@ -8,21 +8,21 @@ using BLL;
 
 namespace AgenciaNoticasN
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class LoginAdmin : System.Web.UI.Page
     {
         private PessoaBLL bll = new PessoaBLL();
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
-                
+
         }
 
         protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
         {
-            string respLogin = bll.validarLogin(Login1.UserName, Login1.Password, false);
+            string respLogin = bll.validarLogin(Login1.UserName, Login1.Password, true);
             //string senha = "eternidade77";
             //string email = "willianleal@gmail.com";
-            //string respLogin = bll.validarLogin(email, senha, false);
+            //string respLogin = bll.validarLogin(email, senha, true);
 
             if (respLogin.Equals(""))
             {

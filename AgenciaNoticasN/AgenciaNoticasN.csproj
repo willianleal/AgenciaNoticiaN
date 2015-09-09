@@ -67,11 +67,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\HomeAdmin.aspx" />
+    <Content Include="LoginAdmin.aspx" />
     <Content Include="css\bootstrap-theme.css" />
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
-    <Content Include="css\global.css" />
     <Content Include="css\style.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="js\bootstrap.js" />
@@ -82,11 +83,12 @@
     <Content Include="Login.aspx" />
     <Content Include="MasterPage.master" />
     <Content Include="Materias\CadMaterias.aspx" />
-    <Content Include="Materias\CadPessoas.aspx" />
-    <Content Include="Materias\CadSecoes.aspx" />
+    <Content Include="Admin\CadPessoas.aspx" />
+    <Content Include="Admin\CadSecoes.aspx" />
+    <Content Include="Materias\Home.aspx" />
     <Content Include="Materias\Materias.aspx" />
-    <Content Include="Materias\Pessoas.aspx" />
-    <Content Include="Materias\Secoes.aspx" />
+    <Content Include="Admin\Pessoas.aspx" />
+    <Content Include="Admin\Secoes.aspx" />
     <Content Include="Materias\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -98,6 +100,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Materias\MasterPage.master" />
     <Content Include="packages.config" />
+    <Content Include="Admin\MasterPage.master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -111,19 +114,46 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="Admin\CadPessoas.aspx.designer.cs">
+      <DependentUpon>CadPessoas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\CadSecoes.aspx.designer.cs">
+      <DependentUpon>CadSecoes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\HomeAdmin.aspx.cs">
+      <DependentUpon>HomeAdmin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\HomeAdmin.aspx.designer.cs">
+      <DependentUpon>HomeAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Pessoas.aspx.designer.cs">
+      <DependentUpon>Pessoas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Secoes.aspx.designer.cs">
+      <DependentUpon>Secoes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MasterPage.master.cs">
+    <Compile Include="LoginAdmin.aspx.cs">
+      <DependentUpon>LoginAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MasterPage.master.cs">
       <DependentUpon>MasterPage.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MasterPage.master.designer.cs">
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginAdmin.aspx.designer.cs">
+      <DependentUpon>LoginAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPage.master.cs">
       <DependentUpon>MasterPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Materias\CadMaterias.aspx.cs">
       <DependentUpon>CadMaterias.aspx</DependentUpon>
@@ -132,26 +162,24 @@
     <Compile Include="Materias\CadMaterias.aspx.designer.cs">
       <DependentUpon>CadMaterias.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Materias\CadPessoas.aspx.cs">
+    <Compile Include="Admin\CadPessoas.aspx.cs">
       <DependentUpon>CadPessoas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Materias\CadPessoas.aspx.designer.cs">
-      <DependentUpon>CadPessoas.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Materias\CadSecoes.aspx.cs">
+    <Compile Include="Admin\CadSecoes.aspx.cs">
       <DependentUpon>CadSecoes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Materias\CadSecoes.aspx.designer.cs">
-      <DependentUpon>CadSecoes.aspx</DependentUpon>
+    <Compile Include="Materias\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Materias\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Materias\MasterPage.master.cs">
       <DependentUpon>MasterPage.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Materias\MasterPage.master.designer.cs">
-      <DependentUpon>MasterPage.master</DependentUpon>
     </Compile>
     <Compile Include="Materias\Materias.aspx.cs">
       <DependentUpon>Materias.aspx</DependentUpon>
@@ -160,19 +188,13 @@
     <Compile Include="Materias\Materias.aspx.designer.cs">
       <DependentUpon>Materias.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Materias\Pessoas.aspx.cs">
+    <Compile Include="Admin\Pessoas.aspx.cs">
       <DependentUpon>Pessoas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Materias\Pessoas.aspx.designer.cs">
-      <DependentUpon>Pessoas.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Materias\Secoes.aspx.cs">
+    <Compile Include="Admin\Secoes.aspx.cs">
       <DependentUpon>Secoes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Materias\Secoes.aspx.designer.cs">
-      <DependentUpon>Secoes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
