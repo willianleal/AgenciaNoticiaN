@@ -27,6 +27,7 @@ namespace AgenciaNoticasN
             if (respLogin.Equals(""))
             {
                 Session["email"] = Login1.UserName;
+                Session["CodPessoaLogada"] = bll.getPessoaEmail(Session["email"].ToString());
                 //Session["email"] = email;
                 e.Authenticated = true;
             }

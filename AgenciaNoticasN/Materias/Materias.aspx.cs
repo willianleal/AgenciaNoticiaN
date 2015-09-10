@@ -22,16 +22,30 @@ namespace AgenciaNoticasN.Admin
             else
             if (!IsPostBack)
             {
-                Session["CodPessoa"] = pessoaBll.getPessoaEmail(Session["email"].ToString());
                 popularMateria();
             }
         }
 
         protected void popularMateria()
         {
-            int codPessoa = int.Parse(Session["CodPessoa"].ToString());
+            //Pega o código da pessoa logada
+            int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
 
-            gdvMateria.DataSource = materiaBll.listarMateriaPessoa(codPessoa, 0, 0, 0);
+            //Pega a função da pessoa logada
+            string funcao = pessoaBll.getFuncaoPessoa(codPessoa);
+
+            if (funcao.Equals("Jornalista"))
+                gdvMateria.DataSource = materiaBll.listarMateriaJornalista(codPessoa);
+            else
+                if (funcao.Equals("Revisor"))
+                    gdvMateria.DataSource = materiaBll.listarMateriaRevisor(codPessoa);
+                //else
+                //    if (funcao.Equals("Publicador"))
+                //        gdvMateria.DataSource = materiaBll.listarMateriaPessoa(0, 0, codPessoa, 0);
+                //    else
+                //        if (funcao.Equals("Gerente"))
+                //            gdvMateria.DataSource = materiaBll.listarMateriaPessoa(0, 0, 0, codPessoa);
+
             gdvMateria.DataBind();
         }
 
@@ -42,8 +56,13 @@ namespace AgenciaNoticasN.Admin
 
             int codMateria = int.Parse(commandArgs[0]);
 
-            materiaBll.deletar(codMateria);
-            
+            int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
+
+            if (pessoaBll.getFuncaoPessoa(codPessoa).Equals("Jornalista"))
+                materiaBll.deletar(codMateria);
+            else
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Somente jornalistas possuem permissão para deletar matérias.');", true);
+
             popularMateria();
         }
 
@@ -54,12 +73,28 @@ namespace AgenciaNoticasN.Admin
 
             int codMateria = int.Parse(commandArgs[0]);
 
-            Response.Redirect("CadMaterias.aspx?key=" + Util.criptUrl(codMateria.ToString()));
+            int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
+
+            if (pessoaBll.getFuncaoPessoa(codPessoa).Equals("Jornalista"))
+                Response.Redirect("CadMaterias.aspx?key=" + Util.criptUrl(codMateria.ToString()));
+            else
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Somente jornalistas possuem permissão para alterar matérias.');", true);
         }
 
         protected void lkNovo_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CadMaterias.aspx");
+            int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
+
+            if (pessoaBll.getFuncaoPessoa(codPessoa).Equals("Jornalista"))
+                Response.Redirect("CadMaterias.aspx");
+            else
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Somente jornalistas possuem permissão para cadastrar matérias.');", true);
         }
+
+        protected void lbRevisar_Click(object sender, EventArgs e)
+        {
+            //
+        }
+
     }
 }

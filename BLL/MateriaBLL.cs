@@ -65,11 +65,35 @@ namespace BLL
             }
         }
 
-        public List<Materia> listarMateriaPessoa(int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, int codSecao)
+        public List<Materia> listarMateriaPessoa(int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, int codPessoa_Gerente)
         {
             try
             {
-                return dal.listarMateriaPessoa(codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, codSecao);
+                return dal.listarMateriaPessoa(codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, codPessoa_Gerente);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<Materia> listarMateriaJornalista(int codPessoa_Jornalista)
+        {
+            try
+            {
+                return dal.listarMateriaJornalista(codPessoa_Jornalista);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<Materia> listarMateriaRevisor(int codPessoa_Revisor)
+        {
+            try
+            {
+                return dal.listarMateriaRevisor(codPessoa_Revisor);
             }
             catch
             {

@@ -307,6 +307,40 @@ namespace DAL
             {
                 conexao.Close();
             }
+        }
+
+        public string getFuncaoPessoa(int codPessoa)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+            string SQL = "select Funcao from Pessoa where codPessoa=@codPessoa";
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+
+            comando.Parameters.AddWithValue("@codPessoa", codPessoa);
+
+            try
+            {
+                conexao.Open();
+                SqlDataReader resultado = comando.ExecuteReader();
+                if (resultado.Read())
+                {
+                    Pessoa p = new Pessoa();
+                    p.funcao = resultado["Funcao"].ToString();
+
+                    return p.funcao;
+                }
+                else
+                {
+                    return "Pessoa não encontrada";
+                }
+            }
+            catch
+            {
+                return "Erro ao procurar pessoa";
+            }
+            finally
+            {
+                conexao.Close();
+            }
 
         }
 

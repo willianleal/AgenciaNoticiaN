@@ -102,5 +102,17 @@ namespace BLL
             }
         }
 
+        public string getFuncaoPessoa(int codPessoa)
+        {
+            try
+            {
+                return dal.getFuncaoPessoa(codPessoa);
+            }
+            catch
+            {
+                return "Erro ao procurar pessoa";
+            }
+        }
+
     }
 }

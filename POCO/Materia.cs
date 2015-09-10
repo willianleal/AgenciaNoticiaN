@@ -28,6 +28,8 @@ namespace POCO
 
         public DateTime dataAtualizacao { get; set; }
 
+        public string revisao { get; set; }
+
         //Transients
         public string Jornalista { get; set; }
         
