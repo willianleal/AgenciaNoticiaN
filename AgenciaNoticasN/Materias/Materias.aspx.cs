@@ -93,7 +93,45 @@ namespace AgenciaNoticasN.Admin
 
         protected void lbRevisar_Click(object sender, EventArgs e)
         {
-            //
+            LinkButton id = (LinkButton)sender;
+            string[] commandArgs = id.CommandArgument.ToString().Split(new char[] { ',' });//0=codMateria
+
+            int codMateria = int.Parse(commandArgs[0]);
+            string status = commandArgs[1];
+            string revisao = commandArgs[2];
+
+            int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
+            string funcaoPessoaLogada = pessoaBll.getFuncaoPessoa(codPessoa);
+
+            if (status.Equals("Revisao"))
+            {
+                if (funcaoPessoaLogada.Equals("Jornalista") && revisao.Equals("R"))
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('A matéria está sendo revisada pelo Revisor, aguarde ela ser liberada.');", true);
+                else
+                    if (funcaoPessoaLogada.Equals("Revisor") && revisao.Equals("J"))
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('A matéria está sendo revisada pelo Jornalista, aguarde ela ser liberada.');", true);
+                    else
+                        if (funcaoPessoaLogada.Equals("Revisor") && revisao.Equals("R"))
+                            Response.Redirect("RevisaoMateria.aspx?key=" + Util.criptUrl(codMateria.ToString()));
+                        else
+                            if (funcaoPessoaLogada.Equals("Jornalista") && revisao.Equals("J"))
+                                Response.Redirect("RevisaoMateria.aspx?key=" + Util.criptUrl(codMateria.ToString()));
+                            else
+                                if (!funcaoPessoaLogada.Equals("Jornalista") || !funcaoPessoaLogada.Equals("Revisor"))
+                                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Somente jornalistas e Revisores podem revisar matérias.');", true);
+            }
+            else
+            if (status.Equals("Proposta"))
+            {
+                if (funcaoPessoaLogada.Equals("Revisor"))
+                    Response.Redirect("RevisaoMateria.aspx?key=" + Util.criptUrl(codMateria.ToString()));
+                else
+                    if (funcaoPessoaLogada.Equals("Jornalista"))
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Antes da sua revisão a matéria precisa ser revisada por um Revisor.');", true);
+                    else
+                        if (!funcaoPessoaLogada.Equals("Jornalista") || !funcaoPessoaLogada.Equals("Revisor"))
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Somente jornalistas e Revisores podem revisar matérias.');", true);
+            }
         }
 
     }

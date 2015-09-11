@@ -387,5 +387,89 @@ namespace DAL
                 conexao.Close();
             }
         }
+
+        public bool inserirRevisao(Materia dados, int codMateria)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = @"UPDATE Materia SET nome=@nome, materiaEscrita=@materiaEscrita, status=@status, dataAtualizacao=@dataAtualizacao, revisao=@revisao WHERE codMateria=@codMateria";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@codMateria", codMateria);
+            comando.Parameters.AddWithValue("@nome", dados.nome);
+            comando.Parameters.AddWithValue("@materiaEscrita", dados.materiaEscrita);
+            comando.Parameters.AddWithValue("@status", dados.status);
+            comando.Parameters.AddWithValue("@dataAtualizacao", dados.dataAtualizacao);
+            comando.Parameters.AddWithValue("@revisao", dados.revisao);
+
+            foreach (SqlParameter Parameter in comando.Parameters)
+            {
+                if (Parameter.Value == null)
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+            }
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public bool inserirRevisorMateria(Materia dados, int codMateria)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = @"UPDATE Materia SET codPessoa_Revisor=@codPessoa_Revisor, revisao=@revisao, status=@status WHERE codMateria=@codMateria";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@codMateria", codMateria);
+            comando.Parameters.AddWithValue("@codPessoa_Revisor", dados.codPessoa_Revisor);
+            comando.Parameters.AddWithValue("@revisao", dados.revisao);
+            comando.Parameters.AddWithValue("@status", dados.status);
+
+            foreach (SqlParameter Parameter in comando.Parameters)
+            {
+                if (Parameter.Value == null)
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+            }
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
     }
 }

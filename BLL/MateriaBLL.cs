@@ -100,5 +100,29 @@ namespace BLL
                 return null;
             }
         }
+
+        public bool inserirRevisao(Materia dados, int codMateria)
+        {
+            try
+            {
+                return dal.inserirRevisao(dados, codMateria);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool inserirRevisorMateria(Materia dados, int codMateria)
+        {
+            try
+            {
+                return dal.inserirRevisorMateria(dados, codMateria);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
