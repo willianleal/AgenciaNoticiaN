@@ -28,6 +28,7 @@ namespace AgenciaNoticasN.Materias
                     {
                         //carrega dados da pessoa
                         popularMateria(int.Parse(Session["codMateria"].ToString()));
+                        popularComentarios(int.Parse(Session["codMateria"].ToString()));
 
                         if (lblRevisor.Text.Equals(""))
                         {
@@ -73,8 +74,12 @@ namespace AgenciaNoticasN.Materias
         protected void lkGravar_Click(object sender, EventArgs e)
         {
             Materia dados = new Materia();
+            Comentario comentario = new Comentario();
+
             MateriaBLL bll = new MateriaBLL();
+            ComentarioBLL comentarioBll = new ComentarioBLL();
             
+            //Dados da Matéria revisada
             dados.nome = txtNome.Text;
             dados.materiaEscrita = txtMateriaEscrita.Text;
             dados.status = "Revisao";
@@ -82,7 +87,14 @@ namespace AgenciaNoticasN.Materias
             //A revisão passa a ser do jornalista
             dados.revisao = "J";
 
-            if (bll.inserirRevisao(dados, int.Parse(Session["codMateria"].ToString())))
+            //Dados do comentario
+            comentario.codMateria   = int.Parse(Session["codMateria"].ToString());
+            comentario.codPessoa    = int.Parse(Session["CodPessoaLogada"].ToString());
+            comentario.titulo       = txtDescricao.Text;
+            comentario.comentario   = txtComentario.Text;
+            comentario.dataCadastro = DateTime.Now;  
+
+            if (bll.inserirRevisao(dados, int.Parse(Session["codMateria"].ToString())) && (comentarioBll.inserir(comentario)))
                 Response.Redirect("Materias.aspx");
             else
                 showMessageBox("Erro ao gravar a revisão!");
@@ -118,6 +130,14 @@ namespace AgenciaNoticasN.Materias
             {
                 showMessageBox("Erro ao gravar a revisão!");
             }       
+        }
+
+        protected void popularComentarios(int codMateria)
+        {
+            ComentarioBLL comentarioBll = new ComentarioBLL();
+
+            dtlComentarios.DataSource = comentarioBll.listarComentarioMateria(codMateria);
+            dtlComentarios.DataBind();
         }
     }
 }

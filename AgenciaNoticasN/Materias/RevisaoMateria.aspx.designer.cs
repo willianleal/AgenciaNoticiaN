@@ -103,6 +103,33 @@ namespace AgenciaNoticasN.Materias {
         protected global::AjaxControlToolkit.HtmlEditorExtender TextBox1_HtmlEditorExtender;
         
         /// <summary>
+        /// txtDescricao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDescricao;
+        
+        /// <summary>
+        /// txtComentario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtComentario;
+        
+        /// <summary>
+        /// dtlComentarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList dtlComentarios;
+        
+        /// <summary>
         /// lkGravar control.
         /// </summary>
         /// <remarks>

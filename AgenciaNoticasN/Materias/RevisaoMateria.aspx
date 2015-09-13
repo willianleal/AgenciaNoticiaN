@@ -43,22 +43,50 @@
         </div>  
 
         <div class="col-md-12 form-group">
-            <label class="control-label">Nome:</label>    
+            <label class="control-label">Título:</label>    
             
-            <asp:TextBox ID="txtNome" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+            <asp:TextBox ID="txtNome" runat="server" CssClass="form-control" MaxLength="50" placeholder="Título da matéria"></asp:TextBox>
         </div>
 
         <div class="col-md-12 form-group">
             <%--<label class="control-label">Matéria:</label>--%>
             
-            <asp:TextBox ID="txtMateriaEscrita" runat="server" CssClass="form-control" TextMode="MultiLine" Columns="120" Rows="10"></asp:TextBox>
+            <asp:TextBox ID="txtMateriaEscrita" runat="server" CssClass="form-control" TextMode="MultiLine" Columns="120" Rows="6" placeholder="Texto da matéria"></asp:TextBox>
             
             <ajaxToolkit:HtmlEditorExtender ID="TextBox1_HtmlEditorExtender" runat="server" BehaviorID="txtMateriaEscrita_HtmlEditorExtender" TargetControlID="txtMateriaEscrita">
             </ajaxToolkit:HtmlEditorExtender>
         </div>
+
+        <%--    Comentário   --%>
+
+        <div class="col-md-12 form-group">
+            <label class="control-label">Descrição:</label>    
+            
+            <asp:TextBox ID="txtDescricao" runat="server" CssClass="form-control" MaxLength="50" placeholder="Escreva uma descrição para a revisão. Ex: Envio inicial, Revisão final..."></asp:TextBox>
+        </div>
+
+        <div class="col-md-12 form-group">
+            <label class="control-label">Comentário:</label>
+            
+            <asp:TextBox ID="txtComentario" runat="server" CssClass="form-control" TextMode="MultiLine" Columns="120" Rows="3" placeholder="Escreva um comentário sobre a revisão feita."></asp:TextBox>
+        </div>
+        <div class="col-md-12 form-group">
+            <label class="control-label">Comentários...</label>    
+            
+            <asp:DataList ID="dtlComentarios" runat="server">
+                <ItemTemplate>
+                    <asp:Label ID="lblTitulo" runat="server" CssClass="control-label" Text='<%# Eval("titulo") + " - " + Eval("dataCadastro") %>'></asp:Label>
+                    
+                    <br />
+                    <asp:Label ID="lblComentario" runat="server" CssClass="control-label" Text='<%# Eval("comentario") %>'></asp:Label>    
+                </ItemTemplate>
+            </asp:DataList>
+        </div>
+
         <div class="col-md-2 form-group pull-right">
             <asp:LinkButton ID="lkGravar" runat="server" Text="Enviar Revisão" CssClass="btn btn-primary pull-right" OnClick="lkGravar_Click"></asp:LinkButton>
         </div>
+            
         </asp:Panel>  
     </div>
     <%--<div class="row">

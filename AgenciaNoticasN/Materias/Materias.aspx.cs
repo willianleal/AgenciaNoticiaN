@@ -35,10 +35,17 @@ namespace AgenciaNoticasN.Admin
             string funcao = pessoaBll.getFuncaoPessoa(codPessoa);
 
             if (funcao.Equals("Jornalista"))
+            {
                 gdvMateria.DataSource = materiaBll.listarMateriaJornalista(codPessoa);
+            }
             else
-                if (funcao.Equals("Revisor"))
-                    gdvMateria.DataSource = materiaBll.listarMateriaRevisor(codPessoa);
+            //if (funcao.Equals("Revisor"))
+            {
+                gdvMateria.DataSource = materiaBll.listarMateriaRevisor(codPessoa);
+                gdvMateria.Columns[8].Visible = false;
+                gdvMateria.Columns[9].Visible = false;
+                lkNovo.Visible = false;
+            }
                 //else
                 //    if (funcao.Equals("Publicador"))
                 //        gdvMateria.DataSource = materiaBll.listarMateriaPessoa(0, 0, codPessoa, 0);
