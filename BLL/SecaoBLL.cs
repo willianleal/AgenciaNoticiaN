@@ -10,42 +10,105 @@ namespace BLL
 {
     public class SecaoBLL
     {
-        private SecaoDAL dao = null;
+        private SecaoDAL dal = null;
 
         public SecaoBLL()
         {
-            dao = new SecaoDAL();
+            dal = new SecaoDAL();
         }
 
-        public bool inserir(Secao dados)
+        public string inserir(Secao dados)
         {
             try
             {
-                return dao.inserir(dados);
+                if (dados.nome.Equals(""))
+                {
+                    return "Informe o nome da seção.";
+                }
+                else
+                if (dados.codPessoa_Gerente.Equals(-1))
+                {
+                    return "Informe o gerente da seção.";
+                }
+                else
+                if (!Util.somenteLetras(dados.nome))
+                {
+                    return "O nome deve possuir apenas letras.";
+                }
+                else
+                if (dal.inserir(dados))
+                {
+                    return "";
+                }
+                else
+                {
+                    return "Erro ao cadastrar seção.";
+                }
             }
             catch
             {
-                return false;
+                return "Falha ao gravar dados: Entre em contato com o administrador.";
             }
+            
+
+            //try
+            //{
+            //    return dao.inserir(dados);
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
         }
 
-        public bool alterar(Secao dados, int codSecao)
+        public string alterar(Secao dados, int codSecao)
         {
             try
             {
-                return dao.alterar(dados, codSecao);
+                if (dados.nome.Equals(""))
+                {
+                    return "Informe o nome da seção.";
+                }
+                else
+                if (dados.codPessoa_Gerente.Equals(-1))
+                {
+                    return "Informe o gerente da seção.";
+                }
+                else
+                if (!Util.somenteLetras(dados.nome))
+                {
+                    return "O nome deve possuir apenas letras.";
+                }
+                else
+                if (dal.alterar(dados, codSecao))
+                {
+                    return "";
+                }
+                else
+                {
+                    return "Erro ao editar seção.";
+                }
             }
             catch
             {
-                return false;
+                return "Falha ao gravar dados: Entre em contato com o administrador.";
             }
+            
+            //try
+            //{
+            //    return dal.alterar(dados, codSecao);
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
         }
 
         public bool deletar(int codSecao)
         {
             try
             {
-                return dao.deletar(codSecao);
+                return dal.deletar(codSecao);
             }
             catch
             {
@@ -57,7 +120,7 @@ namespace BLL
         {
             try
             {
-                return dao.listar(codSecao);
+                return dal.listar(codSecao);
             }
             catch
             {
@@ -69,7 +132,7 @@ namespace BLL
         {
             try
             {
-                return dao.listar();
+                return dal.listar();
             }
             catch
             {

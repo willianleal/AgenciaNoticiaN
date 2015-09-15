@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace BLL
 {
@@ -67,6 +68,36 @@ namespace BLL
             MS.Read(plainBytes, 0, Convert.ToInt32(MS.Length));
             decStreAM.Close();
             return System.Text.Encoding.UTF8.GetString(plainBytes);
+        }
+
+        public static bool somenteNumeros(string palavra)
+        {
+            RegexOptions options = RegexOptions.None;
+            Regex rg = new Regex(@"^[0-9]+$", options);
+
+            if (rg.IsMatch(palavra))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool somenteLetras(string palavra)
+        {
+            RegexOptions options = RegexOptions.None;
+            Regex rg = new Regex(@"^[a-z\u00C0-\u00ff A-Z \s]+$", options);
+
+            if (rg.IsMatch(palavra))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

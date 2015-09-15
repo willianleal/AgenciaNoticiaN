@@ -17,28 +17,100 @@ namespace BLL
             dal = new MateriaDAL();
         }
 
-        public bool inserir(Materia dados)
+        public string inserir(Materia dados)
         {
             try
             {
-                return dal.inserir(dados);
+                if (dados.codSecao.Equals(-1))
+                {
+                    return "Informe a seção em que a matéria será publicada.";
+                }
+                else
+                if (dados.nome.Equals(""))
+                {
+                    return "Informe o nome da matéria.";
+                }
+                else
+                if (dados.materiaEscrita.Equals(""))
+                {
+                    return "Digite/Escreva a matéria.";
+                }
+                else
+                if (!Util.somenteLetras(dados.nome))
+                {
+                    return "O nome da matéria deve possuir apenas letras.";
+                }
+                else
+                if (dal.inserir(dados))
+                {
+                    return "";
+                }
+                else
+                {
+                    return "Erro ao cadastrar matéria.";
+                }
             }
             catch
             {
-                return false;
+                return "Falha ao gravar dados: Entre em contato com o administrador.";
             }
+            
+            //try
+            //{
+            //    return dal.inserir(dados);
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
         }
 
-        public bool alterar(Materia dados, int codMateria)
+        public string alterar(Materia dados, int codMateria)
         {
             try
             {
-                return dal.alterar(dados, codMateria);
+                if (dados.codSecao.Equals(-1))
+                {
+                    return "Informe a seção em que a matéria será publicada.";
+                }
+                else
+                if (dados.nome.Equals(""))
+                {
+                    return "Informe o nome da matéria.";
+                }
+                else
+                if (dados.materiaEscrita.Equals(""))
+                {
+                    return "Digite/Escreva a matéria.";
+                }
+                else
+                if (!Util.somenteLetras(dados.nome))
+                {
+                    return "O nome da matéria deve possuir apenas letras.";
+                }
+                else
+                if (dal.alterar(dados, codMateria))
+                {
+                    return "";
+                }
+                else
+                {
+                    return "Erro ao editar matéria.";
+                }
             }
             catch
             {
-                return false;
+                return "Falha ao gravar dados: Entre em contato com o administrador.";
             }
+            
+            //try
+            //{
+            //    return dal.alterar(dados, codMateria);
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
         }
 
         public bool deletar(int codMateria)

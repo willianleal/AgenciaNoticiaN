@@ -13,11 +13,11 @@ namespace AgenciaNoticasN.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["nomeSession"] == null)
-            //{
-            //    Response.Redirect("~/SessionOut.aspx");
-            //}
-            //else
+            if (Session["CodPessoaLogada"] == null)
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+            else
             if (!IsPostBack)
             {
                 popularGerente();
@@ -28,7 +28,6 @@ namespace AgenciaNoticasN.Admin
                 {
                     //carrega dados da pessoa
                     popularSecao(int.Parse(Session["codSecao"].ToString()));
-                    //popularPessoa(int.Parse(Session["codPessoa"].ToString()));
                 }
             }
         }
@@ -37,7 +36,7 @@ namespace AgenciaNoticasN.Admin
         {
             string sJavaScript = "<script language=javascript>\n";
             sJavaScript += "alert('" + message + "');";
-            sJavaScript += "document.location.href='Home.aspx';";
+            sJavaScript += "document.location.href='CadSecoes.aspx';";
             sJavaScript += "\n";
             sJavaScript += "</script>";
             ClientScript.RegisterStartupScript(typeof(string), "MessageBox", sJavaScript);
@@ -52,19 +51,6 @@ namespace AgenciaNoticasN.Admin
 
             txtNome.Text = secao[0].nome;
             ddlGerente.SelectedValue = secao[0].codPessoa_Gerente.ToString();
-            //ddlFuncao.SelectedValue = pessoa[0].funcao;
-            
-
-            //protected void popularNiveisEnsino()
-            //{
-            //    NiveisEnsinoBLL listaNiveisEnsino = new NiveisEnsinoBLL();
-            //    ddlCodNivel.Items.Clear();
-            //    ddlCodNivel.DataSource = listaNiveisEnsino.Listar(" and CodNivel <> 5 ");
-            //    ddlCodNivel.DataTextField = "Nivel";
-            //    ddlCodNivel.DataValueField = "CodNivel";
-            //    ddlCodNivel.Items.Add(new ListItem("Selecione", ""));
-            //    ddlCodNivel.DataBind();
-            //}
         }
 
         protected void popularGerente()
@@ -88,17 +74,23 @@ namespace AgenciaNoticasN.Admin
             dados.codPessoa_Gerente = ddlGerente.SelectedValue == "" ? -1 : int.Parse(ddlGerente.SelectedValue);
             dados.dataCadastro      = DateTime.Now;
 
+            string resposta;
+            
             //Inserindo
             if (Session["codSecao"] == null)
             {
-                if (bll.inserir(dados))
+                resposta = bll.inserir(dados);
+                
+                if (resposta.Equals(""))
                     Response.Redirect("Secoes.aspx");
                 else
                     showMessageBox("Erro ao cadastrar seção!");
             }
             else //Alterando
             {
-                if (bll.alterar(dados, int.Parse(Session["codSecao"].ToString())))
+                resposta = bll.alterar(dados, int.Parse(Session["codSecao"].ToString()));
+                
+                if (resposta.Equals(""))
                     Response.Redirect("Secoes.aspx");
                 else
                     showMessageBox("Erro ao alterar seção!");

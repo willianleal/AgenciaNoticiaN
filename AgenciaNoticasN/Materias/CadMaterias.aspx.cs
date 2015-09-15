@@ -13,7 +13,7 @@ namespace AgenciaNoticasN.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["email"] == null)
+            if (Session["CodPessoaLogada"] == null)
             {
                 Response.Redirect("~/Login.aspx");
             }
@@ -38,7 +38,7 @@ namespace AgenciaNoticasN.Admin
         {
             string sJavaScript = "<script language=javascript>\n";
             sJavaScript += "alert('" + message + "');";
-            sJavaScript += "document.location.href='Home.aspx';";
+            sJavaScript += "document.location.href='CadMaterias.aspx';";
             sJavaScript += "\n";
             sJavaScript += "</script>";
             ClientScript.RegisterStartupScript(typeof(string), "MessageBox", sJavaScript);
@@ -76,24 +76,32 @@ namespace AgenciaNoticasN.Admin
             MateriaBLL bll = new MateriaBLL();
             PessoaBLL pessoaBll = new PessoaBLL();
 
-            dados.codPessoa_Jornalista = pessoaBll.getPessoaEmail(Session["email"].ToString());
-            dados.nome           = txtNome.Text;
-            dados.codSecao       = ddlSecao.SelectedValue == "" ? -1 : int.Parse(ddlSecao.SelectedValue);
-            dados.status         = "Proposta";
-            dados.dataCadastro   = DateTime.Now;
-            dados.materiaEscrita = txtMateriaEscrita.Text;
+            //dados.codPessoa_Jornalista = pessoaBll.getPessoaEmail(Session["email"].ToString());
+            
+            dados.codPessoa_Jornalista = int.Parse(Session["CodPessoaLogada"].ToString());
+            dados.nome                 = txtNome.Text;
+            dados.codSecao             = ddlSecao.SelectedValue == "" ? -1 : int.Parse(ddlSecao.SelectedValue);
+            dados.status               = "Proposta";
+            dados.dataCadastro         = DateTime.Now;
+            dados.materiaEscrita       = txtMateriaEscrita.Text;
 
+            string resposta;
+            
             //Inserindo
             if (Session["codMateria"] == null)
             {
-                if (bll.inserir(dados))
+                resposta = bll.inserir(dados);
+                
+                if (resposta.Equals(""))
                     Response.Redirect("Materias.aspx");
                 else
                     showMessageBox("Erro ao cadastrar seção!");
             }
             else //Alterando
             {
-                if (bll.alterar(dados, int.Parse(Session["codMateria"].ToString())))
+                resposta = bll.alterar(dados, int.Parse(Session["codMateria"].ToString()));
+                
+                if (resposta.Equals(""))
                     Response.Redirect("Materias.aspx");
                 else
                     showMessageBox("Erro ao alterar seção!");

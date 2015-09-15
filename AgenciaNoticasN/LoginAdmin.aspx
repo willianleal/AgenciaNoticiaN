@@ -11,6 +11,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="col-md-12">
+        <asp:HyperLink NavigateUrl="~/Default.aspx" runat="server" ID="hpVoltar" ><span class="glyphicon glyphicon-chevron-left"></span> &nbsp; voltar </asp:HyperLink>
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">

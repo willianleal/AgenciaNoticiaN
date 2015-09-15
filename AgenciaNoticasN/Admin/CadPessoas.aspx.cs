@@ -13,11 +13,11 @@ namespace AgenciaNoticasN.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["nomeSession"] == null)
-            //{
-            //    Response.Redirect("~/SessionOut.aspx");
-            //}
-            //else
+            if (Session["CodPessoaLogada"] == null)
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+            else
             if (!IsPostBack)
             {
                 Session["codPessoa"] = Request.QueryString["key"] == null ? null : Util.decriptUrl(Request.QueryString["key"].ToString());
@@ -34,7 +34,7 @@ namespace AgenciaNoticasN.Admin
         {
             string sJavaScript = "<script language=javascript>\n";
             sJavaScript += "alert('" + message + "');";
-            sJavaScript += "document.location.href='Home.aspx';";
+            sJavaScript += "document.location.href='CadPessoas.aspx';";
             sJavaScript += "\n";
             sJavaScript += "</script>";
             ClientScript.RegisterStartupScript(typeof(string), "MessageBox", sJavaScript);
@@ -54,6 +54,7 @@ namespace AgenciaNoticasN.Admin
             txtEmail.Text           = pessoa[0].email;
             chkAtivo.Checked        = pessoa[0].ativo;
             txtSenha.Text           = pessoa[0].senha.ToString();
+            txtSenha.DataBind();
         }
 
         protected void lkGravar_Click(object sender, EventArgs e)
@@ -69,22 +70,27 @@ namespace AgenciaNoticasN.Admin
             dados.ativo        = chkAtivo.Checked;
             dados.dataCadastro = DateTime.Now;
             dados.senha        = Util.GetMD5Hash(txtSenha.Text);
-            //dados.senha        = ;
 
+            string resposta;
+            
             //Inserindo
             if (Session["codPessoa"] == null)
             {
-                if (bll.inserir(dados))
+                resposta = bll.inserir(dados);
+                
+                if (resposta.Equals(""))
                     Response.Redirect("Pessoas.aspx");
                 else
-                   showMessageBox("Erro ao cadastrar pessoa!");
+                   showMessageBox(resposta);
             }
             else //Alterando
             {
-                if (bll.alterar(dados, int.Parse(Session["codPessoa"].ToString())))
+                resposta = bll.alterar(dados, int.Parse(Session["codPessoa"].ToString()));
+                
+                if (resposta.Equals(""))
                     Response.Redirect("Pessoas.aspx");
                 else
-                    showMessageBox("Erro ao alterar pessoa!");
+                    showMessageBox(resposta);
             }
         }
     }

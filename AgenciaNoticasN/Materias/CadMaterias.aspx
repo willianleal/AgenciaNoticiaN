@@ -13,6 +13,7 @@
     <div class="row">
         
         <div class="col-md-12 form-group">
+            <asp:HyperLink NavigateUrl="~/Materias/Materias.aspx" runat="server" ID="hpVoltar" ><span class="glyphicon glyphicon-chevron-left"></span> &nbsp; voltar </asp:HyperLink>
             <h2>Cadastro de matérias</h2> 
         </div>
 

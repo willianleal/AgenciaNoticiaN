@@ -1,0 +1,66 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Default.master.cs" Inherits="AgenciaNoticasN.Default" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    
+    <link href="../css/style.css" rel="stylesheet" type="text/css" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+      <nav class="navbar navbar-inverse navbar-static-top <%--navbar-fixed-top--%>">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Agência de Notícias</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav navbar-right">
+              <p class="navbar-text">Acessar:</p>
+              <li><a href="Login.aspx">Sistema</a></li>
+              <li><a href="LoginAdmin.aspx">Admin</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>   
+    
+    <%--<nav class="navbar navbar-blu navbar-static-top" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <img src="img/control_panel.png" alt="" class="logotipo" />               
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>--%>
+        
+      <div class="container <%--containerGeral--%>">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+      </div>
+
+      <div class="clearfix"></div>
+      <div class="footer">
+        <nav class="navbar navbar-blu navbar-fixed-bottom" role="navigation">
+          <div class="container">
+            <h5><small>Todos os Direitos Reservados. </small></h5>
+          </div>
+        </nav>
+      </div>    
+    </form>
+</body>
+</html>

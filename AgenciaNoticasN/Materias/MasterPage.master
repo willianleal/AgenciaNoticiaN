@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="AgenciaNoticasN.Admin.MasterPage" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="AgenciaNoticasN.Materias.MasterPage" %>
 
 <!DOCTYPE html>
 
@@ -33,16 +33,15 @@
           <ul class="nav navbar-nav">
             <li><a href="Home.aspx">Home</a></li>
             <li><a href="Materias.aspx">Matérias</a></li>
+            <li><asp:LinkButton ID="lkSair" runat="server" Text="Sair" OnClick="lkSair_Click" ></asp:LinkButton></li>
             <%--<li><a href="#sobre">Sobre</a></li>
             <li><a href="#contato">Contato</a></li>--%>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div><!--/.nav-collapse -->  
       </div>
-
+       
     </nav>
-
-        
-    
+   
     <%--<nav class="navbar navbar-blu navbar-static-top" role="navigation">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->

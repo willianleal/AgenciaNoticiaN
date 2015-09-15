@@ -13,5 +13,11 @@ namespace AgenciaNoticasN.Admin
         {
 
         }
+
+        protected void lkSair_Click(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            Response.Redirect("~/Default.aspx");
+        }
     }
 }
