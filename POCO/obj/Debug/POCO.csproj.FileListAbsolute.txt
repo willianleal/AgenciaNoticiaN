@@ -12,3 +12,4 @@ D:\GitHub\AgenciaNoticiaN\POCO\bin\Debug\POCO.dll
 D:\GitHub\AgenciaNoticiaN\POCO\bin\Debug\POCO.pdb
 D:\GitHub\AgenciaNoticiaN\POCO\obj\Debug\POCO.dll
 D:\GitHub\AgenciaNoticiaN\POCO\obj\Debug\POCO.pdb
+D:\GitHub\AgenciaNoticiaN\POCO\obj\Debug\POCO.csprojResolveAssemblyReference.cache

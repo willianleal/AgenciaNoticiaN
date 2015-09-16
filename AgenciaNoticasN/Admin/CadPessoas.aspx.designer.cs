@@ -13,13 +13,13 @@ namespace AgenciaNoticasN.Admin {
     public partial class CadPessoas {
         
         /// <summary>
-        /// hpVoltar control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hpVoltar;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
         /// txtNome control.
@@ -58,15 +58,6 @@ namespace AgenciaNoticasN.Admin {
         protected global::System.Web.UI.WebControls.TextBox txtTelefone;
         
         /// <summary>
-        /// txtEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmail;
-        
-        /// <summary>
         /// chkAtivo control.
         /// </summary>
         /// <remarks>
@@ -76,6 +67,33 @@ namespace AgenciaNoticasN.Admin {
         protected global::System.Web.UI.WebControls.CheckBox chkAtivo;
         
         /// <summary>
+        /// chkAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkAdmin;
+        
+        /// <summary>
+        /// txtEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+        
+        /// <summary>
+        /// pnSenha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnSenha;
+        
+        /// <summary>
         /// txtSenha control.
         /// </summary>
         /// <remarks>
@@ -83,6 +101,15 @@ namespace AgenciaNoticasN.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSenha;
+        
+        /// <summary>
+        /// lblMensagemErro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensagemErro;
         
         /// <summary>
         /// lkGravar control.

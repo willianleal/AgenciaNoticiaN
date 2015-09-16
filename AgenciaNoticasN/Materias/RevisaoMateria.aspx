@@ -25,13 +25,16 @@
 
         <div class="col-md-12 form-group">
             <label class="control-label">Jornalista:</label>
-            <asp:Label ID="lblJornalista" runat="server" Text="lblJornalista" CssClass="control-label"></asp:Label>  
+            <asp:Label ID="lblJornalista" runat="server" Text="lblJornalista" CssClass="control-label"></asp:Label>
+            
+            <label class="control-label">Revisor:</label>
+            <asp:Label ID="lblRevisor" runat="server" Text="" CssClass="control-label"></asp:Label>    
         </div>
 
-        <div class="col-md-12 form-group">
+        <%--<div class="col-md-12 form-group">
             <label class="control-label">Revisor:</label>
             <asp:Label ID="lblRevisor" runat="server" Text="" CssClass="control-label"></asp:Label>  
-        </div>
+        </div>--%>
 
         <asp:Panel ID="pnDados" runat="server" Enabled="false">
         <div class="col-md-12 form-group">
@@ -76,10 +79,19 @@
             
             <asp:DataList ID="dtlComentarios" runat="server">
                 <ItemTemplate>
-                    <asp:Label ID="lblTitulo" runat="server" CssClass="control-label" Text='<%# Eval("titulo") + " - " + Eval("dataCadastro") %>'></asp:Label>
-                    
-                    <br />
-                    <asp:Label ID="lblComentario" runat="server" CssClass="control-label" Text='<%# Eval("comentario") %>'></asp:Label>    
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <asp:Label ID="lblPessoa" runat="server" CssClass="control-label" Text='<%# Eval("Pessoa") + " - " + Eval("Funcao") + " - " + Eval("dataCadastro") %>'></asp:Label>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <label class="control-label"><%# Eval("titulo") %></label>
+                            <%--<asp:Label ID="lblTitulo" runat="server" CssClass="control-label" Text='<%# Eval("titulo") %>'></asp:Label>--%>
+                            <br />
+                            <asp:Label ID="lblComentario" runat="server" CssClass="control-label" Text='<%# Eval("comentario") %>'></asp:Label>
+                        </div>
+                    </div>    
                 </ItemTemplate>
             </asp:DataList>
         </div>

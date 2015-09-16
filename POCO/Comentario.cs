@@ -19,5 +19,10 @@ namespace POCO
         public string comentario { get; set; }
 
         public DateTime dataCadastro { get; set; }
+
+        //Transients
+        public string Pessoa { get; set; }
+
+        public string Funcao { get; set; }
     }
 }

@@ -61,7 +61,11 @@ namespace DAL
 
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string SQL = @"SELECT codComentario, codMateria, codPessoa, titulo, comentario, dataCadastro FROM Comentario WHERE codMateria=@codMateria";
+            string SQL = @"SELECT 
+                            codComentario, codMateria, c.codPessoa, p.nome, p.funcao, titulo, comentario, c.dataCadastro 
+                           FROM Comentario c
+                           INNER JOIN Pessoa p on p.codPessoa=c.codPessoa
+                           WHERE codMateria=@codMateria";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codMateria", codMateria);
@@ -80,7 +84,9 @@ namespace DAL
                     dadosComentario.codPessoa     = (int)resultado["codPessoa"];
                     dadosComentario.titulo        = resultado["titulo"].ToString();
                     dadosComentario.comentario    = resultado["comentario"].ToString();
-                    dadosComentario.dataCadastro = (DateTime)resultado["dataCadastro"];
+                    dadosComentario.dataCadastro  = (DateTime)resultado["dataCadastro"];
+                    dadosComentario.Pessoa        = resultado["nome"].ToString();
+                    dadosComentario.Funcao        = resultado["funcao"].ToString();
                     comentario.Add(dadosComentario);
                 }
 

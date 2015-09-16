@@ -62,7 +62,7 @@ namespace DAL
         {
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string SQL = "UPDATE Pessoa SET nome=@nome, funcao=@funcao, ddd=@ddd, telefone=@telefone, email=@email, ativo=@ativo, senha=@senha WHERE codPessoa=@codPessoa";
+            string SQL = "UPDATE Pessoa SET nome=@nome, funcao=@funcao, ddd=@ddd, telefone=@telefone, email=@email, ativo=@ativo, administrador=@administrador WHERE codPessoa=@codPessoa";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa", codPessoa);
@@ -72,8 +72,7 @@ namespace DAL
             comando.Parameters.AddWithValue("@telefone", dados.telefone);
             comando.Parameters.AddWithValue("@email", dados.email);
             comando.Parameters.AddWithValue("@ativo", dados.ativo);
-            //comando.Parameters.AddWithValue("@dataCadastro", dados.dataCadastro);
-            comando.Parameters.AddWithValue("@senha", dados.senha);
+            comando.Parameters.AddWithValue("@administrador", dados.administrador);
 
             foreach (SqlParameter Parameter in comando.Parameters)
             {

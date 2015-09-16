@@ -26,6 +26,9 @@ namespace AgenciaNoticasN.Admin
                 {
                     //carrega dados da pessoa
                     popularPessoa(int.Parse(Session["codPessoa"].ToString()));
+                    
+                    //Oculta o campo de senha
+                    pnSenha.Visible = false;
                 }
             }
         }
@@ -53,7 +56,7 @@ namespace AgenciaNoticasN.Admin
             txtTelefone.Text        = pessoa[0].telefone;
             txtEmail.Text           = pessoa[0].email;
             chkAtivo.Checked        = pessoa[0].ativo;
-            txtSenha.Text           = pessoa[0].senha.ToString();
+            chkAdmin.Checked        = pessoa[0].administrador;
             txtSenha.DataBind();
         }
 
@@ -62,14 +65,15 @@ namespace AgenciaNoticasN.Admin
             Pessoa dados = new Pessoa();
             PessoaBLL bll = new PessoaBLL();
 
-            dados.nome         = txtNome.Text;
-            dados.funcao       = ddlFuncao.SelectedValue.ToString();
-            dados.ddd          = txtDdd.Text;
-            dados.telefone     = txtTelefone.Text;
-            dados.email        = txtEmail.Text;
-            dados.ativo        = chkAtivo.Checked;
-            dados.dataCadastro = DateTime.Now;
-            dados.senha        = Util.GetMD5Hash(txtSenha.Text);
+            dados.nome          = txtNome.Text;
+            dados.funcao        = ddlFuncao.SelectedValue.ToString();
+            dados.ddd           = txtDdd.Text;
+            dados.telefone      = txtTelefone.Text;
+            dados.email         = txtEmail.Text;
+            dados.ativo         = chkAtivo.Checked;
+            dados.dataCadastro  = DateTime.Now;
+            dados.senha         = Util.GetMD5Hash(txtSenha.Text);
+            dados.administrador = chkAdmin.Checked;
 
             string resposta;
             
@@ -77,11 +81,12 @@ namespace AgenciaNoticasN.Admin
             if (Session["codPessoa"] == null)
             {
                 resposta = bll.inserir(dados);
-                
+
                 if (resposta.Equals(""))
                     Response.Redirect("Pessoas.aspx");
                 else
-                   showMessageBox(resposta);
+                    //showMessageBox(resposta);
+                    lblMensagemErro.Text = resposta;
             }
             else //Alterando
             {
@@ -90,7 +95,8 @@ namespace AgenciaNoticasN.Admin
                 if (resposta.Equals(""))
                     Response.Redirect("Pessoas.aspx");
                 else
-                    showMessageBox(resposta);
+                    lblMensagemErro.Text = resposta;
+                    //showMessageBox(resposta);
             }
         }
     }
