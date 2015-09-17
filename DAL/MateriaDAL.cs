@@ -155,7 +155,7 @@ namespace DAL
             string SQL = @"SELECT 
                             codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
                             m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
-                            pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente 
+                            pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente, revisao 
                            FROM Materia m
                            INNER JOIN Pessoa pj ON pj.codPessoa=m.codPessoa_Jornalista
                            LEFT JOIN Pessoa pr ON pr.codPessoa=m.codPessoa_Revisor
@@ -190,6 +190,7 @@ namespace DAL
                     dadosMateria.Revisor = resultado["Revisor"].ToString();
                     dadosMateria.Publicador = resultado["Publicador"].ToString();
                     dadosMateria.Gerente = resultado["Gerente"].ToString();
+                    dadosMateria.revisao = resultado["revisao"].ToString();
                     materia.Add(dadosMateria);
                 }
 
@@ -392,7 +393,9 @@ namespace DAL
         {
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string SQL = @"UPDATE Materia SET nome=@nome, materiaEscrita=@materiaEscrita, status=@status, dataAtualizacao=@dataAtualizacao, revisao=@revisao WHERE codMateria=@codMateria";
+            string SQL = @"UPDATE Materia SET nome=@nome, materiaEscrita=@materiaEscrita, status=@status, dataAtualizacao=@dataAtualizacao, revisao=@revisao, 
+                            parecerJornalista=@parecerJornalista, parecerRevisor=@parecerRevisor, alteracaoJornalista=@alteracaoJornalista, alteracaoRevisor=@alteracaoRevisor
+                            WHERE codMateria=@codMateria";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codMateria", codMateria);
@@ -401,6 +404,10 @@ namespace DAL
             comando.Parameters.AddWithValue("@status", dados.status);
             comando.Parameters.AddWithValue("@dataAtualizacao", dados.dataAtualizacao);
             comando.Parameters.AddWithValue("@revisao", dados.revisao);
+            comando.Parameters.AddWithValue("@parecerJornalista", dados.parecerJornalista);
+            comando.Parameters.AddWithValue("@parecerRevisor", dados.parecerRevisor);
+            comando.Parameters.AddWithValue("@alteracaoJornalista", dados.alteracaoJornalista);
+            comando.Parameters.AddWithValue("@alteracaoRevisor", dados.alteracaoRevisor);
 
             foreach (SqlParameter Parameter in comando.Parameters)
             {

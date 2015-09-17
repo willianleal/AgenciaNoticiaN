@@ -40,15 +40,6 @@ namespace AgenciaNoticasN.Materias {
         protected global::System.Web.UI.WebControls.Label lblStatus;
         
         /// <summary>
-        /// lkPegar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lkPegar;
-        
-        /// <summary>
         /// lblJornalista control.
         /// </summary>
         /// <remarks>
@@ -65,6 +56,15 @@ namespace AgenciaNoticasN.Materias {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRevisor;
+        
+        /// <summary>
+        /// lkPegar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lkPegar;
         
         /// <summary>
         /// pnDados control.
@@ -103,13 +103,13 @@ namespace AgenciaNoticasN.Materias {
         protected global::System.Web.UI.WebControls.TextBox txtMateriaEscrita;
         
         /// <summary>
-        /// TextBox1_HtmlEditorExtender control.
+        /// txtMateriaEscrita_HtmlEditorExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.HtmlEditorExtender TextBox1_HtmlEditorExtender;
+        protected global::AjaxControlToolkit.HtmlEditorExtender txtMateriaEscrita_HtmlEditorExtender;
         
         /// <summary>
         /// txtDescricao control.
@@ -130,13 +130,22 @@ namespace AgenciaNoticasN.Materias {
         protected global::System.Web.UI.WebControls.TextBox txtComentario;
         
         /// <summary>
-        /// dtlComentarios control.
+        /// rdlSituacao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList dtlComentarios;
+        protected global::System.Web.UI.WebControls.RadioButtonList rdlSituacao;
+        
+        /// <summary>
+        /// rdlAlteracao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rdlAlteracao;
         
         /// <summary>
         /// lkGravar control.
@@ -146,5 +155,23 @@ namespace AgenciaNoticasN.Materias {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lkGravar;
+        
+        /// <summary>
+        /// lblMensagemErro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensagemErro;
+        
+        /// <summary>
+        /// dtlComentarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList dtlComentarios;
     }
 }

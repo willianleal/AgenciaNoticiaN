@@ -173,16 +173,48 @@ namespace BLL
             }
         }
 
-        public bool inserirRevisao(Materia dados, int codMateria)
+        public string inserirRevisao(Materia dados, int codMateria)
         {
             try
             {
-                return dal.inserirRevisao(dados, codMateria);
+                if (dados.nome.Equals(""))
+                {
+                    return "Informe o nome da matéria.";
+                }
+                else
+                if (dados.materiaEscrita.Equals(""))
+                {
+                    return "Digite/Escreva a matéria.";
+                }
+                else
+                if (!Util.somenteLetras(dados.nome))
+                {
+                    return "O nome da matéria deve possuir apenas letras.";
+                }
+                else
+                if (dal.inserirRevisao(dados, codMateria))
+                {
+                    return "";
+                }
+                else
+                {
+                    return "Erro ao gravar a revisão.";
+                }
             }
             catch
             {
-                return false;
+                return "Falha ao gravar dados: Entre em contato com o administrador.";
             }
+            
+            
+            //try
+            //{
+            //    return dal.inserirRevisao(dados, codMateria);
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
         }
 
         public bool inserirRevisorMateria(Materia dados, int codMateria)

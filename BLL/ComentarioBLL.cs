@@ -17,16 +17,52 @@ namespace BLL
             dal = new ComentarioDAL();
         }
 
-        public bool inserir(Comentario dados)
+        public string inserir(Comentario dados)
         {
             try
             {
-                return dal.inserir(dados);
+                if (dados.titulo.Equals(""))
+                {
+                    return "Informe o título do comentário.";
+                }
+                else
+                if (dados.comentario.Equals(""))
+                {
+                    return "Digite/Escreva o comentário.";
+                }
+                else
+                //if (!Util.somenteLetras(dados.titulo))
+                //{
+                //    return "O título do comentário deve possuir apenas letras.";
+                //}
+                //else
+                //if (!Util.somenteLetras(dados.comentario))
+                //{
+                //    return "O comentário deve possuir apenas letras.";
+                //}
+                //else
+                if (dal.inserir(dados))
+                {
+                    return "";
+                }
+                else
+                {
+                    return "Erro ao gravar o comentário.";
+                }
             }
             catch
             {
-                return false;
+                return "Falha ao gravar dados: Entre em contato com o administrador.";
             }
+
+            //try
+            //{
+            //    return dal.inserir(dados);
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
         }
 
         public List<Comentario> listarComentarioMateria(int codMateria)

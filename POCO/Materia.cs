@@ -30,6 +30,14 @@ namespace POCO
 
         public string revisao { get; set; }
 
+        public string parecerJornalista { get; set; }
+
+        public string parecerRevisor { get; set; }
+
+        public string alteracaoJornalista { get; set; }
+
+        public string alteracaoRevisor { get; set; }
+
         //Transients
         public string Jornalista { get; set; }
         
@@ -38,5 +46,6 @@ namespace POCO
         public string Publicador { get; set; }
 
         public string Gerente { get; set; }
+
     }
 }

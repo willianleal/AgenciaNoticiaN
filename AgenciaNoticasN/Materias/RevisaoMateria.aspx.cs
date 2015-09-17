@@ -18,30 +18,30 @@ namespace AgenciaNoticasN.Materias
                 Response.Redirect("~/Login.aspx");
             }
             else
-                if (!IsPostBack)
+            if (!IsPostBack)
+            {
+                popularSecoes();
+
+                Session["codMateria"] = Request.QueryString["key"] == null ? null : Util.decriptUrl(Request.QueryString["key"].ToString());
+
+                if (Session["codMateria"] != null)
                 {
-                    popularSecoes();
+                    //carrega dados da pessoa
+                    popularMateria(int.Parse(Session["codMateria"].ToString()));
+                    popularComentarios(int.Parse(Session["codMateria"].ToString()));
 
-                    Session["codMateria"] = Request.QueryString["key"] == null ? null : Util.decriptUrl(Request.QueryString["key"].ToString());
-
-                    if (Session["codMateria"] != null)
+                    if (lblRevisor.Text.Equals(""))
                     {
-                        //carrega dados da pessoa
-                        popularMateria(int.Parse(Session["codMateria"].ToString()));
-                        popularComentarios(int.Parse(Session["codMateria"].ToString()));
-
-                        if (lblRevisor.Text.Equals(""))
-                        {
-                            lblRevisor.Text = "Não definido";
-                            lkPegar.Visible = true;
-                        }
-                        else
-                        {
-                            lkPegar.Visible = false;
-                            pnDados.Enabled = true;
-                        }
+                        lblRevisor.Text = "Não definido";
+                        lkPegar.Visible = true;
+                    }
+                    else
+                    {
+                        lkPegar.Visible = false;
+                        pnDados.Enabled = true;
                     }
                 }
+            }
         }
 
         protected void popularSecoes()
@@ -69,6 +69,7 @@ namespace AgenciaNoticasN.Materias
             lblStatus.Text = materia[0].status;
             lblJornalista.Text = materia[0].Jornalista;
             lblRevisor.Text = materia[0].Revisor;
+            Session["revisao"] = materia[0].revisao == null ? "" : materia[0].revisao;
         }
 
         protected void lkGravar_Click(object sender, EventArgs e)
@@ -78,26 +79,60 @@ namespace AgenciaNoticasN.Materias
 
             MateriaBLL bll = new MateriaBLL();
             ComentarioBLL comentarioBll = new ComentarioBLL();
-            
-            //Dados da Matéria revisada
-            dados.nome = txtNome.Text;
-            dados.materiaEscrita = txtMateriaEscrita.Text;
-            dados.status = "Revisao";
-            dados.dataAtualizacao = DateTime.Now;         
-            //A revisão passa a ser do jornalista
-            dados.revisao = "J";
 
-            //Dados do comentario
-            comentario.codMateria   = int.Parse(Session["codMateria"].ToString());
-            comentario.codPessoa    = int.Parse(Session["CodPessoaLogada"].ToString());
-            comentario.titulo       = txtDescricao.Text;
-            comentario.comentario   = txtComentario.Text;
-            comentario.dataCadastro = DateTime.Now;  
-
-            if (bll.inserirRevisao(dados, int.Parse(Session["codMateria"].ToString())) && (comentarioBll.inserir(comentario)))
-                Response.Redirect("Materias.aspx");
+            if (rdlSituacao.SelectedValue.Equals(""))
+            {
+                lblMensagemErro.Text = "Indique a situação da matéria após a revisão";
+                rdlSituacao.Focus();
+            }
             else
-                showMessageBox("Erro ao gravar a revisão!");
+            if (rdlAlteracao.SelectedValue.Equals(""))
+            {
+                lblMensagemErro.Text = "Indique se a matéria foi alterada.";
+                rdlAlteracao.Focus();
+            }
+            else 
+            {    
+                //Dados da Matéria revisada
+                dados.nome = txtNome.Text;
+                dados.materiaEscrita = txtMateriaEscrita.Text;
+                dados.status = "Revisao";
+                dados.dataAtualizacao = DateTime.Now;
+
+                //Indica se a revisão é do Jornalista ou do Revisor
+                if (Session["revisao"].ToString().Equals("J") || Session["revisao"].ToString().Equals(""))
+                {
+                    dados.parecerJornalista = rdlSituacao.SelectedValue;
+                    dados.alteracaoJornalista = rdlAlteracao.SelectedValue;
+
+                    //A revisão volta para o revisor
+                    dados.revisao = "R";
+                }
+                else if (Session["revisao"].ToString().Equals("R"))
+                {
+                    dados.parecerRevisor = rdlSituacao.SelectedValue;
+                    dados.alteracaoRevisor = rdlAlteracao.SelectedValue;
+
+                    //A revisão volta para o jornalista
+                    dados.revisao = "J";
+                }
+
+                //Dados do comentario
+                comentario.codMateria   = int.Parse(Session["codMateria"].ToString());
+                comentario.codPessoa    = int.Parse(Session["CodPessoaLogada"].ToString());
+                comentario.titulo       = txtDescricao.Text;
+                comentario.comentario   = txtComentario.Text;
+                comentario.dataCadastro = DateTime.Now;
+
+                string resposta = bll.inserirRevisao(dados, int.Parse(Session["codMateria"].ToString()));
+                resposta += resposta.Equals("") ? comentarioBll.inserir(comentario) : "<Br>" + comentarioBll.inserir(comentario);
+
+                if (resposta.Equals(""))
+                    Response.Redirect("Materias.aspx");
+                else
+                    lblMensagemErro.Text = resposta;
+
+            }
         }
 
         protected void showMessageBox(string message)
@@ -128,7 +163,8 @@ namespace AgenciaNoticasN.Materias
             }   
             else
             {
-                showMessageBox("Erro ao gravar a revisão!");
+                //showMessageBox("Erro ao gravar a revisão!");
+                lblMensagemErro.Text = "Erro ao gravar a revisão!";
             }       
         }
 
