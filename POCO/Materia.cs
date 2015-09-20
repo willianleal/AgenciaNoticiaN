@@ -38,6 +38,8 @@ namespace POCO
 
         public string alteracaoRevisor { get; set; }
 
+        public DateTime dataPublicacao { get; set; }
+
         //Transients
         public string Jornalista { get; set; }
         
@@ -47,5 +49,6 @@ namespace POCO
 
         public string Gerente { get; set; }
 
+        public int codPessoa_Gerente { get; set; }
     }
 }

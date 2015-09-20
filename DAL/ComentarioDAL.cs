@@ -65,7 +65,8 @@ namespace DAL
                             codComentario, codMateria, c.codPessoa, p.nome, p.funcao, titulo, comentario, c.dataCadastro 
                            FROM Comentario c
                            INNER JOIN Pessoa p on p.codPessoa=c.codPessoa
-                           WHERE codMateria=@codMateria";
+                           WHERE codMateria=@codMateria
+                           ORDER BY dataCadastro DESC";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codMateria", codMateria);

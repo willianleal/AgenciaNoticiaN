@@ -37,6 +37,16 @@
                             <asp:LinkButton ID="lbRevisar" runat="server" CommandArgument='<%# Eval("codMateria")+","+Eval("status")+","+Eval("revisao") %>' Text="Revisar" OnClick="lbRevisar_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lbPublicar" runat="server" CommandArgument='<%# Eval("codMateria")+","+Eval("status")+","+Eval("revisao") %>' Text="Publicar" OnClick="lbPublicar_Click" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lbVisualizar" runat="server" CommandArgument='<%# Eval("codMateria")+","+Eval("status")+","+Eval("revisao") %>' Text="Visualizar" OnClick="lbVisualizar_Click" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:BoundField DataField="revisao" HeaderText="Revisao" Visible="False" />
                 </Columns>
             </asp:GridView>

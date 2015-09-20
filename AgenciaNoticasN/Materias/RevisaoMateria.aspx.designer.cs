@@ -58,15 +58,6 @@ namespace AgenciaNoticasN.Materias {
         protected global::System.Web.UI.WebControls.Label lblRevisor;
         
         /// <summary>
-        /// lkPegar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lkPegar;
-        
-        /// <summary>
         /// pnDados control.
         /// </summary>
         /// <remarks>
@@ -130,22 +121,13 @@ namespace AgenciaNoticasN.Materias {
         protected global::System.Web.UI.WebControls.TextBox txtComentario;
         
         /// <summary>
-        /// rdlSituacao control.
+        /// lblMensagemErro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rdlSituacao;
-        
-        /// <summary>
-        /// rdlAlteracao control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rdlAlteracao;
+        protected global::System.Web.UI.WebControls.Label lblMensagemErro;
         
         /// <summary>
         /// lkGravar control.
@@ -157,13 +139,40 @@ namespace AgenciaNoticasN.Materias {
         protected global::System.Web.UI.WebControls.LinkButton lkGravar;
         
         /// <summary>
-        /// lblMensagemErro control.
+        /// lblParecer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensagemErro;
+        protected global::System.Web.UI.WebControls.Label lblParecer;
+        
+        /// <summary>
+        /// lblAlteracao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlteracao;
+        
+        /// <summary>
+        /// rdlAlteracao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rdlAlteracao;
+        
+        /// <summary>
+        /// rdlSituacao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rdlSituacao;
         
         /// <summary>
         /// dtlComentarios control.

@@ -63,10 +63,10 @@ namespace DAL
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
             string SQL = @"UPDATE Materia SET codPessoa_Jornalista=@codPessoa_Jornalista, codPessoa_Revisor=@codPessoa_Revisor, codPessoa_Publicador=@codPessoa_Publicador, 
-                            nome=@nome, materiaEscrita=@materiaEscrita, codSecao=@codSecao, status=@status, dataCadastro=@dataCadastro, dataAtualizacao=@dataAtualizacao WHERE codMateria=@codMateria";
+                            nome=@nome, materiaEscrita=@materiaEscrita, codSecao=@codSecao, status=@status, dataAtualizacao=@dataAtualizacao WHERE codMateria=@codMateria";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
-            comando.Parameters.AddWithValue("@codMateria", dados.codMateria);
+            comando.Parameters.AddWithValue("@codMateria", codMateria);
             comando.Parameters.AddWithValue("@codPessoa_Jornalista", dados.codPessoa_Jornalista);
             comando.Parameters.AddWithValue("@codPessoa_Revisor", dados.codPessoa_Revisor);
             comando.Parameters.AddWithValue("@codPessoa_Publicador", dados.codPessoa_Publicador);
@@ -74,12 +74,16 @@ namespace DAL
             comando.Parameters.AddWithValue("@materiaEscrita", dados.materiaEscrita);
             comando.Parameters.AddWithValue("@codSecao", dados.codSecao);
             comando.Parameters.AddWithValue("@status", dados.status);
-            comando.Parameters.AddWithValue("@dataCadastro", dados.dataCadastro);
+            //comando.Parameters.AddWithValue("@dataCadastro", dados.dataCadastro);
             comando.Parameters.AddWithValue("@dataAtualizacao", dados.dataAtualizacao);
 
             foreach (SqlParameter Parameter in comando.Parameters)
             {
-                if (Parameter.Value == null)
+                if (Parameter.Value.ToString().Equals("0"))
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+                else if (Parameter.Value == null)
                 {
                     Parameter.Value = DBNull.Value;
                 }
@@ -155,7 +159,8 @@ namespace DAL
             string SQL = @"SELECT 
                             codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
                             m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
-                            pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente, revisao 
+                            pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente,
+                            revisao, parecerJornalista, parecerRevisor, alteracaoJornalista, alteracaoRevisor, dataPublicacao 
                            FROM Materia m
                            INNER JOIN Pessoa pj ON pj.codPessoa=m.codPessoa_Jornalista
                            LEFT JOIN Pessoa pr ON pr.codPessoa=m.codPessoa_Revisor
@@ -191,68 +196,12 @@ namespace DAL
                     dadosMateria.Publicador = resultado["Publicador"].ToString();
                     dadosMateria.Gerente = resultado["Gerente"].ToString();
                     dadosMateria.revisao = resultado["revisao"].ToString();
-                    materia.Add(dadosMateria);
-                }
+                    dadosMateria.parecerJornalista   = resultado["parecerJornalista"].ToString();
+                    dadosMateria.parecerRevisor      = resultado["parecerRevisor"].ToString();
+                    dadosMateria.alteracaoJornalista = resultado["alteracaoJornalista"].ToString();
+                    dadosMateria.alteracaoRevisor    = resultado["alteracaoRevisor"].ToString();
+                    dadosMateria.dataPublicacao      = resultado["dataPublicacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataPublicacao"];
 
-                return materia;
-            }
-            catch
-            {
-                return null;
-            }
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
-        public List<Materia> listarMateriaPessoa(int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, int codPessoa_Gerente)
-        {
-            List<Materia> materia = new List<Materia>();
-
-            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
-
-            string SQL = @"SELECT 
-                            codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
-                            m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
-                            pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente 
-                           FROM Materia m
-                           INNER JOIN Pessoa pj ON pj.codPessoa=m.codPessoa_Jornalista
-                           LEFT JOIN Pessoa pr ON pr.codPessoa=m.codPessoa_Revisor
-                           LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
-                           INNER JOIN Secao s ON s.codSecao=m.codSecao
-                           INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
-                           WHERE codPessoa_Jornalista = @codPessoa_Jornalista OR codPessoa_Revisor = @codPessoa_Revisor OR codPessoa_Publicador = @codPessoa_Publicador OR s.codPessoa_Gerente = @codPessoa_Gerente";
-
-            SqlCommand comando = new SqlCommand(SQL, conexao);
-            comando.Parameters.AddWithValue("@codPessoa_Jornalista", codPessoa_Jornalista);
-            comando.Parameters.AddWithValue("@codPessoa_Revisor", codPessoa_Revisor);
-            comando.Parameters.AddWithValue("@codPessoa_Publicador", codPessoa_Publicador);
-            comando.Parameters.AddWithValue("@codPessoa_Gerente", codPessoa_Gerente);
-
-            try
-            {
-                conexao.Open();
-                SqlDataReader resultado = comando.ExecuteReader();
-
-                while (resultado.Read())
-                {
-                    Materia dadosMateria = new Materia();
-
-                    dadosMateria.codMateria = (int)resultado["codMateria"];
-                    dadosMateria.codPessoa_Jornalista = (int)resultado["codPessoa_Jornalista"];
-                    dadosMateria.codPessoa_Revisor = resultado["codPessoa_Revisor"] is DBNull ? 0 : (int)resultado["codPessoa_Revisor"];
-                    dadosMateria.codPessoa_Publicador = resultado["codPessoa_Publicador"] is DBNull ? 0 : (int)resultado["codPessoa_Publicador"];
-                    dadosMateria.nome = resultado["nome"].ToString();
-                    dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
-                    dadosMateria.codSecao = (int)resultado["codSecao"];
-                    dadosMateria.status = resultado["status"].ToString();
-                    dadosMateria.dataCadastro = (DateTime)resultado["dataCadastro"];
-                    dadosMateria.dataAtualizacao = resultado["dataAtualizacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataAtualizacao"];
-                    dadosMateria.Jornalista = resultado["Jornalista"].ToString();
-                    dadosMateria.Revisor = resultado["Revisor"].ToString();
-                    dadosMateria.Publicador = resultado["Publicador"].ToString();
-                    dadosMateria.Gerente = resultado["Gerente"].ToString();
                     materia.Add(dadosMateria);
                 }
 
@@ -313,6 +262,11 @@ namespace DAL
                     dadosMateria.Publicador = resultado["Publicador"].ToString();
                     dadosMateria.Gerente = resultado["Gerente"].ToString();
                     dadosMateria.revisao = resultado["revisao"].ToString();
+                    //dadosMateria.parecerJornalista = resultado["parecerJornalista"].ToString();
+                    //dadosMateria.parecerRevisor = resultado["parecerRevisor"].ToString();
+                    //dadosMateria.alteracaoJornalista = resultado["alteracaoJornalista"].ToString();
+                    //dadosMateria.alteracaoRevisor = resultado["alteracaoRevisor"].ToString();
+                    //dadosMateria.dataPublicacao = resultado["dataPublicacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataPublicacao"];
                     materia.Add(dadosMateria);
                 }
 
@@ -374,6 +328,11 @@ namespace DAL
                     dadosMateria.Publicador = resultado["Publicador"].ToString();
                     dadosMateria.Gerente = resultado["Gerente"].ToString();
                     dadosMateria.revisao = resultado["revisao"].ToString();
+                    //dadosMateria.parecerJornalista = resultado["parecerJornalista"].ToString();
+                    //dadosMateria.parecerRevisor = resultado["parecerRevisor"].ToString();
+                    //dadosMateria.alteracaoJornalista = resultado["alteracaoJornalista"].ToString();
+                    //dadosMateria.alteracaoRevisor = resultado["alteracaoRevisor"].ToString();
+                    //dadosMateria.dataPublicacao = resultado["dataPublicacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataPublicacao"];
                     materia.Add(dadosMateria);
                 }
 
@@ -389,47 +348,218 @@ namespace DAL
             }
         }
 
-        public bool inserirRevisao(Materia dados, int codMateria)
+        public List<Materia> listarMateriaPublicador(int codPessoa_Publicador)
         {
+            List<Materia> materia = new List<Materia>();
+
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string SQL = @"UPDATE Materia SET nome=@nome, materiaEscrita=@materiaEscrita, status=@status, dataAtualizacao=@dataAtualizacao, revisao=@revisao, 
-                            parecerJornalista=@parecerJornalista, parecerRevisor=@parecerRevisor, alteracaoJornalista=@alteracaoJornalista, alteracaoRevisor=@alteracaoRevisor
-                            WHERE codMateria=@codMateria";
+            string SQL = @"SELECT 
+                            codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
+                            m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
+                            pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente, revisao 
+                           FROM Materia m
+                           INNER JOIN Pessoa pj ON pj.codPessoa=m.codPessoa_Jornalista
+                           LEFT JOIN Pessoa pr ON pr.codPessoa=m.codPessoa_Revisor
+                           LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
+                           INNER JOIN Secao s ON s.codSecao=m.codSecao
+                           INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
+                           WHERE (codPessoa_Publicador IS NULL AND status='Aprovada') OR
+                                 (codPessoa_Publicador = @codPessoa_Publicador AND status='Publicada')";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
-            comando.Parameters.AddWithValue("@codMateria", codMateria);
-            comando.Parameters.AddWithValue("@nome", dados.nome);
-            comando.Parameters.AddWithValue("@materiaEscrita", dados.materiaEscrita);
-            comando.Parameters.AddWithValue("@status", dados.status);
-            comando.Parameters.AddWithValue("@dataAtualizacao", dados.dataAtualizacao);
-            comando.Parameters.AddWithValue("@revisao", dados.revisao);
-            comando.Parameters.AddWithValue("@parecerJornalista", dados.parecerJornalista);
-            comando.Parameters.AddWithValue("@parecerRevisor", dados.parecerRevisor);
-            comando.Parameters.AddWithValue("@alteracaoJornalista", dados.alteracaoJornalista);
-            comando.Parameters.AddWithValue("@alteracaoRevisor", dados.alteracaoRevisor);
-
-            foreach (SqlParameter Parameter in comando.Parameters)
-            {
-                if (Parameter.Value == null)
-                {
-                    Parameter.Value = DBNull.Value;
-                }
-                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
-                {
-                    Parameter.Value = DBNull.Value;
-                }
-            }
+            comando.Parameters.AddWithValue("@codPessoa_Publicador", codPessoa_Publicador);
 
             try
             {
                 conexao.Open();
-                comando.ExecuteNonQuery();
+                SqlDataReader resultado = comando.ExecuteReader();
 
+                while (resultado.Read())
+                {
+                    Materia dadosMateria = new Materia();
+
+                    dadosMateria.codMateria = (int)resultado["codMateria"];
+                    dadosMateria.codPessoa_Jornalista = (int)resultado["codPessoa_Jornalista"];
+                    dadosMateria.codPessoa_Revisor = resultado["codPessoa_Revisor"] is DBNull ? 0 : (int)resultado["codPessoa_Revisor"];
+                    dadosMateria.codPessoa_Publicador = resultado["codPessoa_Publicador"] is DBNull ? 0 : (int)resultado["codPessoa_Publicador"];
+                    dadosMateria.nome = resultado["nome"].ToString();
+                    dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
+                    dadosMateria.codSecao = (int)resultado["codSecao"];
+                    dadosMateria.status = resultado["status"].ToString();
+                    dadosMateria.dataCadastro = (DateTime)resultado["dataCadastro"];
+                    dadosMateria.dataAtualizacao = resultado["dataAtualizacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataAtualizacao"];
+                    dadosMateria.Jornalista = resultado["Jornalista"].ToString();
+                    dadosMateria.Revisor = resultado["Revisor"].ToString();
+                    dadosMateria.Publicador = resultado["Publicador"].ToString();
+                    dadosMateria.Gerente = resultado["Gerente"].ToString();
+                    dadosMateria.revisao = resultado["revisao"].ToString();
+                    //dadosMateria.parecerJornalista = resultado["parecerJornalista"].ToString();
+                    //dadosMateria.parecerRevisor = resultado["parecerRevisor"].ToString();
+                    //dadosMateria.alteracaoJornalista = resultado["alteracaoJornalista"].ToString();
+                    //dadosMateria.alteracaoRevisor = resultado["alteracaoRevisor"].ToString();
+                    //dadosMateria.dataPublicacao = resultado["dataPublicacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataPublicacao"];
+                    materia.Add(dadosMateria);
+                }
+
+                return materia;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public List<Materia> listarMateriaGerente(int codPessoa_Gerente)
+        {
+            List<Materia> materia = new List<Materia>();
+
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = @"SELECT 
+                            codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
+                            m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
+                            pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente, 
+                            revisao, codPessoa_Gerente 
+                           FROM Materia m
+                           INNER JOIN Pessoa pj ON pj.codPessoa=m.codPessoa_Jornalista
+                           LEFT JOIN Pessoa pr ON pr.codPessoa=m.codPessoa_Revisor
+                           LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
+                           INNER JOIN Secao s ON s.codSecao=m.codSecao
+                           INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
+                           WHERE codPessoa_Gerente = @codPessoa_Gerente";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@codPessoa_Gerente", codPessoa_Gerente);
+
+            try
+            {
+                conexao.Open();
+                SqlDataReader resultado = comando.ExecuteReader();
+
+                while (resultado.Read())
+                {
+                    Materia dadosMateria = new Materia();
+
+                    dadosMateria.codMateria = (int)resultado["codMateria"];
+                    dadosMateria.codPessoa_Jornalista = (int)resultado["codPessoa_Jornalista"];
+                    dadosMateria.codPessoa_Revisor = resultado["codPessoa_Revisor"] is DBNull ? 0 : (int)resultado["codPessoa_Revisor"];
+                    dadosMateria.codPessoa_Publicador = resultado["codPessoa_Publicador"] is DBNull ? 0 : (int)resultado["codPessoa_Publicador"];
+                    dadosMateria.nome = resultado["nome"].ToString();
+                    dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
+                    dadosMateria.codSecao = (int)resultado["codSecao"];
+                    dadosMateria.status = resultado["status"].ToString();
+                    dadosMateria.dataCadastro = (DateTime)resultado["dataCadastro"];
+                    dadosMateria.dataAtualizacao = resultado["dataAtualizacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataAtualizacao"];
+                    dadosMateria.Jornalista = resultado["Jornalista"].ToString();
+                    dadosMateria.Revisor = resultado["Revisor"].ToString();
+                    dadosMateria.Publicador = resultado["Publicador"].ToString();
+                    dadosMateria.Gerente = resultado["Gerente"].ToString();
+                    dadosMateria.revisao = resultado["revisao"].ToString();
+                    //dadosMateria.parecerJornalista = resultado["parecerJornalista"].ToString();
+                    //dadosMateria.parecerRevisor = resultado["parecerRevisor"].ToString();
+                    //dadosMateria.alteracaoJornalista = resultado["alteracaoJornalista"].ToString();
+                    //dadosMateria.alteracaoRevisor = resultado["alteracaoRevisor"].ToString();
+                    //dadosMateria.dataPublicacao = resultado["dataPublicacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataPublicacao"];
+                    dadosMateria.codPessoa_Gerente = (int)resultado["codPessoa_Gerente"];
+                    materia.Add(dadosMateria);
+                }
+
+                return materia;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public bool inserirRevisao(Materia dadosMateria, Comentario dadosComentario, int codMateria)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+            SqlTransaction trans = null;//transação
+
+            try
+            {
+                conexao.Open();
+
+                trans = conexao.BeginTransaction(IsolationLevel.ReadCommitted);
+
+                //Inserção da Revisão através da atualização dos dados na tabela Materia
+                string sqlMateria = @"UPDATE Materia SET nome=@nome, materiaEscrita=@materiaEscrita, status=@status, dataAtualizacao=@dataAtualizacao, revisao=@revisao, 
+                                        parecerJornalista=@parecerJornalista, parecerRevisor=@parecerRevisor, alteracaoJornalista=@alteracaoJornalista, alteracaoRevisor=@alteracaoRevisor
+                                        WHERE codMateria=@codMateria";
+
+                SqlCommand comandoMateria = new SqlCommand(sqlMateria, conexao);
+                comandoMateria.Transaction = trans;
+
+                comandoMateria.Parameters.AddWithValue("@codMateria", codMateria);
+                comandoMateria.Parameters.AddWithValue("@nome", dadosMateria.nome);
+                comandoMateria.Parameters.AddWithValue("@materiaEscrita", dadosMateria.materiaEscrita);
+                comandoMateria.Parameters.AddWithValue("@status", dadosMateria.status);
+                comandoMateria.Parameters.AddWithValue("@dataAtualizacao", dadosMateria.dataAtualizacao);
+                comandoMateria.Parameters.AddWithValue("@revisao", dadosMateria.revisao);
+                comandoMateria.Parameters.AddWithValue("@parecerJornalista", dadosMateria.parecerJornalista);
+                comandoMateria.Parameters.AddWithValue("@parecerRevisor", dadosMateria.parecerRevisor);
+                comandoMateria.Parameters.AddWithValue("@alteracaoJornalista", dadosMateria.alteracaoJornalista);
+                comandoMateria.Parameters.AddWithValue("@alteracaoRevisor", dadosMateria.alteracaoRevisor);
+
+                foreach (SqlParameter Parameter in comandoMateria.Parameters)
+                {
+                    if (Parameter.Value == null)
+                    {
+                        Parameter.Value = DBNull.Value;
+                    }
+                    else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
+                    {
+                        Parameter.Value = DBNull.Value;
+                    }
+                }
+
+                comandoMateria.ExecuteNonQuery();
+                ///////////////////////////////////
+
+                //Inserção dos comentários
+                string sqlComentario = @"INSERT INTO Comentario(codMateria, codPessoa, titulo, comentario, dataCadastro) 
+                                            VALUES(@codMateria, @codPessoa, @titulo, @comentario, @dataCadastro)";
+
+                SqlCommand comandoComentario = new SqlCommand(sqlComentario, conexao);
+                comandoComentario.Transaction = trans;
+
+                comandoComentario.Parameters.AddWithValue("@codMateria", dadosComentario.codMateria);
+                comandoComentario.Parameters.AddWithValue("@codPessoa", dadosComentario.codPessoa);
+                comandoComentario.Parameters.AddWithValue("@titulo", dadosComentario.titulo);
+                comandoComentario.Parameters.AddWithValue("@comentario", dadosComentario.comentario);
+                comandoComentario.Parameters.AddWithValue("@dataCadastro", dadosComentario.dataCadastro);
+
+                foreach (SqlParameter Parameter in comandoComentario.Parameters)
+                {
+                    if (Parameter.Value == null)
+                    {
+                        Parameter.Value = DBNull.Value;
+                    }
+                    else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
+                    {
+                        Parameter.Value = DBNull.Value;
+                    }
+                }
+
+                comandoComentario.ExecuteNonQuery();
+                ///////////////////////////////////
+
+                trans.Commit();
                 return true;
             }
             catch
             {
+                trans.Rollback();
                 return false;
             }
             finally

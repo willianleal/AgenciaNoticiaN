@@ -54,15 +54,6 @@ namespace BLL
             {
                 return "Falha ao gravar dados: Entre em contato com o administrador.";
             }
-            
-            //try
-            //{
-            //    return dal.inserir(dados);
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
         }
 
         public string alterar(Materia dados, int codMateria)
@@ -102,15 +93,6 @@ namespace BLL
             {
                 return "Falha ao gravar dados: Entre em contato com o administrador.";
             }
-            
-            //try
-            //{
-            //    return dal.alterar(dados, codMateria);
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
         }
 
         public bool deletar(int codMateria)
@@ -130,18 +112,6 @@ namespace BLL
             try
             {
                 return dal.listar(codMateria);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public List<Materia> listarMateriaPessoa(int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, int codPessoa_Gerente)
-        {
-            try
-            {
-                return dal.listarMateriaPessoa(codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, codPessoa_Gerente);
             }
             catch
             {
@@ -173,26 +143,61 @@ namespace BLL
             }
         }
 
-        public string inserirRevisao(Materia dados, int codMateria)
+        public List<Materia> listarMateriaPublicador(int codPessoa_Publicador)
         {
             try
             {
-                if (dados.nome.Equals(""))
+                return dal.listarMateriaPublicador(codPessoa_Publicador);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<Materia> listarMateriaGerente(int codPessoa_Gerente)
+        {
+            try
+            {
+                return dal.listarMateriaGerente(codPessoa_Gerente);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public string inserirRevisao(Materia dadosMateria, Comentario dadosComentario, int codMateria)
+        {
+            try
+            {
+                //Matéria
+                if (dadosMateria.nome.Equals(""))
                 {
                     return "Informe o nome da matéria.";
                 }
                 else
-                if (dados.materiaEscrita.Equals(""))
+                if (dadosMateria.materiaEscrita.Equals(""))
                 {
                     return "Digite/Escreva a matéria.";
                 }
-                else
-                if (!Util.somenteLetras(dados.nome))
+                //else
+                //if (!Util.somenteLetras(dadosMateria.nome))
+                //{
+                //    return "O nome da matéria deve possuir apenas letras.";
+                //}
+                else //Comentário
+                if (dadosComentario.titulo.Equals(""))
                 {
-                    return "O nome da matéria deve possuir apenas letras.";
+                    return "Informe o título do comentário.";
                 }
                 else
-                if (dal.inserirRevisao(dados, codMateria))
+                if (dadosComentario.comentario.Equals(""))
+                {
+                    return "Digite/Escreva o comentário.";
+                }
+                else
+                if (dal.inserirRevisao(dadosMateria, dadosComentario, codMateria))
                 {
                     return "";
                 }
@@ -205,16 +210,6 @@ namespace BLL
             {
                 return "Falha ao gravar dados: Entre em contato com o administrador.";
             }
-            
-            
-            //try
-            //{
-            //    return dal.inserirRevisao(dados, codMateria);
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
         }
 
         public bool inserirRevisorMateria(Materia dados, int codMateria)

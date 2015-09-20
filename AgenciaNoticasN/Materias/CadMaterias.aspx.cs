@@ -75,14 +75,11 @@ namespace AgenciaNoticasN.Admin
             Materia dados = new Materia();
             MateriaBLL bll = new MateriaBLL();
             PessoaBLL pessoaBll = new PessoaBLL();
-
-            //dados.codPessoa_Jornalista = pessoaBll.getPessoaEmail(Session["email"].ToString());
             
             dados.codPessoa_Jornalista = int.Parse(Session["CodPessoaLogada"].ToString());
             dados.nome                 = txtNome.Text;
             dados.codSecao             = ddlSecao.SelectedValue == "" ? -1 : int.Parse(ddlSecao.SelectedValue);
             dados.status               = "Proposta";
-            dados.dataCadastro         = DateTime.Now;
             dados.materiaEscrita       = txtMateriaEscrita.Text;
 
             string resposta;
@@ -90,21 +87,27 @@ namespace AgenciaNoticasN.Admin
             //Inserindo
             if (Session["codMateria"] == null)
             {
+                dados.dataCadastro = DateTime.Now;
+                
                 resposta = bll.inserir(dados);
                 
                 if (resposta.Equals(""))
                     Response.Redirect("Materias.aspx");
                 else
-                    showMessageBox("Erro ao cadastrar seção!");
+                    lblMensagemErro.Text = resposta;
+                    //showMessageBox("Erro ao cadastrar seção!");
             }
             else //Alterando
             {
+                dados.dataAtualizacao = DateTime.Now;
+
                 resposta = bll.alterar(dados, int.Parse(Session["codMateria"].ToString()));
                 
                 if (resposta.Equals(""))
                     Response.Redirect("Materias.aspx");
                 else
-                    showMessageBox("Erro ao alterar seção!");
+                    lblMensagemErro.Text = resposta;
+                    //showMessageBox("Erro ao alterar seção!");
             }
         }
     }

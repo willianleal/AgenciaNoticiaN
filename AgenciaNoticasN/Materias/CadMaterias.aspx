@@ -54,7 +54,11 @@
           
     </div>
     <div class="row">
-        <div class="col-md-2 form-group pull-right">
+        <div class="col-md-10 form-group">
+            <h4><asp:Label ID="lblMensagemErro" runat="server" Text="" CssClass="label label-danger"></asp:Label></h4>
+        </div>
+
+        <div class="col-md-2 form-group">
             <asp:LinkButton ID="lkGravar" runat="server" Text="Gravar" CssClass="btn btn-primary pull-right" OnClick="lkGravar_Click"></asp:LinkButton>
         </div>
     </div>

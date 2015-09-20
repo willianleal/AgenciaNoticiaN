@@ -94,6 +94,15 @@ namespace AgenciaNoticasN.Admin {
         protected global::AjaxControlToolkit.HtmlEditorExtender TextBox1_HtmlEditorExtender;
         
         /// <summary>
+        /// lblMensagemErro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensagemErro;
+        
+        /// <summary>
         /// lkGravar control.
         /// </summary>
         /// <remarks>
