@@ -192,7 +192,17 @@ namespace AgenciaNoticasN.Admin
 
         protected void lbVisualizar_Click(object sender, EventArgs e)
         {
-            //
+            LinkButton id = (LinkButton)sender;
+            string[] commandArgs = id.CommandArgument.ToString().Split(new char[] { ',' });//0=codMateria, 1=status, 2=revisao
+
+            int codMateria = int.Parse(commandArgs[0]);
+            //string status = commandArgs[1];
+            //string revisao = commandArgs[2];
+
+            //int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
+            //string funcaoPessoaLogada = pessoaBll.getFuncaoPessoa(codPessoa);
+
+            Response.Redirect("VisualizarMateria.aspx?key=" + Util.criptUrl(codMateria.ToString()));
         }
 
     }

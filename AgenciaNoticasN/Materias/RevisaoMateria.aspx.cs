@@ -13,7 +13,8 @@ namespace AgenciaNoticasN.Materias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["email"] == null)
+            //if (Session["email"] == null)
+            if (Session["CodPessoaLogada"] == null)
             {
                 Response.Redirect("~/Login.aspx");
             }
@@ -175,6 +176,9 @@ namespace AgenciaNoticasN.Materias
                 comentario.titulo       = txtDescricao.Text;
                 comentario.comentario   = txtComentario.Text;
                 comentario.dataCadastro = DateTime.Now;
+
+                txtDescricao.Text = "";
+                txtComentario.Text = "";
 
                 string resposta = bll.inserirRevisao(dados, comentario, int.Parse(Session["codMateria"].ToString()));
 

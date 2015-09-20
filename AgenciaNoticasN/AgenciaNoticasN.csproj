@@ -91,6 +91,7 @@
     <Content Include="Admin\Pessoas.aspx" />
     <Content Include="Admin\Secoes.aspx" />
     <Content Include="Materias\RevisaoMateria.aspx" />
+    <Content Include="Materias\VisualizarMateria.aspx" />
     <Content Include="Materias\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -219,6 +220,13 @@
     </Compile>
     <Compile Include="Materias\RevisaoMateria.aspx.designer.cs">
       <DependentUpon>RevisaoMateria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Materias\VisualizarMateria.aspx.cs">
+      <DependentUpon>VisualizarMateria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Materias\VisualizarMateria.aspx.designer.cs">
+      <DependentUpon>VisualizarMateria.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
