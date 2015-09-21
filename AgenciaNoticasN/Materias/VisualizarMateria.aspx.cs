@@ -47,6 +47,12 @@ namespace AgenciaNoticasN.Materias
             txtNome.Text = materia[0].nome;
             txtMateriaEscrita.Text = materia[0].materiaEscrita;
 
+            //Se a matéria estiver em revisão os comentários são habilitados
+            if (materia[0].status.Equals("Revisao"))
+                pnComentario.Enabled = true;
+            else
+                pnComentario.Enabled = false;
+
             //Parecer do Revisor
             if (materia[0].parecerRevisor.Equals("A"))
                 lblParecerRevisor.Text = "Parecer Revisor: Aprovado";

@@ -155,16 +155,26 @@ namespace AgenciaNoticasN.Materias
                 //Indica se a revisão é do Jornalista ou do Revisor
                 if (Session["revisao"].ToString().Equals("J") || Session["revisao"].ToString().Equals(""))
                 {
+                    //Grava o parecer do Jornalista
                     dados.parecerJornalista = rdlSituacao.SelectedValue;
                     dados.alteracaoJornalista = rdlAlteracao.SelectedValue;
+
+                    //Mantém o parecer que foi dado pelo revisor durante a revisão dele
+                    dados.parecerRevisor   = Session["parecerRevisor"].ToString();
+                    dados.alteracaoRevisor = Session["alteracaoRevisor"].ToString();
 
                     //A revisão volta para o revisor
                     dados.revisao = "R";
                 }
                 else if (Session["revisao"].ToString().Equals("R"))
                 {
+                    //Grava o parecer do Revisor
                     dados.parecerRevisor = rdlSituacao.SelectedValue;
                     dados.alteracaoRevisor = rdlAlteracao.SelectedValue;
+
+                    //Mantém o parecer que foi dado pelo revisor durante a revisão dele
+                    dados.parecerJornalista   = Session["parecerJornalista"].ToString();
+                    dados.alteracaoJornalista = Session["alteracaoJornalista"].ToString();
 
                     //A revisão volta para o jornalista
                     dados.revisao = "J";
@@ -177,8 +187,8 @@ namespace AgenciaNoticasN.Materias
                 comentario.comentario   = txtComentario.Text;
                 comentario.dataCadastro = DateTime.Now;
 
-                txtDescricao.Text = "";
-                txtComentario.Text = "";
+                //txtDescricao.Text = "";
+                //txtComentario.Text = "";
 
                 string resposta = bll.inserirRevisao(dados, comentario, int.Parse(Session["codMateria"].ToString()));
 
@@ -201,23 +211,28 @@ namespace AgenciaNoticasN.Materias
         {
             lblMensagemErro.Text = "";
 
-            if (rdlAlteracao.SelectedValue.Equals("S") && (rdlSituacao.SelectedValue.Equals("A") || rdlSituacao.SelectedValue.Equals("")))
+            if (rdlAlteracao.SelectedValue.Equals("S"))
             {
                 pnDados.Enabled = true;
                 txtMateriaEscrita_HtmlEditorExtender.Enabled = true;
-            }    
+            }
             else
-            if (rdlAlteracao.SelectedValue.Equals("S") && rdlSituacao.SelectedValue.Equals("R"))
+            if (rdlAlteracao.SelectedValue.Equals("N") && rdlSituacao.SelectedValue.Equals(""))
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Não é permitido fazer alterações em matérias rejeitadas. Caso você tenha feito alterações elas não serão salvas');", true);
-                rdlAlteracao.SelectedValue = "N";
                 pnDados.Enabled = false;
                 txtMateriaEscrita_HtmlEditorExtender.Enabled = false;
             }
             else
-            if (rdlAlteracao.SelectedValue.Equals("N"))
+            if (rdlAlteracao.SelectedValue.Equals("N") && !rdlSituacao.SelectedValue.Equals(""))
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Não será permitido alterar a matéria. Caso você tenha feito alterações elas não serão salvas');", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('A edição da matéria será desabilitada e as alterações feitas não serão salvas.');", true);
+                pnDados.Enabled = false;
+                txtMateriaEscrita_HtmlEditorExtender.Enabled = false;
+            }
+            if (rdlAlteracao.SelectedValue.Equals("S") && rdlSituacao.SelectedValue.Equals("R"))
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Não é permitido fazer alterações em matérias rejeitadas. Caso você tenha feito alterações elas não serão salvas');", true);
+                rdlAlteracao.SelectedValue = "N";
                 pnDados.Enabled = false;
                 txtMateriaEscrita_HtmlEditorExtender.Enabled = false;
             }
@@ -229,7 +244,7 @@ namespace AgenciaNoticasN.Materias
         {
             lblMensagemErro.Text = "";
 
-            if (rdlAlteracao.SelectedValue.Equals("S") && (rdlSituacao.SelectedValue.Equals("A") || rdlSituacao.SelectedValue.Equals("")))
+            if (rdlAlteracao.SelectedValue.Equals("S") && rdlSituacao.SelectedValue.Equals("A"))
             {
                 pnDados.Enabled = true;
                 txtMateriaEscrita_HtmlEditorExtender.Enabled = true;
@@ -240,16 +255,21 @@ namespace AgenciaNoticasN.Materias
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Não é permitido fazer alterações em matérias rejeitadas. Caso você tenha feito alterações elas não serão salvas');", true);
                 rdlAlteracao.SelectedValue = "N";
                 pnDados.Enabled = false;
-                txtMateriaEscrita_HtmlEditorExtender.Enabled = true;
+                txtMateriaEscrita_HtmlEditorExtender.Enabled = false;
             }
             else
-            if (rdlAlteracao.SelectedValue.Equals("N"))
+            if (rdlAlteracao.SelectedValue.Equals("N") && rdlSituacao.SelectedValue.Equals("A"))
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Não será permitido alterar a matéria. Caso você tenha feito alterações elas não serão salvas');", true);
                 pnDados.Enabled = false;
-                txtMateriaEscrita_HtmlEditorExtender.Enabled = true;
+                txtMateriaEscrita_HtmlEditorExtender.Enabled = false;
             }
-
+            else
+            if (rdlAlteracao.SelectedValue.Equals("N") && rdlSituacao.SelectedValue.Equals("R"))
+            {
+                pnDados.Enabled = false;
+                txtMateriaEscrita_HtmlEditorExtender.Enabled = false;
+            }
+                     
             verificaStatus();
         }
 

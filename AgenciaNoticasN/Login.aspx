@@ -17,7 +17,7 @@
             <div class="col-md-4">
                 <div class="log">
                     <asp:Login ID="Login1" runat="server" FailureText="Usuário e/ou Senha incorreto" Width="85%"
-                        CssClass="form-signin" DisplayRememberMe="False" OnAuthenticate="Login1_Authenticate" DestinationPageUrl="~/Materias/Home.aspx">
+                        CssClass="form-signin" DisplayRememberMe="False" OnAuthenticate="Login1_Authenticate" DestinationPageUrl="~/Materias/Materias.aspx">
                         <%--LoginButtonText="Entrar" PasswordLabelText="Senha:" PasswordRequiredErrorMessage="Senha é requerida" TitleText="Login" 
                         UserNameLabelText="Usuário:" UserNameRequiredErrorMessage="Usuário é requerido">--%>
                          

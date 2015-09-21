@@ -189,12 +189,12 @@ namespace BLL
                 else //Comentário
                 if (dadosComentario.titulo.Equals(""))
                 {
-                    return "Informe o título do comentário.";
+                    return "Informe uma descrição para o envio.";
                 }
                 else
                 if (dadosComentario.comentario.Equals(""))
                 {
-                    return "Digite/Escreva o comentário.";
+                    return "Escreva um comentário sobre a revisão feita.";
                 }
                 else
                 if (dal.inserirRevisao(dadosMateria, dadosComentario, codMateria))

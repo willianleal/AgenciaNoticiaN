@@ -52,6 +52,7 @@
             </div>
 
             <div class="col-md-12 form-group">
+                <label class="control-label">Matéria:</label>
                 <asp:TextBox ID="txtMateriaEscrita" runat="server" CssClass="form-control" TextMode="MultiLine" Columns="120" Rows="6" placeholder="Texto da matéria"></asp:TextBox>
             
                 <ajaxToolkit:HtmlEditorExtender ID="txtMateriaEscrita_HtmlEditorExtender" Enabled="false" runat="server" BehaviorID="txtMateriaEscrita_HtmlEditorExtender" TargetControlID="txtMateriaEscrita" >
@@ -62,7 +63,7 @@
         <div class="col-md-12 form-group">
             <label class="control-label">Envio:</label>    
         
-            <asp:TextBox ID="txtDescricao" runat="server" CssClass="form-control" MaxLength="100" placeholder="Escreva uma descrição para o envio. Ex: Envio inicial, Revisão final..."></asp:TextBox>
+            <asp:TextBox ID="txtDescricao" runat="server" CssClass="form-control" MaxLength="100" placeholder="Informe uma descrição para o envio. Ex: Envio inicial, Revisão final..."></asp:TextBox>
         </div>
 
         <div class="col-md-12 form-group">
@@ -71,11 +72,6 @@
             <asp:TextBox ID="txtComentario" runat="server" CssClass="form-control" TextMode="MultiLine" Columns="120" Rows="3" placeholder="Escreva um comentário sobre a revisão feita."></asp:TextBox>
         </div>
             
-        <div class="col-md-12 form-group">
-            <h4><asp:Label ID="lblMensagemErro" runat="server" Text="" CssClass="label label-danger pull-left"></asp:Label></h4>
-            <asp:LinkButton ID="lkGravar" runat="server" Text="Enviar para Revisão" CssClass="btn btn-primary pull-right" OnClick="lkGravar_Click"></asp:LinkButton>
-        </div>
-
         <div class="col-md-12 form-group">
             <hr>
             <h4><asp:Label ID="lblParecer" runat="server" Text="Parecer Revisor:" CssClass="label label-success pull-left"></asp:Label></h4>
@@ -94,6 +90,12 @@
                 <asp:ListItem class="btn btn-default" Text="Aprovar" Value="A"/>
                 <asp:ListItem class="btn btn-default" Text="Rejeitar" Value="R"/>
             </asp:RadioButtonList>
+        </div>
+
+        <div class="col-md-12 form-group">
+            <hr>
+            <h4><asp:Label ID="lblMensagemErro" runat="server" Text="" CssClass="label label-danger pull-left"></asp:Label></h4>
+            <asp:LinkButton ID="lkGravar" runat="server" Text="Enviar para Revisão" CssClass="btn btn-primary pull-right" OnClick="lkGravar_Click"></asp:LinkButton>
         </div>
 
         <div class="col-md-12 form-group">

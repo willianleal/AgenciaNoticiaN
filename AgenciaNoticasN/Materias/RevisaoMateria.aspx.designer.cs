@@ -121,24 +121,6 @@ namespace AgenciaNoticasN.Materias {
         protected global::System.Web.UI.WebControls.TextBox txtComentario;
         
         /// <summary>
-        /// lblMensagemErro control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensagemErro;
-        
-        /// <summary>
-        /// lkGravar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lkGravar;
-        
-        /// <summary>
         /// lblParecer control.
         /// </summary>
         /// <remarks>
@@ -173,6 +155,24 @@ namespace AgenciaNoticasN.Materias {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList rdlSituacao;
+        
+        /// <summary>
+        /// lblMensagemErro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensagemErro;
+        
+        /// <summary>
+        /// lkGravar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lkGravar;
         
         /// <summary>
         /// dtlComentarios control.

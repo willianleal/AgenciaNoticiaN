@@ -62,25 +62,27 @@
             <h4><asp:Label ID="lblParecerRevisor" runat="server" Text="Parecer Revisor:" CssClass="label label-success pull-left"></asp:Label></h4>
             <h4><asp:Label ID="lblAlteracaoRevisor" runat="server" Text="Houve alteração:" CssClass="label label-success pull-left"></asp:Label></h4>
             
-            <h4><asp:Label ID="lblParecerJornalista" runat="server" Text="Parecer Revisor:" CssClass="label label-success pull-left"></asp:Label></h4>
-            <h4><asp:Label ID="lblAlteracaoJornalista" runat="server" Text="Houve alteração:" CssClass="label label-success pull-left"></asp:Label></h4>     
+            <h4><asp:Label ID="lblParecerJornalista" runat="server" Text="Parecer Revisor:" CssClass="label label-primary pull-left"></asp:Label></h4>
+            <h4><asp:Label ID="lblAlteracaoJornalista" runat="server" Text="Houve alteração:" CssClass="label label-primary pull-left"></asp:Label></h4>     
         </div>
 
-        <div class="col-md-12 form-group">
-            <hr>
-            <label class="control-label">Título:</label>    
-            <asp:TextBox ID="txtDescricao" runat="server" CssClass="form-control" MaxLength="100" placeholder="Informe um título para o comentário."></asp:TextBox>
-        </div>
+        <asp:Panel ID="pnComentario" runat="server" Enabled="false">
+            <div class="col-md-12 form-group">
+                <hr>
+                <label class="control-label">Título:</label>    
+                <asp:TextBox ID="txtDescricao" runat="server" CssClass="form-control" MaxLength="100" placeholder="Informe um título para o comentário."></asp:TextBox>
+            </div>
 
-        <div class="col-md-12 form-group">
-            <label class="control-label">Comentário:</label>
-            <asp:TextBox ID="txtComentario" runat="server" CssClass="form-control" TextMode="MultiLine" Columns="120" Rows="3" placeholder="Escreva um comentário sobre a matéria."></asp:TextBox>
-        </div>
+            <div class="col-md-12 form-group">
+                <label class="control-label">Comentário:</label>
+                <asp:TextBox ID="txtComentario" runat="server" CssClass="form-control" TextMode="MultiLine" Columns="120" Rows="3" placeholder="Escreva um comentário sobre a matéria."></asp:TextBox>
+            </div>
             
-        <div class="col-md-12 form-group">
-            <h4><asp:Label ID="lblMensagemErro" runat="server" Text="" CssClass="label label-danger pull-left"></asp:Label></h4>
-            <asp:LinkButton ID="lkInserirComentario" runat="server" Text="Inserir comentário" CssClass="btn btn-primary pull-right" OnClick="lkInserirComentario_Click"></asp:LinkButton>
-        </div>
+            <div class="col-md-12 form-group">
+                <h4><asp:Label ID="lblMensagemErro" runat="server" Text="" CssClass="label label-danger pull-left"></asp:Label></h4>
+                <asp:LinkButton ID="lkInserirComentario" runat="server" Text="Inserir comentário" CssClass="btn btn-primary pull-right" OnClick="lkInserirComentario_Click"></asp:LinkButton>
+            </div>
+        </asp:Panel>
 
         <div class="col-md-12 form-group">
             <hr>

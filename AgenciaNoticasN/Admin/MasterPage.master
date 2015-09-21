@@ -31,14 +31,16 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="HomeAdmin.aspx">Home</a></li>
             <li><a href="Secoes.aspx">Seções</a></li>
             <li><a href="Pessoas.aspx">Pessoas</a></li>
-            <li><asp:LinkButton ID="lkSair" runat="server" Text="Sair" OnClick="lkSair_Click" ></asp:LinkButton></li>
-            <%--<li><a href="Materias.aspx">Matérias</a></li>
-            <li><a href="#sobre">Sobre</a></li>
+            <%--<li><a href="#sobre">Sobre</a></li>
             <li><a href="#contato">Contato</a></li>--%>
           </ul>
+          
+          <ul class="nav navbar-nav navbar-right">
+            <li><asp:LinkButton ID="lkSair" runat="server" Text="Sair" OnClick="lkSair_Click" ></asp:LinkButton></li>
+          </ul>
+
         </div><!--/.nav-collapse -->
       </div>
 

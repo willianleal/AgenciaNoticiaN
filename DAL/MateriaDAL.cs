@@ -233,7 +233,9 @@ namespace DAL
                            LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
-                           WHERE (codPessoa_Jornalista = @codPessoa_Jornalista AND status='Proposta') OR (codPessoa_Jornalista = @codPessoa_Jornalista AND status='Revisao')";
+                           WHERE codPessoa_Jornalista = @codPessoa_Jornalista";
+
+                           //WHERE (codPessoa_Jornalista = @codPessoa_Jornalista AND status='Proposta') OR (codPessoa_Jornalista = @codPessoa_Jornalista AND status='Revisao')
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Jornalista", codPessoa_Jornalista);
@@ -298,8 +300,7 @@ namespace DAL
                            LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
-                           WHERE (codPessoa_Revisor IS NULL AND status='Proposta') OR
-                                 (codPessoa_Revisor = @codPessoa_Revisor AND status='Revisao')";
+                           WHERE (codPessoa_Revisor IS NULL AND status='Proposta') OR (codPessoa_Revisor = @codPessoa_Revisor)";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Revisor", codPessoa_Revisor);
@@ -364,8 +365,7 @@ namespace DAL
                            LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
-                           WHERE (codPessoa_Publicador IS NULL AND status='Aprovada') OR
-                                 (codPessoa_Publicador = @codPessoa_Publicador AND status='Publicada')";
+                           WHERE (codPessoa_Publicador IS NULL AND status='Aprovada') OR (codPessoa_Publicador = @codPessoa_Publicador)";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Publicador", codPessoa_Publicador);
