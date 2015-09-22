@@ -84,7 +84,7 @@ namespace AgenciaNoticasN.Admin
                 if (resposta.Equals(""))
                     Response.Redirect("Secoes.aspx");
                 else
-                    showMessageBox("Erro ao cadastrar seção!");
+                    lblMensagemErro.Text = resposta;
             }
             else //Alterando
             {
@@ -93,7 +93,7 @@ namespace AgenciaNoticasN.Admin
                 if (resposta.Equals(""))
                     Response.Redirect("Secoes.aspx");
                 else
-                    showMessageBox("Erro ao alterar seção!");
+                    lblMensagemErro.Text = resposta;
             }
         }
     }

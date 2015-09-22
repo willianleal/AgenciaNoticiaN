@@ -57,7 +57,6 @@ namespace AgenciaNoticasN.Admin
             txtEmail.Text           = pessoa[0].email;
             chkAtivo.Checked        = pessoa[0].ativo;
             chkAdmin.Checked        = pessoa[0].administrador;
-            txtSenha.DataBind();
         }
 
         protected void lkGravar_Click(object sender, EventArgs e)
@@ -85,7 +84,6 @@ namespace AgenciaNoticasN.Admin
                 if (resposta.Equals(""))
                     Response.Redirect("Pessoas.aspx");
                 else
-                    //showMessageBox(resposta);
                     lblMensagemErro.Text = resposta;
             }
             else //Alterando
@@ -96,7 +94,6 @@ namespace AgenciaNoticasN.Admin
                     Response.Redirect("Pessoas.aspx");
                 else
                     lblMensagemErro.Text = resposta;
-                    //showMessageBox(resposta);
             }
         }
     }

@@ -8,7 +8,9 @@
         
         <div class="col-md-12">
             <asp:HyperLink NavigateUrl="~/Admin/Secoes.aspx" runat="server" ID="hpVoltar" ><span class="glyphicon glyphicon-chevron-left"></span> &nbsp; voltar </asp:HyperLink>
-            <h2>Cadastro de seções</h2>
+            <div class="page-header">
+                <h2>Cadastro de seções</h2>    
+            </div>
         </div>
         
         <div class="col-md-12 form-group">
@@ -27,6 +29,10 @@
   
     </div>
     <div class="row">
+        <div class="col-md-10 form-group">
+            <h4><asp:Label ID="lblMensagemErro" runat="server" Text="" CssClass="label label-danger"></asp:Label></h4>
+        </div>
+
         <div class="col-md-2 form-group pull-right">
             <asp:LinkButton ID="lkGravar" runat="server" Text="Gravar" CssClass="btn btn-primary pull-right" OnClick="lkGravar_Click"></asp:LinkButton>
         </div>

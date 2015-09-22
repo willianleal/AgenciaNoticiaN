@@ -94,6 +94,15 @@ namespace AgenciaNoticasN.Materias {
         protected global::System.Web.UI.WebControls.TextBox txtMateriaEscrita;
         
         /// <summary>
+        /// txtMateriaEscrita_HtmlEditorExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.HtmlEditorExtender txtMateriaEscrita_HtmlEditorExtender;
+        
+        /// <summary>
         /// lblParecerRevisor control.
         /// </summary>
         /// <remarks>
@@ -103,15 +112,6 @@ namespace AgenciaNoticasN.Materias {
         protected global::System.Web.UI.WebControls.Label lblParecerRevisor;
         
         /// <summary>
-        /// lblAlteracaoRevisor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAlteracaoRevisor;
-        
-        /// <summary>
         /// lblParecerJornalista control.
         /// </summary>
         /// <remarks>
@@ -119,15 +119,6 @@ namespace AgenciaNoticasN.Materias {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblParecerJornalista;
-        
-        /// <summary>
-        /// lblAlteracaoJornalista control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAlteracaoJornalista;
         
         /// <summary>
         /// pnComentario control.

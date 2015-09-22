@@ -84,15 +84,6 @@ namespace BLL
             {
                 return "Falha ao gravar dados: Entre em contato com o administrador.";
             }
-            
-            //try
-            //{
-            //    return dal.inserir(dados);
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
         }
 
         public string alterar(Pessoa dados, int codPessoa)
@@ -123,11 +114,6 @@ namespace BLL
                 {
                     return "Informe o email.";
                 }
-                //else
-                //if (dados.senha.Equals(""))
-                //{
-                //    return "Informe a senha.";
-                //}
                 else
                 if (!Util.somenteNumeros(dados.ddd))
                 {
@@ -142,12 +128,7 @@ namespace BLL
                 if (!Util.somenteLetras(dados.nome))
                 {
                     return "O nome deve possuir apenas letras.";
-                }
-                else
-                if (!dal.getPessoaEmail(dados.email).ToString().Equals("0"))
-                {
-                    return "O email informado já está cadastrado para outra pessoa.";
-                }
+                }                
                 else
                 if (dal.alterar(dados, codPessoa))
                 {
@@ -162,16 +143,6 @@ namespace BLL
             {
                 return "Falha ao gravar dados: Entre em contato com o administrador.";
             }
-            
-
-            //try
-            //{
-            //    return dal.alterar(dados, codPessoa);
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
         }
 
         public bool deletar(int codPessoa)

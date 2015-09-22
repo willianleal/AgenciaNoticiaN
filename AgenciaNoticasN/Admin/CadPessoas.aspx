@@ -11,12 +11,14 @@
     <div class="row">
         <div class="col-md-12">
             <asp:HyperLink NavigateUrl="~/Admin/Pessoas.aspx" runat="server" ID="hpVoltar" ><span class="glyphicon glyphicon-chevron-left"></span> &nbsp; voltar </asp:HyperLink>
-            <h2>Cadastro de pessoas</h2>
+            <div class="page-header">
+                <h2>Cadastro de pessoas</h2>    
+            </div>
         </div>
         
         <div class="col-md-12 form-group">
-            <label class="control-label">Nome:</label>    
-            
+            <label class="control-label">Nome:</label>
+
             <asp:TextBox ID="txtNome" runat="server" CssClass="form-control" MaxLength="50" ></asp:TextBox>
         </div>
 
@@ -45,8 +47,6 @@
         </div>
         
         <div class="col-md-12 form-group">
-            <%--<label class="control-label">Ativo:</label>--%>
-
             <asp:CheckBox Text="Ativo" CssClass="checkbox checkbox-inline pull-left" ID="chkAtivo" runat="server" />
         </div>
 

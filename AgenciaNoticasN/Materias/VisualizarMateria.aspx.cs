@@ -55,41 +55,45 @@ namespace AgenciaNoticasN.Materias
 
             //Parecer do Revisor
             if (materia[0].parecerRevisor.Equals("A"))
-                lblParecerRevisor.Text = "Parecer Revisor: Aprovado";
+                lblParecerRevisor.Text = "Parecer do Revisor: Aprovado";
             else
                 if (materia[0].parecerRevisor.Equals("R"))
-                    lblParecerRevisor.Text = "Parecer Revisor: Rejeitado";
+                    lblParecerRevisor.Text = "Parecer do Revisor: Rejeitado";
                 else
                     lblParecerRevisor.Visible = false;
 
             //Alteração do Revisor
             if (materia[0].alteracaoRevisor.Equals("S"))
-                lblAlteracaoRevisor.Text = "Houve Alteração: Sim";
+                //lblAlteracaoRevisor.Text = "Houve Alteração: Sim";
+                lblParecerRevisor.Text += " com alteração";
             else
                 if (materia[0].alteracaoRevisor.Equals("N"))
-                    lblAlteracaoRevisor.Text = "Houve Alteração: Não";
+                    //lblAlteracaoRevisor.Text = "Houve Alteração: Não";
+                    lblParecerRevisor.Text += " sem alteração";
                 else
-                    lblAlteracaoRevisor.Visible = false;
+                    lblParecerRevisor.Visible = false;
 
             ///////////////////////////////////////////////////
 
             //Parecer do Jornalista
             if (materia[0].parecerJornalista.Equals("A"))
-                lblParecerJornalista.Text = "Parecer Jornalista: Aprovado";
+                lblParecerJornalista.Text = "Parecer do Jornalista: Aprovado";
             else
                 if (materia[0].parecerJornalista.Equals("R"))
-                    lblParecerJornalista.Text = "Parecer Jornalista: Rejeitado";
+                    lblParecerJornalista.Text = "Parecer do Jornalista: Rejeitado";
                 else
                     lblParecerJornalista.Visible = false;
 
             //Alteração
             if (materia[0].alteracaoJornalista.Equals("S"))
-                lblAlteracaoJornalista.Text = "Houve Alteração: Sim";
+                //lblAlteracaoJornalista.Text = "Houve Alteração: Sim";
+                lblParecerJornalista.Text += " com alteração";
             else
                 if (materia[0].alteracaoJornalista.Equals("N"))
-                    lblAlteracaoJornalista.Text = "Houve Alteração: Não";
+                    //lblAlteracaoJornalista.Text = "Houve Alteração: Não";
+                    lblParecerJornalista.Text += " sem alteração";
                 else
-                    lblAlteracaoJornalista.Visible = false;
+                    lblParecerJornalista.Visible = false;
         }
 
         protected void popularSecoes()

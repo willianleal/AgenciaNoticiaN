@@ -35,7 +35,7 @@
             <asp:Label ID="lblRevisor" runat="server" Text="" CssClass="control-label"></asp:Label>
         </div>
 
-        <asp:Panel ID="pnDados" runat="server" Enabled="false">
+        <asp:Panel ID="pnDados" runat="server">
             <div class="col-md-12 form-group">
                 <label class="control-label">Seção:</label> 
                 <asp:DropDownList ID="ddlSecao" runat="server" CssClass="form-control" AutoPostBack="True" AppendDataBoundItems="True" Enabled="false">
@@ -50,20 +50,19 @@
 
             <div class="col-md-12 form-group">
                 <label class="control-label">Matéria:</label>
-                <asp:TextBox ID="txtMateriaEscrita" runat="server" CssClass="form-control" TextMode="MultiLine" Columns="120" Rows="6" placeholder="Texto da matéria"></asp:TextBox>
+                <asp:TextBox ID="txtMateriaEscrita" runat="server" CssClass="form-control" TextMode="MultiLine" Columns="120" Rows="8" placeholder="Texto da matéria"></asp:TextBox>
             
-                <%--<ajaxToolkit:HtmlEditorExtender ID="txtMateriaEscrita_HtmlEditorExtender" Enabled="false" runat="server" BehaviorID="txtMateriaEscrita_HtmlEditorExtender" TargetControlID="txtMateriaEscrita" >
-                </ajaxToolkit:HtmlEditorExtender>--%>
+                <ajaxToolkit:HtmlEditorExtender ID="txtMateriaEscrita_HtmlEditorExtender" runat="server" BehaviorID="txtMateriaEscrita_HtmlEditorExtender" TargetControlID="txtMateriaEscrita" >
+                </ajaxToolkit:HtmlEditorExtender>
                 
             </div>
         </asp:Panel>
 
-        <div class="col-md-12 form-group">
-            <h4><asp:Label ID="lblParecerRevisor" runat="server" Text="Parecer Revisor:" CssClass="label label-success pull-left"></asp:Label></h4>
-            <h4><asp:Label ID="lblAlteracaoRevisor" runat="server" Text="Houve alteração:" CssClass="label label-success pull-left"></asp:Label></h4>
-            
-            <h4><asp:Label ID="lblParecerJornalista" runat="server" Text="Parecer Revisor:" CssClass="label label-primary pull-left"></asp:Label></h4>
-            <h4><asp:Label ID="lblAlteracaoJornalista" runat="server" Text="Houve alteração:" CssClass="label label-primary pull-left"></asp:Label></h4>     
+        <div class="col-md-3 form-group">
+            <h4><asp:Label ID="lblParecerRevisor" runat="server" Text="Parecer Revisor:" CssClass="label label-success pull-left"></asp:Label></h4>   
+        </div>
+        <div class="col-md-9 form-group">
+            <h4><asp:Label ID="lblParecerJornalista" runat="server" Text="Parecer Revisor:" CssClass="label label-primary pull-left"></asp:Label></h4>    
         </div>
 
         <asp:Panel ID="pnComentario" runat="server" Enabled="false">

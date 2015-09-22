@@ -18,7 +18,6 @@ namespace DAL
             string SQL = "INSERT INTO Pessoa(nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha, administrador) VALUES(@nome, @funcao, @ddd, @telefone, @email, @ativo, @dataCadastro, @senha, @administrador)";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
-            //comando.Parameters.AddWithValue("@codPessoa", codPessoa);
             comando.Parameters.AddWithValue("@nome", dados.nome);
             comando.Parameters.AddWithValue("@funcao", dados.funcao);
             comando.Parameters.AddWithValue("@ddd", dados.ddd);
@@ -189,7 +188,7 @@ namespace DAL
 
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string SQL = "SELECT codPessoa, nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha FROM Pessoa WHERE codPessoa=@codPessoa";
+            string SQL = "SELECT codPessoa, nome, funcao, ddd, telefone, email, ativo, dataCadastro, senha, administrador FROM Pessoa WHERE codPessoa=@codPessoa";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa", codPessoa);
@@ -212,6 +211,7 @@ namespace DAL
                     dadosPessoa.ativo = (bool)resultado["ativo"];
                     dadosPessoa.dataCadastro = (DateTime)resultado["dataCadastro"];
                     dadosPessoa.senha = resultado["senha"].ToString();
+                    dadosPessoa.administrador = (bool)resultado["administrador"];
                     pessoas.Add(dadosPessoa);
                 }
 
