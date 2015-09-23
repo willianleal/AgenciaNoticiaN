@@ -12,6 +12,31 @@
      
         <div class="col-md-12 form-group">
             <h2>Matérias cadastradas</h2>
+
+            <div class="col-md-2 form-group">
+                <label class="control-label">Código:</label>
+
+                <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" MaxLength="50" ></asp:TextBox>
+            </div>
+
+            <div class="col-md-3 form-group">
+                <label class="control-label">Mais recentes:</label>    
+            
+                <asp:DropDownList ID="ddlFiltrar" runat="server" CssClass="form-control">
+                    <asp:ListItem Selected="True" Value="">Selecione</asp:ListItem>
+                    <asp:ListItem Value="1">Última semana</asp:ListItem>
+                    <asp:ListItem Value="2">Último mês</asp:ListItem>
+                    <asp:ListItem Value="3">Último ano</asp:ListItem>
+                    <asp:ListItem Value="4">As 15 mais recentes</asp:ListItem>
+                    <asp:ListItem Value="5">As 60 mais recentes</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+            
+            <div class="col-md-2 form-group">
+                <label class="control-label"></label>
+                <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-primary form-control"></asp:Button>
+            </div>
+
             <asp:GridView ID="gdvMateria" runat="server" AutoGenerateColumns="False" CssClass="table table-hover" BorderWidth="0px" GridLines="None" AllowPaging="True" EmptyDataText="Nenhuma matéria cadastrada." PageSize="7">
                 <Columns>
                     <asp:BoundField DataField="codMateria" HeaderText="Código" />
@@ -21,7 +46,7 @@
                     <asp:BoundField DataField="publicador" HeaderText="Publicador" />
                     <asp:BoundField DataField="gerente" HeaderText="Gerente" />
                     <asp:BoundField DataField="status" HeaderText="Status" />
-                    <asp:BoundField DataField="dataCadastro" HeaderText="Cadastro" />
+                    <asp:BoundField DataField="dataCadastro" HeaderText="Cadastro" DataFormatString = "{0:dd/MM/yyyy}"/>
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton ID="lbAlterar" runat="server" CommandArgument='<%# Eval("codMateria") %>' Text="Alterar" OnClick="lbAlterar_Click" Visible='<%# (Eval("status").ToString().Equals("Proposta") && Eval("revisor").ToString().Equals("")) ? true: false %>' />

@@ -233,7 +233,8 @@ namespace DAL
                            LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
-                           WHERE codPessoa_Jornalista = @codPessoa_Jornalista";
+                           WHERE codPessoa_Jornalista = @codPessoa_Jornalista
+                           ORDER BY m.dataCadastro DESC";
 
                            //WHERE (codPessoa_Jornalista = @codPessoa_Jornalista AND status='Proposta') OR (codPessoa_Jornalista = @codPessoa_Jornalista AND status='Revisao')
 
@@ -264,11 +265,6 @@ namespace DAL
                     dadosMateria.Publicador = resultado["Publicador"].ToString();
                     dadosMateria.Gerente = resultado["Gerente"].ToString();
                     dadosMateria.revisao = resultado["revisao"].ToString();
-                    //dadosMateria.parecerJornalista = resultado["parecerJornalista"].ToString();
-                    //dadosMateria.parecerRevisor = resultado["parecerRevisor"].ToString();
-                    //dadosMateria.alteracaoJornalista = resultado["alteracaoJornalista"].ToString();
-                    //dadosMateria.alteracaoRevisor = resultado["alteracaoRevisor"].ToString();
-                    //dadosMateria.dataPublicacao = resultado["dataPublicacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataPublicacao"];
                     materia.Add(dadosMateria);
                 }
 
@@ -300,7 +296,8 @@ namespace DAL
                            LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
-                           WHERE (codPessoa_Revisor IS NULL AND status='Proposta') OR (codPessoa_Revisor = @codPessoa_Revisor)";
+                           WHERE (codPessoa_Revisor IS NULL AND status='Proposta') OR (codPessoa_Revisor = @codPessoa_Revisor)
+                           ORDER BY m.dataCadastro DESC";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Revisor", codPessoa_Revisor);
@@ -365,7 +362,8 @@ namespace DAL
                            LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
-                           WHERE (codPessoa_Publicador IS NULL AND status='Aprovada') OR (codPessoa_Publicador = @codPessoa_Publicador)";
+                           WHERE (codPessoa_Publicador IS NULL AND status='Aprovada') OR (codPessoa_Publicador = @codPessoa_Publicador)
+                           ORDER BY m.dataCadastro DESC";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Publicador", codPessoa_Publicador);
@@ -431,7 +429,8 @@ namespace DAL
                            LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
-                           WHERE codPessoa_Gerente = @codPessoa_Gerente";
+                           WHERE codPessoa_Gerente = @codPessoa_Gerente
+                           ORDER BY m.dataCadastro DESC";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Gerente", codPessoa_Gerente);

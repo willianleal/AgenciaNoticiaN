@@ -58,11 +58,11 @@
             </div>
         </asp:Panel>
 
-        <div class="col-md-3 form-group">
+        <div class="col-md-4 form-group">
             <h4><asp:Label ID="lblParecerRevisor" runat="server" Text="Parecer Revisor:" CssClass="label label-success pull-left"></asp:Label></h4>   
         </div>
-        <div class="col-md-9 form-group">
-            <h4><asp:Label ID="lblParecerJornalista" runat="server" Text="Parecer Revisor:" CssClass="label label-primary pull-left"></asp:Label></h4>    
+        <div class="col-md-8 form-group">
+            <h4><asp:Label ID="lblParecerJornalista" runat="server" Text="Parecer Revisor:" CssClass="label label-success pull-left"></asp:Label></h4>    
         </div>
 
         <asp:Panel ID="pnComentario" runat="server" Enabled="false">

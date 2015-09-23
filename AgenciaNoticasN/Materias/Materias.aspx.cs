@@ -155,6 +155,12 @@ namespace AgenciaNoticasN.Admin
                         if (!funcaoPessoaLogada.Equals("Jornalista") || !funcaoPessoaLogada.Equals("Revisor"))
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Somente jornalistas e Revisores podem revisar matérias.');", true);
             }
+            else
+            if (status.Equals("Aprovada"))
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Essa matéria já foi aprovada, portanto, não é permitido fazer novas revisões.');", true);
+            else
+                if (status.Equals("Aprovada"))
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Essa matéria foi arquivada, portanto, não é permitido fazer novas revisões.');", true);
         }
 
         protected void pegarMateria(int codMateria, string revisao)
@@ -196,11 +202,6 @@ namespace AgenciaNoticasN.Admin
             string[] commandArgs = id.CommandArgument.ToString().Split(new char[] { ',' });//0=codMateria, 1=status, 2=revisao
 
             int codMateria = int.Parse(commandArgs[0]);
-            //string status = commandArgs[1];
-            //string revisao = commandArgs[2];
-
-            //int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
-            //string funcaoPessoaLogada = pessoaBll.getFuncaoPessoa(codPessoa);
 
             Response.Redirect("VisualizarMateria.aspx?key=" + Util.criptUrl(codMateria.ToString()));
         }
