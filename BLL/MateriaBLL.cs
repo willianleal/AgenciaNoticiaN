@@ -119,11 +119,11 @@ namespace BLL
             }
         }
 
-        public List<Materia> listarMateriaJornalista(int codPessoa_Jornalista)
+        public List<Materia> listarMateriaJornalista(int codPessoa_Jornalista, string dataAnterior="", string dataAtual="", int top=0)
         {
             try
             {
-                return dal.listarMateriaJornalista(codPessoa_Jornalista);
+                return dal.listarMateriaJornalista(codPessoa_Jornalista, dataAnterior, dataAtual, top);
             }
             catch
             {

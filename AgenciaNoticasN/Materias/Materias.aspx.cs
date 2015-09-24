@@ -23,21 +23,22 @@ namespace AgenciaNoticasN.Admin
             else
             if (!IsPostBack)
             {
-                popularMateria();
+                //Pega o código da pessoa logada
+                int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
+                
+                popularMateria(codPessoa);
             }
         }
 
-        protected void popularMateria()
+        protected void popularMateria(int codPessoa, string dataAnterior="", string dataAtual="", int top=0)
         {
-            //Pega o código da pessoa logada
-            int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
-
+            
             //Pega a função da pessoa logada
             string funcao = pessoaBll.getFuncaoPessoa(codPessoa);
 
             if (funcao.Equals("Jornalista"))
             {
-                gdvMateria.DataSource = materiaBll.listarMateriaJornalista(codPessoa);
+                gdvMateria.DataSource = materiaBll.listarMateriaJornalista(codPessoa, dataAnterior, dataAtual, top);
                 gdvMateria.Columns[11].Visible = false; //Publicar
             }
             else
@@ -86,7 +87,7 @@ namespace AgenciaNoticasN.Admin
             else
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Somente jornalistas possuem permissão para deletar matérias.');", true);
 
-            popularMateria();
+            popularMateria(codPessoa);
         }
 
         protected void lbAlterar_Click(object sender, EventArgs e)
@@ -204,6 +205,51 @@ namespace AgenciaNoticasN.Admin
             int codMateria = int.Parse(commandArgs[0]);
 
             Response.Redirect("VisualizarMateria.aspx?key=" + Util.criptUrl(codMateria.ToString()));
+        }
+
+        protected void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            DateTime dataAtual = DateTime.Now;
+            
+            DateTime dataAnterior;
+
+            int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
+
+            if (ddlFiltrar.SelectedValue.Equals("1")) //Última semana
+            {
+                dataAnterior = dataAtual.AddDays(-7);
+
+                popularMateria(codPessoa, dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
+            }
+            else
+            if (ddlFiltrar.SelectedValue.Equals("2")) //Último mês
+            { 
+                dataAnterior = dataAtual.AddMonths(-1);
+
+                popularMateria(codPessoa, dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
+            }
+            else
+            if (ddlFiltrar.SelectedValue.Equals("3")) //Último ano
+            { 
+                dataAnterior = dataAtual.AddYears(-1);
+
+                popularMateria(codPessoa, dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
+            }
+            else
+            if (ddlFiltrar.SelectedValue.Equals("4")) //Top 15
+            {
+                dataAnterior = dataAtual.AddYears(-1);
+
+                popularMateria(codPessoa, "", "", 15);
+            }
+            else
+            if (ddlFiltrar.SelectedValue.Equals("5")) //Top 30
+            {
+                dataAnterior = dataAtual.AddYears(-1);
+
+                popularMateria(codPessoa, "", "", 30);
+            }
+            
         }
 
     }

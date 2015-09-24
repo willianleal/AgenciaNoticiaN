@@ -34,7 +34,7 @@
             
             <div class="col-md-2 form-group">
                 <label class="control-label"></label>
-                <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-primary form-control"></asp:Button>
+                <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-primary form-control" OnClick="btnFiltrar_Click"></asp:Button>
             </div>
 
             <asp:GridView ID="gdvMateria" runat="server" AutoGenerateColumns="False" CssClass="table table-hover" BorderWidth="0px" GridLines="None" AllowPaging="True" EmptyDataText="Nenhuma matéria cadastrada." PageSize="7">

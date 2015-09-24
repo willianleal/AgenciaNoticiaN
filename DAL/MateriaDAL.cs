@@ -217,14 +217,23 @@ namespace DAL
             }
         }
 
-        public List<Materia> listarMateriaJornalista(int codPessoa_Jornalista)
+        public List<Materia> listarMateriaJornalista(int codPessoa_Jornalista, string dataAnterior="", string dataAtual="", int top=0)
         {
             List<Materia> materia = new List<Materia>();
 
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string SQL = @"SELECT 
-                            codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
+            string select = "";
+
+            if (top == 0)
+                select = "SELECT";
+            else
+            if (top == 15)
+                select = "SELECT TOP " + top.ToString();
+
+            //select = "SELECT TOP 60";
+
+            string campos = @" codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
                             m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
                             pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente, revisao 
                            FROM Materia m
@@ -233,13 +242,17 @@ namespace DAL
                            LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
-                           WHERE codPessoa_Jornalista = @codPessoa_Jornalista
+                           WHERE (codPessoa_Jornalista = @codPessoa_Jornalista) OR (codPessoa_Jornalista = @codPessoa_Jornalista AND CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
                            ORDER BY m.dataCadastro DESC";
 
                            //WHERE (codPessoa_Jornalista = @codPessoa_Jornalista AND status='Proposta') OR (codPessoa_Jornalista = @codPessoa_Jornalista AND status='Revisao')
-
+            
+            string SQL = select + campos;
+            
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Jornalista", codPessoa_Jornalista);
+            comando.Parameters.AddWithValue("@dataInicial", dataAnterior);
+            comando.Parameters.AddWithValue("@dataFinal", dataAtual);
           
             try
             {
