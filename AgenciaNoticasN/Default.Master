@@ -31,7 +31,7 @@
           <div id="navbar" class="collapse navbar-collapse">
               <ul class="nav navbar-nav navbar-right">
               <p class="navbar-text">Acessar:</p>
-              <li><a href="Login.aspx">Sistema</a></li>
+              <li><a href="Login.aspx">Gestão de Matérias</a></li>
               <li><a href="LoginAdmin.aspx">Admin</a></li>
             </ul>
           </div>
