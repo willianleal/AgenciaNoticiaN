@@ -131,11 +131,11 @@ namespace BLL
             }
         }
 
-        public List<Materia> listarMateriaRevisor(int codPessoa_Revisor)
+        public List<Materia> listarMateriaRevisor(int codPessoa_Revisor, string dataAnterior = "", string dataAtual = "", int top = 0)
         {
             try
             {
-                return dal.listarMateriaRevisor(codPessoa_Revisor);
+                return dal.listarMateriaRevisor(codPessoa_Revisor, dataAnterior, dataAtual, top);
             }
             catch
             {
@@ -143,11 +143,11 @@ namespace BLL
             }
         }
 
-        public List<Materia> listarMateriaPublicador(int codPessoa_Publicador)
+        public List<Materia> listarMateriaPublicador(int codPessoa_Publicador, string dataAnterior = "", string dataAtual = "", int top = 0)
         {
             try
             {
-                return dal.listarMateriaPublicador(codPessoa_Publicador);
+                return dal.listarMateriaPublicador(codPessoa_Publicador, dataAnterior, dataAtual, top);
             }
             catch
             {
@@ -155,11 +155,11 @@ namespace BLL
             }
         }
 
-        public List<Materia> listarMateriaGerente(int codPessoa_Gerente)
+        public List<Materia> listarMateriaGerente(int codPessoa_Gerente, string dataAnterior = "", string dataAtual = "", int top = 0)
         {
             try
             {
-                return dal.listarMateriaGerente(codPessoa_Gerente);
+                return dal.listarMateriaGerente(codPessoa_Gerente, dataAnterior, dataAtual, top);
             }
             catch
             {
@@ -217,6 +217,18 @@ namespace BLL
             try
             {
                 return dal.inserirRevisorMateria(dados, codMateria);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool enviarMateria(int codMateria)
+        {
+            try
+            {
+                return dal.enviarMateria(codMateria);
             }
             catch
             {

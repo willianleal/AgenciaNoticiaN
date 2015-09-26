@@ -58,7 +58,11 @@
             <h4><asp:Label ID="lblMensagemErro" runat="server" Text="" CssClass="label label-danger"></asp:Label></h4>
         </div>
 
-        <div class="col-md-2 form-group">
+        <div class="col-md-1 form-group">
+            <asp:LinkButton ID="lkEnviar" runat="server" Text="Enviar" CssClass="btn btn-success pull-right" OnClick="lkEnviar_Click"></asp:LinkButton>
+        </div>
+
+        <div class="col-md-1 form-group">
             <asp:LinkButton ID="lkGravar" runat="server" Text="Gravar" CssClass="btn btn-primary pull-right" OnClick="lkGravar_Click"></asp:LinkButton>
         </div>
     </div>

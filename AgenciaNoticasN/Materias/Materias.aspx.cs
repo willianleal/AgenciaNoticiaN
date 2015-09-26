@@ -44,7 +44,7 @@ namespace AgenciaNoticasN.Admin
             else
             if (funcao.Equals("Revisor"))
             {
-                gdvMateria.DataSource = materiaBll.listarMateriaRevisor(codPessoa);
+                gdvMateria.DataSource = materiaBll.listarMateriaRevisor(codPessoa, dataAnterior, dataAtual, top);
                 gdvMateria.Columns[8].Visible = false; //Alterar
                 gdvMateria.Columns[9].Visible = false; //Deletar
                 gdvMateria.Columns[11].Visible = false; //Publicar
@@ -53,7 +53,7 @@ namespace AgenciaNoticasN.Admin
             else
             if (funcao.Equals("Publicador"))
             {
-                gdvMateria.DataSource = materiaBll.listarMateriaPublicador(codPessoa);
+                gdvMateria.DataSource = materiaBll.listarMateriaPublicador(codPessoa, dataAnterior, dataAtual, top);
                 gdvMateria.Columns[8].Visible = false;  //Alterar
                 gdvMateria.Columns[9].Visible = false;  //Deletar
                 gdvMateria.Columns[10].Visible = false; //Revisar
@@ -62,7 +62,7 @@ namespace AgenciaNoticasN.Admin
             else
             if (funcao.Equals("Gerente"))
             {
-                gdvMateria.DataSource = materiaBll.listarMateriaGerente(codPessoa);
+                gdvMateria.DataSource = materiaBll.listarMateriaGerente(codPessoa, dataAnterior, dataAtual, top);
                 gdvMateria.Columns[8].Visible = false;  //Alterar
                 gdvMateria.Columns[9].Visible = false;  //Deletar
                 gdvMateria.Columns[10].Visible = false; //Revisar

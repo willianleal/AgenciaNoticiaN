@@ -13,14 +13,8 @@
         <div class="col-md-12 form-group">
             <h2>Matérias cadastradas</h2>
 
-            <div class="col-md-2 form-group">
-                <label class="control-label">Código:</label>
-
-                <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" MaxLength="50" ></asp:TextBox>
-            </div>
-
             <div class="col-md-3 form-group">
-                <label class="control-label">Mais recentes:</label>    
+                <label class="control-label">Filtrar:</label>    
             
                 <asp:DropDownList ID="ddlFiltrar" runat="server" CssClass="form-control">
                     <asp:ListItem Selected="True" Value="">Selecione</asp:ListItem>
@@ -45,16 +39,16 @@
                     <asp:BoundField DataField="revisor" HeaderText="Revisor" />
                     <asp:BoundField DataField="publicador" HeaderText="Publicador" />
                     <asp:BoundField DataField="gerente" HeaderText="Gerente" />
-                    <asp:BoundField DataField="status" HeaderText="Status" />
+                    <asp:BoundField DataField="status" HeaderText="Status"/>
                     <asp:BoundField DataField="dataCadastro" HeaderText="Cadastro" DataFormatString = "{0:dd/MM/yyyy}"/>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="lbAlterar" runat="server" CommandArgument='<%# Eval("codMateria") %>' Text="Alterar" OnClick="lbAlterar_Click" Visible='<%# (Eval("status").ToString().Equals("Proposta") && Eval("revisor").ToString().Equals("")) ? true: false %>' />
+                            <asp:LinkButton ID="lbAlterar" runat="server" CommandArgument='<%# Eval("codMateria") %>' Text="Alterar" OnClick="lbAlterar_Click" Visible='<%# (Eval("status").ToString().Equals("Não enviada") && Eval("revisor").ToString().Equals("")) ? true: false %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="lbDeletar" runat="server" CommandArgument='<%# Eval("codMateria") %>' Text="Deletar" OnClick="lbDeletar_Click" Visible='<%# (Eval("status").ToString().Equals("Proposta") && Eval("revisor").ToString().Equals("")) ? true: false %>' />
+                            <asp:LinkButton ID="lbDeletar" runat="server" CommandArgument='<%# Eval("codMateria") %>' Text="Deletar" OnClick="lbDeletar_Click" Visible='<%# (Eval("status").ToString().Equals("Não enviada") && Eval("revisor").ToString().Equals("")) ? true: false %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField>

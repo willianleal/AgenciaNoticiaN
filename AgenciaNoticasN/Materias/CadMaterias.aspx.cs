@@ -67,6 +67,7 @@ namespace AgenciaNoticasN.Admin
             txtNome.Text           = materia[0].nome;
             txtMateriaEscrita.Text = materia[0].materiaEscrita;
             lblStatus.Text         = materia[0].status;
+            //lblStatus.Text         = materia[0].status.Equals("") ? "Não enviada" : materia[0].status;
             lblJornalista.Text     = materia[0].Jornalista;
         }
 
@@ -79,8 +80,9 @@ namespace AgenciaNoticasN.Admin
             dados.codPessoa_Jornalista = int.Parse(Session["CodPessoaLogada"].ToString());
             dados.nome                 = txtNome.Text;
             dados.codSecao             = ddlSecao.SelectedValue == "" ? -1 : int.Parse(ddlSecao.SelectedValue);
-            dados.status               = "Proposta";
+            //dados.status               = "Proposta";
             dados.materiaEscrita       = txtMateriaEscrita.Text;
+            dados.dataAtualizacao      = DateTime.Now;
 
             string resposta;
             
@@ -95,19 +97,33 @@ namespace AgenciaNoticasN.Admin
                     Response.Redirect("Materias.aspx");
                 else
                     lblMensagemErro.Text = resposta;
-                    //showMessageBox("Erro ao cadastrar seção!");
             }
             else //Alterando
             {
-                dados.dataAtualizacao = DateTime.Now;
-
                 resposta = bll.alterar(dados, int.Parse(Session["codMateria"].ToString()));
                 
                 if (resposta.Equals(""))
                     Response.Redirect("Materias.aspx");
                 else
                     lblMensagemErro.Text = resposta;
-                    //showMessageBox("Erro ao alterar seção!");
+            }
+        }
+
+        protected void lkEnviar_Click(object sender, EventArgs e)
+        {
+            MateriaBLL bll = new MateriaBLL();
+
+            int codMateria = int.Parse(Session["codMateria"].ToString());
+
+            if (bll.enviarMateria(codMateria))
+            {
+                lblStatus.Text = "Proposta";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Matéria enviada.');", true);
+                Response.Redirect("Materias.aspx");
+            }
+            else
+            {
+                lblMensagemErro.Text = "Erro ao enviar matéria.";
             }
         }
     }
