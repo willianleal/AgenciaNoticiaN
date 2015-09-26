@@ -235,5 +235,17 @@ namespace BLL
                 return false;
             }
         }
+
+        public bool publicarMateria(int codMateria, int codPessoa_Publicador)
+        {
+            try
+            {
+                return dal.publicarMateria(codMateria, codPessoa_Publicador);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

@@ -53,12 +53,12 @@
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="lbRevisar" runat="server" CommandArgument='<%# Eval("codMateria")+","+Eval("status")+","+Eval("revisao") %>' Text="Revisar" OnClick="lbRevisar_Click" />
+                            <asp:LinkButton ID="lbRevisar" runat="server" CommandArgument='<%# Eval("codMateria")+","+Eval("status")+","+Eval("revisao") %>' Text='<%# (Eval("status").ToString().Equals("Não enviada") || Eval("status").ToString().Equals("")) ? "Enviar": "Revisar" %>' OnClick="lbRevisar_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="lbPublicar" runat="server" CommandArgument='<%# Eval("codMateria")+","+Eval("status")+","+Eval("revisao") %>' Text="Publicar" OnClick="lbPublicar_Click" />
+                            <asp:LinkButton ID="lbPublicar" runat="server" CommandArgument='<%# Eval("codMateria")+","+Eval("status") %>' Text="Publicar" OnClick="lbPublicar_Click" Visible='<%# Eval("status").ToString().Equals("Aprovada") ? true: false %>'/>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField>

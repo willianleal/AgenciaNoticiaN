@@ -678,5 +678,44 @@ namespace DAL
                 conexao.Close();
             }
         }
+
+        public bool publicarMateria(int codMateria, int codPessoa_Publicador)
+        {
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = @"UPDATE Materia SET codPessoa_Publicador=@codPessoa_Publicador, status='Publicada' WHERE codMateria=@codMateria";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@codMateria", codMateria);
+            comando.Parameters.AddWithValue("@codPessoa_Publicador", codPessoa_Publicador);
+
+            foreach (SqlParameter Parameter in comando.Parameters)
+            {
+                if (Parameter.Value == null)
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+                else if (String.IsNullOrEmpty(Parameter.Value.ToString()))
+                {
+                    Parameter.Value = DBNull.Value;
+                }
+            }
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
     }
 }

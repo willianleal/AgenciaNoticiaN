@@ -108,23 +108,5 @@ namespace AgenciaNoticasN.Admin
                     lblMensagemErro.Text = resposta;
             }
         }
-
-        protected void lkEnviar_Click(object sender, EventArgs e)
-        {
-            MateriaBLL bll = new MateriaBLL();
-
-            int codMateria = int.Parse(Session["codMateria"].ToString());
-
-            if (bll.enviarMateria(codMateria))
-            {
-                lblStatus.Text = "Proposta";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Matéria enviada.');", true);
-                Response.Redirect("Materias.aspx");
-            }
-            else
-            {
-                lblMensagemErro.Text = "Erro ao enviar matéria.";
-            }
-        }
     }
 }

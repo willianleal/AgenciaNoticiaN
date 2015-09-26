@@ -16,7 +16,7 @@ namespace AgenciaNoticasN.Admin
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["email"] == null)
+            if (Session["CodPessoaLogada"] == null)
             {
                 Response.Redirect("~/Login.aspx");
             }
@@ -125,43 +125,59 @@ namespace AgenciaNoticasN.Admin
             string revisao = commandArgs[2];
 
             int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
-            string funcaoPessoaLogada = pessoaBll.getFuncaoPessoa(codPessoa);
 
-            if (status.Equals("Revisao"))
+            if (status.Equals("Não enviada") || status.Equals(""))
             {
-                if (funcaoPessoaLogada.Equals("Jornalista") && revisao.Equals("R"))
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('A matéria está sendo revisada pelo Revisor, aguarde ela ser liberada.');", true);
+                if (materiaBll.enviarMateria(codMateria))
+                {
+                    popularMateria(codPessoa);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Matéria enviada.');", true);
+                }
                 else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Erro ao enviar matéria.');", true);
+                }
+            }
+            else
+            {
+                string funcaoPessoaLogada = pessoaBll.getFuncaoPessoa(codPessoa);
+
+                if (status.Equals("Revisao"))
+                {
+                    if (funcaoPessoaLogada.Equals("Jornalista") && revisao.Equals("R"))
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('A matéria está sendo revisada pelo Revisor, aguarde ela ser liberada.');", true);
+                    else
                     if (funcaoPessoaLogada.Equals("Revisor") && revisao.Equals("J"))
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('A matéria está sendo revisada pelo Jornalista, aguarde ela ser liberada.');", true);
                     else
-                        if (funcaoPessoaLogada.Equals("Revisor") && revisao.Equals("R"))
-                            pegarMateria(codMateria, revisao);
-                        else
-                            if (funcaoPessoaLogada.Equals("Jornalista") && revisao.Equals("J"))
-                                pegarMateria(codMateria, revisao);
-                            else
-                                if (!funcaoPessoaLogada.Equals("Jornalista") || !funcaoPessoaLogada.Equals("Revisor"))
-                                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Somente jornalistas e Revisores podem revisar matérias.');", true);
-            }
-            else
-            if (status.Equals("Proposta"))
-            {
-                if (funcaoPessoaLogada.Equals("Revisor"))
-                    pegarMateria(codMateria, revisao);
+                    if (funcaoPessoaLogada.Equals("Revisor") && revisao.Equals("R"))
+                        pegarMateria(codMateria, revisao);
+                    else
+                    if (funcaoPessoaLogada.Equals("Jornalista") && revisao.Equals("J"))
+                        pegarMateria(codMateria, revisao);
+                    else
+                    if (!funcaoPessoaLogada.Equals("Jornalista") || !funcaoPessoaLogada.Equals("Revisor"))
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Somente jornalistas e Revisores podem revisar matérias.');", true);
+                }
                 else
+                if (status.Equals("Proposta"))
+                {
+                    if (funcaoPessoaLogada.Equals("Revisor"))
+                        pegarMateria(codMateria, revisao);
+                    else
                     if (funcaoPessoaLogada.Equals("Jornalista"))
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Antes da sua revisão a matéria precisa ser revisada por um Revisor.');", true);
                     else
-                        if (!funcaoPessoaLogada.Equals("Jornalista") || !funcaoPessoaLogada.Equals("Revisor"))
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Somente jornalistas e Revisores podem revisar matérias.');", true);
-            }
-            else
-            if (status.Equals("Aprovada"))
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Essa matéria já foi aprovada, portanto, não é permitido fazer novas revisões.');", true);
-            else
+                    if (!funcaoPessoaLogada.Equals("Jornalista") || !funcaoPessoaLogada.Equals("Revisor"))
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Somente jornalistas e Revisores podem revisar matérias.');", true);
+                }
+                else
                 if (status.Equals("Aprovada"))
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Essa matéria foi arquivada, portanto, não é permitido fazer novas revisões.');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Essa matéria já foi aprovada, portanto, não é permitido fazer novas revisões.');", true);
+                else
+                    if (status.Equals("Arquivada"))
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Essa matéria foi arquivada, portanto, não é permitido fazer novas revisões.');", true);
+            }
         }
 
         protected void pegarMateria(int codMateria, string revisao)
@@ -194,7 +210,12 @@ namespace AgenciaNoticasN.Admin
 
         protected void lbPublicar_Click(object sender, EventArgs e)
         {
-            //
+            LinkButton id = (LinkButton)sender;
+            string[] commandArgs = id.CommandArgument.ToString().Split(new char[] { ',' });//0=codMateria, 1=status, 2=revisao
+
+            int codMateria = int.Parse(commandArgs[0]);
+
+            Response.Redirect("PublicarMateria.aspx?key=" + Util.criptUrl(codMateria.ToString()));
         }
 
         protected void lbVisualizar_Click(object sender, EventArgs e)

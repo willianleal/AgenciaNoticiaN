@@ -8,8 +8,28 @@
     <div class="row">
         
         <div class="col-md-12 form-group">
-            <h2>Agência de Notícias - Bem vindo ao nosso site!</h2>
+            <div class="page-header">
+                <h2>Últimas notícias publicadas</h2>
+            </div>
         </div>
+
+        <%--<div class="col-md-3 form-group">
+            <label class="control-label">Filtrar:</label>    
+        
+            <asp:DropDownList ID="ddlFiltrar" runat="server" CssClass="form-control">
+                <asp:ListItem Selected="True" Value="">Selecione</asp:ListItem>
+                <asp:ListItem Value="1">Última semana</asp:ListItem>
+                <asp:ListItem Value="2">Último mês</asp:ListItem>
+                <asp:ListItem Value="3">Último ano</asp:ListItem>
+                <asp:ListItem Value="4">As 15 mais recentes</asp:ListItem>
+                <asp:ListItem Value="5">As 60 mais recentes</asp:ListItem>
+            </asp:DropDownList>
+        </div>
+            
+        <div class="col-md-2 form-group">
+            <label class="control-label"></label>
+            <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-primary form-control" ></asp:Button>
+        </div>--%>
 
     </div>
 

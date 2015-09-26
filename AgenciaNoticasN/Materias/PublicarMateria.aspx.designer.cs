@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AgenciaNoticasN.Admin {
+namespace AgenciaNoticasN.Materias {
     
     
-    public partial class CadMaterias {
+    public partial class PublicarMateria {
         
         /// <summary>
         /// ScriptManager1 control.
@@ -31,15 +31,6 @@ namespace AgenciaNoticasN.Admin {
         protected global::System.Web.UI.WebControls.HyperLink hpVoltar;
         
         /// <summary>
-        /// pnDados control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnDados;
-        
-        /// <summary>
         /// lblStatus control.
         /// </summary>
         /// <remarks>
@@ -56,6 +47,24 @@ namespace AgenciaNoticasN.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblJornalista;
+        
+        /// <summary>
+        /// lblRevisor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRevisor;
+        
+        /// <summary>
+        /// pnDados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnDados;
         
         /// <summary>
         /// ddlSecao control.
@@ -85,13 +94,31 @@ namespace AgenciaNoticasN.Admin {
         protected global::System.Web.UI.WebControls.TextBox txtMateriaEscrita;
         
         /// <summary>
-        /// TextBox1_HtmlEditorExtender control.
+        /// txtMateriaEscrita_HtmlEditorExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.HtmlEditorExtender TextBox1_HtmlEditorExtender;
+        protected global::AjaxControlToolkit.HtmlEditorExtender txtMateriaEscrita_HtmlEditorExtender;
+        
+        /// <summary>
+        /// lblParecerRevisor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblParecerRevisor;
+        
+        /// <summary>
+        /// lblParecerJornalista control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblParecerJornalista;
         
         /// <summary>
         /// lblMensagemErro control.
@@ -103,12 +130,12 @@ namespace AgenciaNoticasN.Admin {
         protected global::System.Web.UI.WebControls.Label lblMensagemErro;
         
         /// <summary>
-        /// lkGravar control.
+        /// lkPublicar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lkGravar;
+        protected global::System.Web.UI.WebControls.LinkButton lkPublicar;
     }
 }

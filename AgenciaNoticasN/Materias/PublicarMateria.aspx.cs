@@ -9,7 +9,7 @@ using POCO;
 
 namespace AgenciaNoticasN.Materias
 {
-    public partial class VisualizarMateria : System.Web.UI.Page
+    public partial class PublicarMateria : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,9 +28,20 @@ namespace AgenciaNoticasN.Materias
                 {
                     //carrega dados da pessoa
                     popularMateria(int.Parse(Session["codMateria"].ToString()));
-                    popularComentarios(int.Parse(Session["codMateria"].ToString()));
                 }
             }
+        }
+
+        protected void popularSecoes()
+        {
+            SecaoBLL listaSecao = new SecaoBLL();
+            ddlSecao.Items.Clear();
+
+            ddlSecao.DataSource = listaSecao.listar();
+            ddlSecao.DataTextField = "nome";
+            ddlSecao.DataValueField = "codSecao";
+            ddlSecao.Items.Add(new ListItem("Selecione", ""));
+            ddlSecao.DataBind();
         }
 
         protected void popularMateria(int codMateria)
@@ -47,12 +58,6 @@ namespace AgenciaNoticasN.Materias
             txtNome.Text = materia[0].nome;
             txtMateriaEscrita.Text = materia[0].materiaEscrita;
 
-            //Se a matéria estiver em revisão os comentários são habilitados
-            if (materia[0].status.Equals("Revisao"))
-                pnComentario.Enabled = true;
-            else
-                pnComentario.Enabled = false;
-
             //Parecer do Revisor
             if (materia[0].parecerRevisor.Equals("A"))
                 lblParecerRevisor.Text = "Parecer do Revisor: Aprovado";
@@ -64,11 +69,9 @@ namespace AgenciaNoticasN.Materias
 
             //Alteração do Revisor
             if (materia[0].alteracaoRevisor.Equals("S"))
-                //lblAlteracaoRevisor.Text = "Houve Alteração: Sim";
                 lblParecerRevisor.Text += " com alteração";
             else
                 if (materia[0].alteracaoRevisor.Equals("N"))
-                    //lblAlteracaoRevisor.Text = "Houve Alteração: Não";
                     lblParecerRevisor.Text += " sem alteração";
                 else
                     lblParecerRevisor.Visible = false;
@@ -86,58 +89,31 @@ namespace AgenciaNoticasN.Materias
 
             //Alteração
             if (materia[0].alteracaoJornalista.Equals("S"))
-                //lblAlteracaoJornalista.Text = "Houve Alteração: Sim";
                 lblParecerJornalista.Text += " com alteração";
             else
                 if (materia[0].alteracaoJornalista.Equals("N"))
-                    //lblAlteracaoJornalista.Text = "Houve Alteração: Não";
                     lblParecerJornalista.Text += " sem alteração";
                 else
                     lblParecerJornalista.Visible = false;
         }
 
-        protected void popularSecoes()
+        protected void lkPublicar_Click(object sender, EventArgs e)
         {
-            SecaoBLL listaSecao = new SecaoBLL();
-            ddlSecao.Items.Clear();
+            MateriaBLL materiaBll = new MateriaBLL();
 
-            ddlSecao.DataSource = listaSecao.listar();
-            ddlSecao.DataTextField = "nome";
-            ddlSecao.DataValueField = "codSecao";
-            ddlSecao.Items.Add(new ListItem("Selecione", ""));
-            ddlSecao.DataBind();
-        }
+            int codMateria = int.Parse(Session["codMateria"].ToString());
 
-        protected void popularComentarios(int codMateria)
-        {
-            ComentarioBLL comentarioBll = new ComentarioBLL();
+            int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
 
-            dtlComentarios.DataSource = comentarioBll.listarComentarioMateria(codMateria);
-            dtlComentarios.DataBind();
-        }
-
-        protected void lkInserirComentario_Click(object sender, EventArgs e)
-        {
-            lblMensagemErro.Text = "";
-            
-            Comentario comentario = new Comentario();
-            ComentarioBLL comentarioBll = new ComentarioBLL();
-
-            //Dados do comentario
-            comentario.codMateria = int.Parse(Session["codMateria"].ToString());
-            comentario.codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
-            comentario.titulo = txtDescricao.Text;
-            comentario.comentario = txtComentario.Text;
-            comentario.dataCadastro = DateTime.Now;
-
-            string resposta = comentarioBll.inserir(comentario);
-
-            if (resposta.Equals(""))
-                popularComentarios(int.Parse(Session["codMateria"].ToString()));
+            if (materiaBll.publicarMateria(codMateria, codPessoa))
+            {
+                Response.Redirect("Materias.aspx");
+            }
             else
-                lblMensagemErro.Text = resposta;
-
+            {
+                lblMensagemErro.Text = "Erro ao publicar matéria.";
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "msg('Erro ao publicar matéria.');", true);
+            }
         }
-
     }
 }
