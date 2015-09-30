@@ -35,11 +35,11 @@ namespace BLL
                 {
                     return "Digite/Escreva a matéria.";
                 }
-                else
-                if (!Util.somenteLetras(dados.nome))
-                {
-                    return "O nome da matéria deve possuir apenas letras.";
-                }
+                //else
+                //if (!Util.somenteLetras(dados.nome))
+                //{
+                //    return "O nome da matéria deve possuir apenas letras.";
+                //}
                 else
                 if (dal.inserir(dados))
                 {
@@ -74,11 +74,11 @@ namespace BLL
                 {
                     return "Digite/Escreva a matéria.";
                 }
-                else
-                if (!Util.somenteLetras(dados.nome))
-                {
-                    return "O nome da matéria deve possuir apenas letras.";
-                }
+                //else
+                //if (!Util.somenteLetras(dados.nome))
+                //{
+                //    return "O nome da matéria deve possuir apenas letras.";
+                //}
                 else
                 if (dal.alterar(dados, codMateria))
                 {

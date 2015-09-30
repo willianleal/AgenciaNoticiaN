@@ -40,7 +40,7 @@
         <div class="col-md-12 form-group">
             <label class="control-label">Nome:</label>    
             
-            <asp:TextBox ID="txtNome" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+            <asp:TextBox ID="txtNome" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
         </div>
 
         <div class="col-md-12 form-group">
