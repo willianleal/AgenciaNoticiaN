@@ -717,5 +717,102 @@ namespace DAL
                 conexao.Close();
             }
         }
+
+        public List<Materia> listarMateriaPublicada()
+        {
+            List<Materia> materia = new List<Materia>();
+
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string SQL = @"SELECT 
+                            codMateria, m.nome, materiaEscrita, dataPublicacao 
+                           FROM Materia m
+                           WHERE status='Publicada'";
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+
+            try
+            {
+                conexao.Open();
+                SqlDataReader resultado = comando.ExecuteReader();
+
+                while (resultado.Read())
+                {
+                    Materia dadosMateria = new Materia();
+
+                    dadosMateria.codMateria = (int)resultado["codMateria"];
+                    dadosMateria.nome = resultado["nome"].ToString();
+                    dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
+                    dadosMateria.dataPublicacao = resultado["dataPublicacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataPublicacao"];
+
+                    materia.Add(dadosMateria);
+                }
+
+                return materia;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public List<Materia> filtrarMateriaPublicada(string dataAnterior = "", string dataAtual = "", int top=0)
+        {
+            List<Materia> materia = new List<Materia>();
+
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string select = "";
+            
+            if (top == 0)
+                select = "SELECT";
+            else
+                select = "SELECT TOP " + top.ToString();
+
+            string campos = @" codMateria, nome, materiaEscrita, dataPublicacao 
+                           FROM Materia
+                           WHERE (status='Publicada') 
+                            OR 
+                           (status='Publicada' AND CONVERT(VARCHAR(10), dataPublicacao, 103) BETWEEN @dataInicial AND @dataFinal)
+                           ORDER BY dataPublicacao DESC";
+
+            string SQL = select + campos;
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@dataInicial", dataAnterior);
+            comando.Parameters.AddWithValue("@dataFinal", dataAtual);
+
+            try
+            {
+                conexao.Open();
+                SqlDataReader resultado = comando.ExecuteReader();
+
+                while (resultado.Read())
+                {
+                    Materia dadosMateria = new Materia();
+
+                    dadosMateria.codMateria = (int)resultado["codMateria"];
+                    dadosMateria.nome = resultado["nome"].ToString();
+                    dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
+                    dadosMateria.dataPublicacao = resultado["dataPublicacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataPublicacao"];
+
+                    materia.Add(dadosMateria);
+                }
+
+                return materia;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }   
     }
 }

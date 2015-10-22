@@ -247,5 +247,29 @@ namespace BLL
                 return false;
             }
         }
+
+        public List<Materia> listarMateriaPublicada()
+        {
+            try
+            {
+                return dal.listarMateriaPublicada();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<Materia> filtrarMateriaPublicada(string dataAnterior = "", string dataAtual = "", int top=0)
+        {
+            try
+            {
+                return dal.filtrarMateriaPublicada(dataAnterior, dataAtual, top);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
