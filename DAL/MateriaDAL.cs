@@ -154,8 +154,6 @@ namespace DAL
 
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            //string SQL = "SELECT codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, nome, materiaEscrita, codSecao, status, dataCadastro, dataAtualizacao FROM Materia WHERE codMateria=@codMateria";
-
             string SQL = @"SELECT 
                             codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
                             m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
@@ -188,7 +186,6 @@ namespace DAL
                     dadosMateria.nome = resultado["nome"].ToString();
                     dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
                     dadosMateria.codSecao = (int)resultado["codSecao"];
-                    //dadosMateria.status = resultado["status"].ToString();
                     dadosMateria.status = resultado["status"].ToString().Equals("") ? "Não enviada" : resultado["status"].ToString();
                     dadosMateria.dataCadastro = (DateTime)resultado["dataCadastro"];
                     dadosMateria.dataAtualizacao = resultado["dataAtualizacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataAtualizacao"];
@@ -218,20 +215,13 @@ namespace DAL
             }
         }
 
-        public List<Materia> listarMateriaJornalista(int codPessoa_Jornalista, string dataAnterior="", string dataAtual="", int top=0)
+        public List<Materia> listarMateriaJornalista(int codPessoa_Jornalista)
         {
             List<Materia> materia = new List<Materia>();
 
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string select = "";
-
-            if (top == 0)
-                select = "SELECT";
-            else
-                select = "SELECT TOP " + top.ToString();
-
-            string campos = @" codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
+            string SQL = @"SELECT codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
                             m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
                             pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente, revisao 
                            FROM Materia m
@@ -240,17 +230,11 @@ namespace DAL
                            LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
-                           WHERE (codPessoa_Jornalista = @codPessoa_Jornalista) OR (codPessoa_Jornalista = @codPessoa_Jornalista AND CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
+                           WHERE (codPessoa_Jornalista = @codPessoa_Jornalista) 
                            ORDER BY m.dataAtualizacao DESC";
-
-                           //WHERE (codPessoa_Jornalista = @codPessoa_Jornalista AND status='Proposta') OR (codPessoa_Jornalista = @codPessoa_Jornalista AND status='Revisao')
-            
-            string SQL = select + campos;
             
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Jornalista", codPessoa_Jornalista);
-            comando.Parameters.AddWithValue("@dataInicial", dataAnterior);
-            comando.Parameters.AddWithValue("@dataFinal", dataAtual);
           
             try
             {
@@ -268,7 +252,6 @@ namespace DAL
                     dadosMateria.nome = resultado["nome"].ToString();
                     dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
                     dadosMateria.codSecao = (int)resultado["codSecao"];
-                    //dadosMateria.status = resultado["status"].ToString();
                     dadosMateria.status = resultado["status"].ToString().Equals("") ? "Não enviada" : resultado["status"].ToString();
                     dadosMateria.dataCadastro = (DateTime)resultado["dataCadastro"];
                     dadosMateria.dataAtualizacao = resultado["dataAtualizacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataAtualizacao"];
@@ -292,20 +275,13 @@ namespace DAL
             }
         }
 
-        public List<Materia> listarMateriaRevisor(int codPessoa_Revisor, string dataAnterior = "", string dataAtual = "", int top = 0)
+        public List<Materia> listarMateriaRevisor(int codPessoa_Revisor)
         {
             List<Materia> materia = new List<Materia>();
 
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string select = "";
-
-            if (top == 0)
-                select = "SELECT";
-            else
-                select = "SELECT TOP " + top.ToString();
-
-            string campos = @" codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
+            string SQL = @"SELECT codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
                             m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
                             pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente, revisao 
                            FROM Materia m
@@ -315,15 +291,10 @@ namespace DAL
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
                            WHERE (codPessoa_Revisor IS NULL AND status='Proposta') OR (codPessoa_Revisor = @codPessoa_Revisor)
-                            OR (codPessoa_Revisor = @codPessoa_Revisor AND CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
                            ORDER BY m.dataAtualizacao DESC";
-
-            string SQL = select + campos;
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Revisor", codPessoa_Revisor);
-            comando.Parameters.AddWithValue("@dataInicial", dataAnterior);
-            comando.Parameters.AddWithValue("@dataFinal", dataAtual);
 
             try
             {
@@ -341,7 +312,6 @@ namespace DAL
                     dadosMateria.nome = resultado["nome"].ToString();
                     dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
                     dadosMateria.codSecao = (int)resultado["codSecao"];
-                    //dadosMateria.status = resultado["status"].ToString();
                     dadosMateria.status = resultado["status"].ToString().Equals("") ? "Não enviada" : resultado["status"].ToString();
                     dadosMateria.dataCadastro = (DateTime)resultado["dataCadastro"];
                     dadosMateria.dataAtualizacao = resultado["dataAtualizacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataAtualizacao"];
@@ -365,20 +335,13 @@ namespace DAL
             }
         }
 
-        public List<Materia> listarMateriaPublicador(int codPessoa_Publicador, string dataAnterior = "", string dataAtual = "", int top = 0)
+        public List<Materia> listarMateriaPublicador(int codPessoa_Publicador)
         {
             List<Materia> materia = new List<Materia>();
 
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string select = "";
-
-            if (top == 0)
-                select = "SELECT";
-            else
-                select = "SELECT TOP " + top.ToString();
-
-            string campos = @" codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
+            string SQL = @"SELECT codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
                             m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
                             pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente, revisao 
                            FROM Materia m
@@ -388,15 +351,10 @@ namespace DAL
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
                            WHERE (codPessoa_Publicador IS NULL AND status='Aprovada') OR (codPessoa_Publicador = @codPessoa_Publicador)
-                            OR (codPessoa_Publicador = @codPessoa_Publicador AND CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
                            ORDER BY m.dataAtualizacao DESC";
-
-            string SQL = select + campos;
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Publicador", codPessoa_Publicador);
-            comando.Parameters.AddWithValue("@dataInicial", dataAnterior);
-            comando.Parameters.AddWithValue("@dataFinal", dataAtual);
 
             try
             {
@@ -414,7 +372,6 @@ namespace DAL
                     dadosMateria.nome = resultado["nome"].ToString();
                     dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
                     dadosMateria.codSecao = (int)resultado["codSecao"];
-                    //dadosMateria.status = resultado["status"].ToString();
                     dadosMateria.status = resultado["status"].ToString().Equals("") ? "Não enviada" : resultado["status"].ToString();
                     dadosMateria.dataCadastro = (DateTime)resultado["dataCadastro"];
                     dadosMateria.dataAtualizacao = resultado["dataAtualizacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataAtualizacao"];
@@ -438,20 +395,13 @@ namespace DAL
             }
         }
 
-        public List<Materia> listarMateriaGerente(int codPessoa_Gerente, string dataAnterior = "", string dataAtual = "", int top = 0)
+        public List<Materia> listarMateriaGerente(int codPessoa_Gerente)
         {
             List<Materia> materia = new List<Materia>();
 
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string select = "";
-
-            if (top == 0)
-                select = "SELECT";
-            else
-                select = "SELECT TOP " + top.ToString();
-
-            string campos = @" codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
+            string SQL = @"SELECT codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
                             m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
                             pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente, 
                             revisao, codPessoa_Gerente 
@@ -462,15 +412,10 @@ namespace DAL
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
                            INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
                            WHERE (codPessoa_Gerente = @codPessoa_Gerente)
-                            OR (codPessoa_Gerente = @codPessoa_Gerente AND CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
                            ORDER BY m.dataAtualizacao DESC";
 
-            string SQL = select + campos;            
-            
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codPessoa_Gerente", codPessoa_Gerente);
-            comando.Parameters.AddWithValue("@dataInicial", dataAnterior);
-            comando.Parameters.AddWithValue("@dataFinal", dataAtual);
 
             try
             {
@@ -488,7 +433,6 @@ namespace DAL
                     dadosMateria.nome = resultado["nome"].ToString();
                     dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
                     dadosMateria.codSecao = (int)resultado["codSecao"];
-                    //dadosMateria.status = resultado["status"].ToString();
                     dadosMateria.status = resultado["status"].ToString().Equals("") ? "Não enviada" : resultado["status"].ToString();
                     dadosMateria.dataCadastro = (DateTime)resultado["dataCadastro"];
                     dadosMateria.dataAtualizacao = resultado["dataAtualizacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataAtualizacao"];
@@ -813,6 +757,85 @@ namespace DAL
             {
                 conexao.Close();
             }
-        }   
+        }
+
+        public List<Materia> filtrarMateria(int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, int codPessoa_Gerente, string dataAnterior = "", string dataAtual = "", int top = 0)
+        {
+            List<Materia> materia = new List<Materia>();
+
+            SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
+
+            string select = "";
+
+            if (top == 0)
+                select = "SELECT";
+            else
+                select = "SELECT TOP " + top.ToString();
+
+            string campos = @" codMateria, codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, 
+                            m.nome, materiaEscrita, m.codSecao, status, m.dataCadastro, dataAtualizacao,
+                            pj.nome as Jornalista, pr.nome as Revisor, pp.nome as Publicador, p.nome as Gerente, 
+                            revisao, codPessoa_Gerente 
+                           FROM Materia m
+                           INNER JOIN Pessoa pj ON pj.codPessoa=m.codPessoa_Jornalista
+                           LEFT JOIN Pessoa pr ON pr.codPessoa=m.codPessoa_Revisor
+                           LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
+                           INNER JOIN Secao s ON s.codSecao=m.codSecao
+                           INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
+                           WHERE (codPessoa_Gerente = @codPessoa_Gerente OR CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
+                            OR (codPessoa_Publicador = @codPessoa_Publicador OR CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
+                            OR (codPessoa_Revisor = @codPessoa_Revisor OR CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
+                            OR (codPessoa_Jornalista = @codPessoa_Jornalista OR CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
+                           ORDER BY m.dataAtualizacao DESC";
+
+            string SQL = select + campos;
+
+            SqlCommand comando = new SqlCommand(SQL, conexao);
+            comando.Parameters.AddWithValue("@codPessoa_Gerente", codPessoa_Gerente);
+            comando.Parameters.AddWithValue("@codPessoa_Jornalista", codPessoa_Jornalista);
+            comando.Parameters.AddWithValue("@codPessoa_Revisor", codPessoa_Revisor);
+            comando.Parameters.AddWithValue("@codPessoa_Publicador", codPessoa_Publicador);
+            comando.Parameters.AddWithValue("@dataInicial", dataAnterior);
+            comando.Parameters.AddWithValue("@dataFinal", dataAtual);
+
+            try
+            {
+                conexao.Open();
+                SqlDataReader resultado = comando.ExecuteReader();
+
+                while (resultado.Read())
+                {
+                    Materia dadosMateria = new Materia();
+
+                    dadosMateria.codMateria = (int)resultado["codMateria"];
+                    dadosMateria.codPessoa_Jornalista = (int)resultado["codPessoa_Jornalista"];
+                    dadosMateria.codPessoa_Revisor = resultado["codPessoa_Revisor"] is DBNull ? 0 : (int)resultado["codPessoa_Revisor"];
+                    dadosMateria.codPessoa_Publicador = resultado["codPessoa_Publicador"] is DBNull ? 0 : (int)resultado["codPessoa_Publicador"];
+                    dadosMateria.nome = resultado["nome"].ToString();
+                    dadosMateria.materiaEscrita = resultado["materiaEscrita"].ToString();
+                    dadosMateria.codSecao = (int)resultado["codSecao"];
+                    dadosMateria.status = resultado["status"].ToString().Equals("") ? "Não enviada" : resultado["status"].ToString();
+                    dadosMateria.dataCadastro = (DateTime)resultado["dataCadastro"];
+                    dadosMateria.dataAtualizacao = resultado["dataAtualizacao"] is DBNull ? DateTime.MinValue : (DateTime)resultado["dataAtualizacao"];
+                    dadosMateria.Jornalista = resultado["Jornalista"].ToString();
+                    dadosMateria.Revisor = resultado["Revisor"].ToString();
+                    dadosMateria.Publicador = resultado["Publicador"].ToString();
+                    dadosMateria.Gerente = resultado["Gerente"].ToString();
+                    dadosMateria.revisao = resultado["revisao"].ToString();
+                    dadosMateria.codPessoa_Gerente = (int)resultado["codPessoa_Gerente"];
+                    materia.Add(dadosMateria);
+                }
+
+                return materia;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
     }
 }

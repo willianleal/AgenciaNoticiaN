@@ -119,11 +119,11 @@ namespace BLL
             }
         }
 
-        public List<Materia> listarMateriaJornalista(int codPessoa_Jornalista, string dataAnterior="", string dataAtual="", int top=0)
+        public List<Materia> listarMateriaJornalista(int codPessoa_Jornalista)
         {
             try
             {
-                return dal.listarMateriaJornalista(codPessoa_Jornalista, dataAnterior, dataAtual, top);
+                return dal.listarMateriaJornalista(codPessoa_Jornalista);
             }
             catch
             {
@@ -131,11 +131,11 @@ namespace BLL
             }
         }
 
-        public List<Materia> listarMateriaRevisor(int codPessoa_Revisor, string dataAnterior = "", string dataAtual = "", int top = 0)
+        public List<Materia> listarMateriaRevisor(int codPessoa_Revisor)
         {
             try
             {
-                return dal.listarMateriaRevisor(codPessoa_Revisor, dataAnterior, dataAtual, top);
+                return dal.listarMateriaRevisor(codPessoa_Revisor);
             }
             catch
             {
@@ -143,11 +143,11 @@ namespace BLL
             }
         }
 
-        public List<Materia> listarMateriaPublicador(int codPessoa_Publicador, string dataAnterior = "", string dataAtual = "", int top = 0)
+        public List<Materia> listarMateriaPublicador(int codPessoa_Publicador)
         {
             try
             {
-                return dal.listarMateriaPublicador(codPessoa_Publicador, dataAnterior, dataAtual, top);
+                return dal.listarMateriaPublicador(codPessoa_Publicador);
             }
             catch
             {
@@ -155,11 +155,11 @@ namespace BLL
             }
         }
 
-        public List<Materia> listarMateriaGerente(int codPessoa_Gerente, string dataAnterior = "", string dataAtual = "", int top = 0)
+        public List<Materia> listarMateriaGerente(int codPessoa_Gerente)
         {
             try
             {
-                return dal.listarMateriaGerente(codPessoa_Gerente, dataAnterior, dataAtual, top);
+                return dal.listarMateriaGerente(codPessoa_Gerente);
             }
             catch
             {
@@ -265,6 +265,19 @@ namespace BLL
             try
             {
                 return dal.filtrarMateriaPublicada(dataAnterior, dataAtual, top);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<Materia> filtrarMateria(int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, int codPessoa_Gerente, string dataAnterior = "", string dataAtual = "", int top = 0)
+        //public List<Materia> listarMateriaJornalista(int codPessoa_Jornalista, string dataAnterior = "", string dataAtual = "", int top = 0)
+        {
+            try
+            {
+                return dal.filtrarMateria(codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, codPessoa_Gerente, dataAnterior, dataAtual, top);
             }
             catch
             {

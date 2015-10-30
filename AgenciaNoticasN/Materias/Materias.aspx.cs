@@ -30,7 +30,7 @@ namespace AgenciaNoticasN.Admin
             }
         }
 
-        protected void popularMateria(int codPessoa, string dataAnterior="", string dataAtual="", int top=0)
+        protected void popularMateria(int codPessoa)
         {
             
             //Pega a função da pessoa logada
@@ -38,13 +38,13 @@ namespace AgenciaNoticasN.Admin
 
             if (funcao.Equals("Jornalista"))
             {
-                gdvMateria.DataSource = materiaBll.listarMateriaJornalista(codPessoa, dataAnterior, dataAtual, top);
+                gdvMateria.DataSource = materiaBll.listarMateriaJornalista(codPessoa);
                 gdvMateria.Columns[11].Visible = false; //Publicar
             }
             else
             if (funcao.Equals("Revisor"))
             {
-                gdvMateria.DataSource = materiaBll.listarMateriaRevisor(codPessoa, dataAnterior, dataAtual, top);
+                gdvMateria.DataSource = materiaBll.listarMateriaRevisor(codPessoa);
                 gdvMateria.Columns[8].Visible = false; //Alterar
                 gdvMateria.Columns[9].Visible = false; //Deletar
                 gdvMateria.Columns[11].Visible = false; //Publicar
@@ -53,7 +53,7 @@ namespace AgenciaNoticasN.Admin
             else
             if (funcao.Equals("Publicador"))
             {
-                gdvMateria.DataSource = materiaBll.listarMateriaPublicador(codPessoa, dataAnterior, dataAtual, top);
+                gdvMateria.DataSource = materiaBll.listarMateriaPublicador(codPessoa);
                 gdvMateria.Columns[8].Visible = false;  //Alterar
                 gdvMateria.Columns[9].Visible = false;  //Deletar
                 gdvMateria.Columns[10].Visible = false; //Revisar
@@ -62,7 +62,7 @@ namespace AgenciaNoticasN.Admin
             else
             if (funcao.Equals("Gerente"))
             {
-                gdvMateria.DataSource = materiaBll.listarMateriaGerente(codPessoa, dataAnterior, dataAtual, top);
+                gdvMateria.DataSource = materiaBll.listarMateriaGerente(codPessoa);
                 gdvMateria.Columns[8].Visible = false;  //Alterar
                 gdvMateria.Columns[9].Visible = false;  //Deletar
                 gdvMateria.Columns[10].Visible = false; //Revisar
@@ -240,38 +240,74 @@ namespace AgenciaNoticasN.Admin
             {
                 dataAnterior = dataAtual.AddDays(-7);
 
-                popularMateria(codPessoa, dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
+                filtrarMateria(codPessoa, dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
             }
             else
             if (ddlFiltrar.SelectedValue.Equals("2")) //Último mês
             { 
                 dataAnterior = dataAtual.AddMonths(-1);
 
-                popularMateria(codPessoa, dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
+                filtrarMateria(codPessoa, dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
             }
             else
             if (ddlFiltrar.SelectedValue.Equals("3")) //Último ano
             { 
                 dataAnterior = dataAtual.AddYears(-1);
 
-                popularMateria(codPessoa, dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
+                filtrarMateria(codPessoa, dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
             }
             else
             if (ddlFiltrar.SelectedValue.Equals("4")) //Top 15
             {
-                dataAnterior = dataAtual.AddYears(-1);
-
-                popularMateria(codPessoa, "", "", 15);
+                filtrarMateria(codPessoa, "", "", 15);
             }
             else
-            if (ddlFiltrar.SelectedValue.Equals("5")) //Top 30
+            if (ddlFiltrar.SelectedValue.Equals("5")) //Top 60
             {
-                dataAnterior = dataAtual.AddYears(-1);
-
-                popularMateria(codPessoa, "", "", 30);
+                filtrarMateria(codPessoa, "", "", 60);
             }
-            
         }
 
+        protected void filtrarMateria(int codPessoa, string dataAnterior = "", string dataAtual = "", int top = 0)
+        {
+            //Pega a função da pessoa logada
+            string funcao = pessoaBll.getFuncaoPessoa(codPessoa);
+
+            if (funcao.Equals("Jornalista"))
+            {
+                gdvMateria.DataSource = materiaBll.filtrarMateria(codPessoa, 0, 0, 0, dataAnterior, dataAtual, top);
+                gdvMateria.Columns[11].Visible = false; //Publicar
+            }
+            else
+            if (funcao.Equals("Revisor"))
+            {
+                gdvMateria.DataSource = materiaBll.filtrarMateria(0, codPessoa, 0, 0, dataAnterior, dataAtual, top);
+                gdvMateria.Columns[8].Visible = false; //Alterar
+                gdvMateria.Columns[9].Visible = false; //Deletar
+                gdvMateria.Columns[11].Visible = false; //Publicar
+                lkNovo.Visible = false;
+            }
+            else
+            if (funcao.Equals("Publicador"))
+            {
+                gdvMateria.DataSource = materiaBll.filtrarMateria(0, 0, codPessoa, 0, dataAnterior, dataAtual, top);
+                gdvMateria.Columns[8].Visible = false;  //Alterar
+                gdvMateria.Columns[9].Visible = false;  //Deletar
+                gdvMateria.Columns[10].Visible = false; //Revisar
+                lkNovo.Visible = false;
+            }
+            else
+            if (funcao.Equals("Gerente"))
+            {
+                gdvMateria.DataSource = materiaBll.filtrarMateria(0, 0, 0, codPessoa, dataAnterior, dataAtual, top);
+                gdvMateria.Columns[8].Visible = false;  //Alterar
+                gdvMateria.Columns[9].Visible = false;  //Deletar
+                gdvMateria.Columns[10].Visible = false; //Revisar
+                gdvMateria.Columns[11].Visible = false; //Publicar
+                lkNovo.Visible = false;
+            }
+
+            gdvMateria.DataBind();
+        }
     }
 }
