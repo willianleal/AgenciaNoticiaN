@@ -23,6 +23,7 @@
                     <asp:ListItem Value="3">Último ano</asp:ListItem>
                     <asp:ListItem Value="4">As 15 mais recentes</asp:ListItem>
                     <asp:ListItem Value="5">As 60 mais recentes</asp:ListItem>
+                    <asp:ListItem Value="6">Todas</asp:ListItem>
                 </asp:DropDownList>
             </div>
             

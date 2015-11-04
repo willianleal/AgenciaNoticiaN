@@ -623,15 +623,16 @@ namespace DAL
             }
         }
 
-        public bool publicarMateria(int codMateria, int codPessoa_Publicador)
+        public bool publicarMateria(int codMateria, int codPessoa_Publicador, DateTime dataPublicacao)
         {
             SqlConnection conexao = new SqlConnection(Conexao.StringDeConexao);
 
-            string SQL = @"UPDATE Materia SET codPessoa_Publicador=@codPessoa_Publicador, status='Publicada' WHERE codMateria=@codMateria";
+            string SQL = @"UPDATE Materia SET codPessoa_Publicador=@codPessoa_Publicador, status='Publicada', dataPublicacao=@dataPublicacao WHERE codMateria=@codMateria";
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
             comando.Parameters.AddWithValue("@codMateria", codMateria);
             comando.Parameters.AddWithValue("@codPessoa_Publicador", codPessoa_Publicador);
+            comando.Parameters.AddWithValue("@dataPublicacao", dataPublicacao);
 
             foreach (SqlParameter Parameter in comando.Parameters)
             {
@@ -759,7 +760,8 @@ namespace DAL
             }
         }
 
-        public List<Materia> filtrarMateria(int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, int codPessoa_Gerente, string dataAnterior = "", string dataAtual = "", int top = 0)
+        //public List<Materia> filtrarMateria(int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, int codPessoa_Gerente, string dataAnterior = "", string dataAtual = "", int top = 0, string tipoPessoa)
+        public List<Materia> filtrarMateria(int codPessoa, string tipoPessoa, string dataAnterior = "", string dataAtual = "", int top = 0)
         {
             List<Materia> materia = new List<Materia>();
 
@@ -781,20 +783,30 @@ namespace DAL
                            LEFT JOIN Pessoa pr ON pr.codPessoa=m.codPessoa_Revisor
                            LEFT JOIN Pessoa pp ON pp.codPessoa=m.codPessoa_Publicador
                            INNER JOIN Secao s ON s.codSecao=m.codSecao
-                           INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente
-                           WHERE (codPessoa_Gerente = @codPessoa_Gerente OR CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
-                            OR (codPessoa_Publicador = @codPessoa_Publicador OR CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
-                            OR (codPessoa_Revisor = @codPessoa_Revisor OR CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
-                            OR (codPessoa_Jornalista = @codPessoa_Jornalista OR CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal)
-                           ORDER BY m.dataAtualizacao DESC";
+                           INNER JOIN Pessoa p ON p.codPessoa=s.codPessoa_Gerente";
 
-            string SQL = select + campos;
+            string filtro = "";
+
+            if (tipoPessoa.Equals("G"))
+                filtro = " WHERE (codPessoa_Gerente = @codPessoa AND CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal) ORDER BY m.dataAtualizacao DESC";
+            else
+            if (tipoPessoa.Equals("P"))
+                filtro = " WHERE (codPessoa_Publicador = @codPessoa AND CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal) ORDER BY m.dataAtualizacao DESC";
+            else
+            if (tipoPessoa.Equals("R"))
+                filtro = " WHERE (codPessoa_Revisor = @codPessoa AND CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal) ORDER BY m.dataAtualizacao DESC";
+            else
+            if (tipoPessoa.Equals("J"))
+                filtro = " WHERE (codPessoa_Jornalista = @codPessoa AND CONVERT(VARCHAR(10), m.dataCadastro, 103) BETWEEN @dataInicial AND @dataFinal) ORDER BY m.dataAtualizacao DESC";
+                           
+            string SQL = select + campos + filtro;
 
             SqlCommand comando = new SqlCommand(SQL, conexao);
-            comando.Parameters.AddWithValue("@codPessoa_Gerente", codPessoa_Gerente);
-            comando.Parameters.AddWithValue("@codPessoa_Jornalista", codPessoa_Jornalista);
-            comando.Parameters.AddWithValue("@codPessoa_Revisor", codPessoa_Revisor);
-            comando.Parameters.AddWithValue("@codPessoa_Publicador", codPessoa_Publicador);
+            //comando.Parameters.AddWithValue("@codPessoa_Gerente", codPessoa_Gerente);
+            //comando.Parameters.AddWithValue("@codPessoa_Jornalista", codPessoa_Jornalista);
+            //comando.Parameters.AddWithValue("@codPessoa_Revisor", codPessoa_Revisor);
+            //comando.Parameters.AddWithValue("@codPessoa_Publicador", codPessoa_Publicador);
+            comando.Parameters.AddWithValue("@codPessoa", codPessoa);
             comando.Parameters.AddWithValue("@dataInicial", dataAnterior);
             comando.Parameters.AddWithValue("@dataFinal", dataAtual);
 

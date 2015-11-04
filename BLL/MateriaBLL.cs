@@ -236,11 +236,11 @@ namespace BLL
             }
         }
 
-        public bool publicarMateria(int codMateria, int codPessoa_Publicador)
+        public bool publicarMateria(int codMateria, int codPessoa_Publicador, DateTime dataPublicacao)
         {
             try
             {
-                return dal.publicarMateria(codMateria, codPessoa_Publicador);
+                return dal.publicarMateria(codMateria, codPessoa_Publicador, dataPublicacao);
             }
             catch
             {
@@ -272,12 +272,12 @@ namespace BLL
             }
         }
 
-        public List<Materia> filtrarMateria(int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, int codPessoa_Gerente, string dataAnterior = "", string dataAtual = "", int top = 0)
-        //public List<Materia> listarMateriaJornalista(int codPessoa_Jornalista, string dataAnterior = "", string dataAtual = "", int top = 0)
+        //public List<Materia> filtrarMateria(int codPessoa_Jornalista, int codPessoa_Revisor, int codPessoa_Publicador, int codPessoa_Gerente, string dataAnterior = "", string dataAtual = "", int top = 0, string tipoPessoa)
+        public List<Materia> filtrarMateria(int codPessoa, string tipoPessoa, string dataAnterior = "", string dataAtual = "", int top = 0)
         {
             try
             {
-                return dal.filtrarMateria(codPessoa_Jornalista, codPessoa_Revisor, codPessoa_Publicador, codPessoa_Gerente, dataAnterior, dataAtual, top);
+                return dal.filtrarMateria(codPessoa, tipoPessoa, dataAnterior, dataAtual, top);
             }
             catch
             {

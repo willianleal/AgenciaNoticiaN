@@ -15,37 +15,23 @@ namespace AgenciaNoticasN
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            MateriaBLL bll = new MateriaBLL();
+            //MateriaBLL bll = new MateriaBLL();
 
+            //dtlMateria.DataSource = bll.listarMateriaPublicada();
+            //dtlMateria.DataBind();
+            popularMateria();
+        }
+
+        protected void popularMateria()
+        {
+            MateriaBLL bll = new MateriaBLL();
+            
             dtlMateria.DataSource = bll.listarMateriaPublicada();
             dtlMateria.DataBind();
         }
 
-        protected void popularMateria(string dataAnterior="", string dataAtual="", int top=0)
+        protected void filtrarMateria(string dataAnterior="", string dataAtual="", int top=0)
         {
-            //Pega a função da pessoa logada
-            //string funcao = pessoaBll.getFuncaoPessoa(codPessoa);
-
-            //if (funcao.Equals("Jornalista"))
-            //{
-            //    dtlMateria.DataSource = materiaBll.listarMateriaJornalista(codPessoa, dataAnterior, dataAtual, top);
-            //}
-            //else
-            //if (funcao.Equals("Revisor"))
-            //{
-            //    dtlMateria.DataSource = materiaBll.listarMateriaRevisor(codPessoa, dataAnterior, dataAtual, top);
-            //}
-            //else
-            //if (funcao.Equals("Publicador"))
-            //{
-            //    dtlMateria.DataSource = materiaBll.listarMateriaPublicador(codPessoa, dataAnterior, dataAtual, top);
-            //}
-            //else
-            //if (funcao.Equals("Gerente"))
-            //{
-            //    dtlMateria.DataSource = materiaBll.listarMateriaGerente(codPessoa, dataAnterior, dataAtual, top);
-            //}
-
             dtlMateria.DataSource = materiaBll.filtrarMateriaPublicada(dataAnterior, dataAtual, top);
             dtlMateria.DataBind();
         }
@@ -60,31 +46,31 @@ namespace AgenciaNoticasN
             {
                 dataAnterior = dataAtual.AddDays(-7);
 
-                popularMateria(dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
+                filtrarMateria(dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
             }
             else
             if (ddlFiltrar.SelectedValue.Equals("2")) //Último mês
             { 
                 dataAnterior = dataAtual.AddMonths(-1);
 
-                popularMateria(dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
+                filtrarMateria(dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
             }
             else
             if (ddlFiltrar.SelectedValue.Equals("3")) //Último ano
             { 
                 dataAnterior = dataAtual.AddYears(-1);
 
-                popularMateria(dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
+                filtrarMateria(dataAnterior.ToShortDateString(), dataAtual.ToShortDateString());
             }
             else
             if (ddlFiltrar.SelectedValue.Equals("4")) //Top 15
             {
-                popularMateria("", "", 15);
+                filtrarMateria("", "", 15);
             }
             else
-            if (ddlFiltrar.SelectedValue.Equals("5")) //Top 30
+            if (ddlFiltrar.SelectedValue.Equals("5")) //Top 60
             {
-                popularMateria("", "", 30);
+                filtrarMateria("", "", 60);
             }
         }
     }

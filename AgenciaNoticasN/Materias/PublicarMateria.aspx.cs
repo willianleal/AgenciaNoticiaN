@@ -105,7 +105,7 @@ namespace AgenciaNoticasN.Materias
 
             int codPessoa = int.Parse(Session["CodPessoaLogada"].ToString());
 
-            if (materiaBll.publicarMateria(codMateria, codPessoa))
+            if (materiaBll.publicarMateria(codMateria, codPessoa, DateTime.Now))
             {
                 Response.Redirect("Materias.aspx");
             }

@@ -266,6 +266,11 @@ namespace AgenciaNoticasN.Admin
             {
                 filtrarMateria(codPessoa, "", "", 60);
             }
+            else
+            if (ddlFiltrar.SelectedValue.Equals("6")) //Todas
+            {
+                popularMateria(codPessoa);
+            } 
         }
 
         protected void filtrarMateria(int codPessoa, string dataAnterior = "", string dataAtual = "", int top = 0)
@@ -275,13 +280,13 @@ namespace AgenciaNoticasN.Admin
 
             if (funcao.Equals("Jornalista"))
             {
-                gdvMateria.DataSource = materiaBll.filtrarMateria(codPessoa, 0, 0, 0, dataAnterior, dataAtual, top);
+                gdvMateria.DataSource = materiaBll.filtrarMateria(codPessoa, "J", dataAnterior, dataAtual, top);
                 gdvMateria.Columns[11].Visible = false; //Publicar
             }
             else
             if (funcao.Equals("Revisor"))
             {
-                gdvMateria.DataSource = materiaBll.filtrarMateria(0, codPessoa, 0, 0, dataAnterior, dataAtual, top);
+                gdvMateria.DataSource = materiaBll.filtrarMateria(codPessoa, "R", dataAnterior, dataAtual, top);
                 gdvMateria.Columns[8].Visible = false; //Alterar
                 gdvMateria.Columns[9].Visible = false; //Deletar
                 gdvMateria.Columns[11].Visible = false; //Publicar
@@ -290,7 +295,7 @@ namespace AgenciaNoticasN.Admin
             else
             if (funcao.Equals("Publicador"))
             {
-                gdvMateria.DataSource = materiaBll.filtrarMateria(0, 0, codPessoa, 0, dataAnterior, dataAtual, top);
+                gdvMateria.DataSource = materiaBll.filtrarMateria(codPessoa, "P", dataAnterior, dataAtual, top);
                 gdvMateria.Columns[8].Visible = false;  //Alterar
                 gdvMateria.Columns[9].Visible = false;  //Deletar
                 gdvMateria.Columns[10].Visible = false; //Revisar
@@ -299,7 +304,7 @@ namespace AgenciaNoticasN.Admin
             else
             if (funcao.Equals("Gerente"))
             {
-                gdvMateria.DataSource = materiaBll.filtrarMateria(0, 0, 0, codPessoa, dataAnterior, dataAtual, top);
+                gdvMateria.DataSource = materiaBll.filtrarMateria(codPessoa, "G", dataAnterior, dataAtual, top);
                 gdvMateria.Columns[8].Visible = false;  //Alterar
                 gdvMateria.Columns[9].Visible = false;  //Deletar
                 gdvMateria.Columns[10].Visible = false; //Revisar
