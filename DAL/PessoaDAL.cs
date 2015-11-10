@@ -261,7 +261,10 @@ namespace DAL
                 }
                 else
                 {
-                    return "Usuário não encontrado, entre em contato com o administrador do sistema.";
+                    if (!admin)
+                        return "Usuário não encontrado, entre em contato com o administrador do sistema.";
+                    else
+                        return "Você não possui permissão para acessar a área administrativa.";
                 }
             }
             catch
